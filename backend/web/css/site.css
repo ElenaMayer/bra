@@ -89,3 +89,70 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
+a.image_remove {
+    display: block;
+    font-size: 1.5em;
+    height: 1em;
+    width: 1em;
+    text-align: center;
+    border-radius: 100%;
+    text-decoration: none;
+    border: 0;
+    color: #fc9090;
+    line-height: 18px;
+    -webkit-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+    cursor: pointer;
+    position: absolute;
+    background: #ffffff;
+}
+
+a.image_remove:hover {
+    background: #fc9090;
+    color: #ffffff !important;
+}
+
+.product-image {
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.add-item-link {
+    float: right;
+}
+
+.add-item-form {
+    width: 50%;
+}
+
+.m_input {
+    width: 50px;
+    height: 34px;
+    border-radius: 2px;
+    border: solid 1px #dfdfdf;
+    padding-left: 5px;
+}
+
+.order-index .table-striped tr.new {
+    background-color: #82e086;
+}
+.order-index .table-striped tr.in_progress {
+    background-color: #dfe181;
+}
+.order-index .table-striped tr.done {
+    background-color: #d4ecd6;
+}
+.order-index .table-striped tr.shipped {
+    background-color: #fbbe89;
+}
+.order-index .table-striped tr.canceled {
+    background-color: #ddd;
+}
+.order-index .table-striped tr.payment {
+    background-color: #ffbbba;
+}
+.order-index .table-striped tr.pre_order {
+    background-color: #81e0e1;
+}

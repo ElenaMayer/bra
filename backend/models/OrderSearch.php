@@ -18,8 +18,8 @@ class OrderSearch extends Order
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at'], 'integer'],
-            [['phone', 'email', 'notes', 'status'], 'safe'],
+            [['id', 'created_at', 'updated_at', 'payment'], 'integer'],
+            [['phone', 'email', 'notes', 'status', 'fio'], 'safe'],
         ];
     }
 
@@ -41,10 +41,11 @@ class OrderSearch extends Order
      */
     public function search($params)
     {
-        $query = Order::find()->orderBy('id DESC');
+        $query = Order::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
 
         if (!($this->load($params) && $this->validate())) {
@@ -55,12 +56,14 @@ class OrderSearch extends Order
             'id' => $this->id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'payment' => $this->payment,
         ]);
 
         $query->andFilterWhere(['like', 'phone', $this->phone])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'notes', $this->notes])
-            ->andFilterWhere(['like', 'status', $this->status]);
+            ->andFilterWhere(['like', 'status', $this->status])
+            ->andFilterWhere(['like', 'fio', $this->fio]);
 
         return $dataProvider;
     }

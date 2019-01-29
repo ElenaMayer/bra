@@ -34,7 +34,6 @@ return [
             'rules' => [
                 'catalog/<id:\d+>' => 'catalog/list',
                 'catalog/<categoryId:\d+>/<productId:\d+>' => 'catalog/product',
-//                'tag/<tag:.+>' => 'site/tag/',
             ],
         ],
     ],

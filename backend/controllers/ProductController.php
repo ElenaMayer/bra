@@ -9,6 +9,9 @@ use backend\models\ProductSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use yii\web\UploadedFile;
+use yii\helpers\Json;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -22,6 +25,15 @@ class ProductController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
                 ],
             ],
         ];
@@ -61,15 +73,42 @@ class ProductController extends Controller
      */
     public function actionCreate()
     {
-        $categories = Category::find()->all();
         $model = new Product();
+        $model->is_active = 1;
+        $model->is_in_stock = 1;
+        $model->weight = 0;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if($post = Yii::$app->request->post()) {
+            if (is_array($post['Product']['size'])) {
+                $model->size = implode(",", $post['Product']['size']);
+            }
+            if (is_array($post['Product']['color'])) {
+                $model->color = implode(",", $post['Product']['color']);
+            }
+            if (is_array($post['Product']['tags'])) {
+                $model->tags = implode(",", $post['Product']['tags']);
+            }
+            if (is_array($post['Product']['subcategories']))
+            {
+                $model->subcategories = implode(",",$post['Product']['subcategories']);
+            }
+            if ($model->load($post) && $model->save()) {
+                if (is_array($post['Product']['relationsArr']))
+                {
+                    $model->saveRelations($post['Product']['relationsArr']);
+                }
+                $model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+                if ($model->upload()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            } else {
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'categories' => $categories,
             ]);
         }
     }
@@ -82,15 +121,54 @@ class ProductController extends Controller
      */
     public function actionUpdate($id)
     {
-        $categories = Category::find()->all();
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if($post = Yii::$app->request->post()){
+            if (is_array($post['Product']['size']))
+            {
+                $model->size = implode(",",$post['Product']['size']);
+            } else {
+                $model->size = '';
+            }
+            if (is_array($post['Product']['color']))
+            {
+                $model->color = implode(",",$post['Product']['color']);
+            } else {
+                $model->color = '';
+            }
+            if (is_array($post['Product']['tags']))
+            {
+                $model->tags = implode(",",$post['Product']['tags']);
+            } else {
+                $model->tags = '';
+            }
+            if (is_array($post['Product']['subcategories']))
+            {
+                $model->subcategories = implode(",",$post['Product']['subcategories']);
+            }
+            if($post['Product']['count'] != $model->count && $post['Product']['count'] <= 0 && $model->is_in_stock == 1) {
+                $post['Product']['is_in_stock'] = 0;
+            }
+            if ($model->load($post) && $model->save()) {
+                if (is_array($post['Product']['relationsArr']))
+                {
+                    $model->saveRelations($post['Product']['relationsArr']);
+                }
+                $model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+                if ($model->upload()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            } else {
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
         } else {
+            $model->size = !empty($model->size)?explode(",",$model->size):[];
+            $model->color = !empty($model->color)?explode(",",$model->color):[];
+            $model->tags = !empty($model->tags)?explode(",",$model->tags):[];
+            $model->subcategories = !empty($model->subcategories)?explode(",",$model->subcategories):[];
             return $this->render('update', [
                 'model' => $model,
-                'categories' => $categories,
             ]);
         }
     }
@@ -122,5 +200,18 @@ class ProductController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    public function actionGet_subcategories()
+    {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $cat_id = $parents[0];
+                $out = Category::getSubcategoryDDArray($cat_id);
+                return Json::encode(['output'=>$out, 'selected'=>'']);
+            }
+        }
+        return Json::encode(['output'=>'', 'selected'=>'']);
     }
 }
