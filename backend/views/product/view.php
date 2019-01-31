@@ -75,15 +75,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->is_in_stock ? 'Да' : 'Нет';
                 },
             ],
-            [
-                'attribute' => 'is_novelty',
-                'value' => function ($model) {
-                    return $model->is_novelty ? 'Да' : 'Нет';
-                },
-            ],
             'size',
             'color',
-            'tags',
             'count',
             'weight',
             'time'

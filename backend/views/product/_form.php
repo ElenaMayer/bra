@@ -51,8 +51,6 @@ use common\models\Category;
 
     <?= $form->field($model, 'is_active')->checkbox() ?>
 
-    <?= $form->field($model, 'is_novelty')->checkbox() ?>
-
     <?= $form->field($model, 'size')->widget(Select2::classname(), [
         'options' => [
             'multiple' => true,
@@ -77,17 +75,6 @@ use common\models\Category;
         ],
     ]) ?>
 
-    <?= $form->field($model, 'tags')->widget(Select2::classname(), [
-        'options' => [
-            'multiple' => true,
-            'placeholder' => Yii::t('app','Выберите теги ...'),
-        ],
-        'data'=>Product::getTagsArray(),
-        'pluginOptions' => [
-            'tags' => true,
-            'tokenSeparators'=>[',',' '],
-        ],
-    ]) ?>
     <?= $form->field($model, 'relationsArr')->widget(Select2::classname(), [
         'options' => [
             'multiple' => true,

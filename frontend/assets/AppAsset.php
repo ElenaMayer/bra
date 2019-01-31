@@ -18,12 +18,23 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
+        'http://fonts.googleapis.com/css?family=Maven+Pro:400,700%7CRaleway:300,400,700%7CPlayfair+Display:700',
+        'css/bootstrap.min.css',
+        'css/magnific-popup.css',
+        'css/font-icons.css',
+        'css/sliders.css',
+        'css/style.css?1',
+        'css/animate.min.css',
+//        'css/site.css',
     ];
     public $js = [
+        'js/jquery.min.js',
+        'js/bootstrap.min.js',
+        'js/plugins.js',
+        'js/scripts.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+//        'yii\web\YiiAsset',
+//        'yii\bootstrap\BootstrapAsset',
     ];
 }
