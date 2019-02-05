@@ -1,71 +1,123 @@
 <?php
-use \yii\helpers\Html;
 use \yii\bootstrap\ActiveForm;
+use common\models\Order;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $products common\models\Product[] */
+$this->title = 'Оформление заказа';
 ?>
-<h1>Your order</h1>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xs-4">
-
-        </div>
-        <div class="col-xs-2">
-            Price
-        </div>
-        <div class="col-xs-2">
-            Quantity
-        </div>
-        <div class="col-xs-2">
-            Cost
-        </div>
-    </div>
-    <?php foreach ($products as $product):?>
-    <div class="row">
-        <div class="col-xs-4">
-            <?= Html::encode($product->title) ?>
-        </div>
-        <div class="col-xs-2">
-            $<?= $product->price ?>
-        </div>
-        <div class="col-xs-2">
-            <?= $quantity = $product->getQuantity()?>
-        </div>
-        <div class="col-xs-2">
-            $<?= $product->getCost() ?>
-        </div>
-    </div>
-    <?php endforeach ?>
-    <div class="row">
-        <div class="col-xs-8">
-
-        </div>
-        <div class="col-xs-2">
-            Total: $<?= $total ?>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12">
-            <?php
-            /* @var $form ActiveForm */
-            $form = ActiveForm::begin([
-                'id' => 'order-form',
-            ]) ?>
-
-            <?= $form->field($order, 'phone') ?>
-            <?= $form->field($order, 'email') ?>
-            <?= $form->field($order, 'notes')->textarea() ?>
-
-            <div class="form-group row">
-                <div class="col-xs-12">
-                    <?= Html::submitButton('Order', ['class' => 'btn btn-primary']) ?>
-                </div>
+<!-- Page Title -->
+<section class="page-title text-center">
+    <div class="container relative clearfix">
+        <div class="title-holder">
+            <div class="title-text">
+                <h1 class="uppercase">Оформление заказа</h1>
             </div>
-
-            <?php ActiveForm::end() ?>
         </div>
     </div>
-</div>
+</section> <!-- end page title -->
+
+<!-- Checkout -->
+<section class="section-wrap checkout pt-0 pb-50">
+    <div class="container relative">
+        <div class="row">
+
+            <div class="ecommerce col-xs-12">
+
+                <?php
+                /* @var $form ActiveForm */
+                $form = ActiveForm::begin([
+                    'id' => 'order-form',
+                    'class' => 'checkout ecommerce-checkout row',
+                ]);?>
+
+                    <div class="col-md-8" id="customer_details">
+                        <div>
+                            <h2 class="heading uppercase mb-30">Адрес</h2>
+
+                                <?= $form->field($order, 'fio')->textInput(['placeholder' => 'Фимилия Имя Отчество', 'class' => 'input-text']); ?>
+                                <?= $form->field($order, 'phone')->textInput(['placeholder' => '+7777-777-7777', 'class' => 'input-text']); ?>
+                                <?= $form->field($order, 'email')->textInput(['placeholder' => 'example@mail.ru', 'class' => 'input-text']); ?>
+
+                            <?php echo $form->field($order, 'shipping_method')->dropDownList(Order::getShippingMethods(), ['class' => 'country_to_state country_select']); ?>
+
+                            <div class="shipping_methods">
+                                <div class="rp" style="display: none">
+                                    <?= $form->field($order, 'zip')->textInput(['placeholder' => '630000', 'class' => 'form-control dark', 'maxlength' => 6]); ?>
+                                    <?= $form->field($order, 'address')->textInput(['placeholder' => 'Новосибирск, ул.Ленина д.1 кв.1', 'class' => 'form-control dark']); ?>
+                                </div>
+                                <div class="tk" style="display: none">
+                                    <?= $form->field($order, 'city')->textInput(['class' => 'form-control dark']); ?>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+
+                        </div>
+
+                        <div class="clear"></div>
+
+                        <?= $form->field($order, 'notes')->textarea(['class' => 'input-text', 'rows' => "2", 'cols' => "5"]); ?>
+
+                        <div class="clear"></div>
+
+                    </div> <!-- end col -->
+
+
+                    <div class="col-md-4">
+                        <div class="order-review-wrap ecommerce-checkout-review-order" id="order_review">
+                            <h2 class="heading uppercase mb-30">Заказ</h2>
+                            <table class="table shop_table ecommerce-checkout-review-order-table">
+                                <tbody>
+                                <?php foreach ($products as $product):?>
+                                    <?php if($product->getIsActive() && $product->getIsInStock()):?>
+                                        <tr>
+                                            <th><?= $product->title?><span class="count"> x <?= $product->getQuantity()?></span></th>
+                                            <td>
+                                                <span class="amount"><?= (int)$product->getCost()?><i class="fa fa-ruble"></i></span>
+                                            </td>
+                                        </tr>
+                                    <?php endif;?>
+                                <?php endforeach ?>
+                                <tr class="cart-subtotal">
+                                    <th>Подитог</th>
+                                    <td>
+                                        <span class="amount"><?= $cart->getCost()?><i class="fa fa-ruble"></i></span>
+                                    </td>
+                                </tr>
+                                <tr class="shipping">
+                                    <th>Доставка</th>
+                                    <td>
+                                        <span>Free Shipping</span>
+                                    </td>
+                                </tr>
+                                <tr class="order-total">
+                                    <th><strong>Итого</strong></th>
+                                    <td>
+                                        <strong><span class="amount"><?= $cart->getCost()?><i class="fa fa-ruble"></i></span></strong>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div id="payment" class="ecommerce-checkout-payment">
+                                <h2 class="heading uppercase mb-30">Способ оплаты</h2>
+                                <ul class="payment_methods methods">
+                                    <?php foreach (Order::getPaymentMethods() as $key=>$value):?>
+                                    <li class="payment_method_bacs">
+                                        <input id="order-payment_method" type="radio" class="input-radio" name="Order[payment_method]" value="<?=$key?>">
+                                        <label for="order-payment_method"><?=$value?></label>
+                                    </li>
+                                    <?php endforeach;?>
+                                </ul>
+                                <div class="form-row place-order">
+                                    <?= Html::submitInput('Отправить заказ', ['class' => 'checkout-button btn btn-lg']) ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- end order review -->
+                <?php ActiveForm::end() ?>
+            </div> <!-- end ecommerce -->
+        </div> <!-- end row -->
+    </div> <!-- end container -->
+</section> <!-- end checkout -->

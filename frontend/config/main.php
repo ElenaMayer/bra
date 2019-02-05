@@ -1,4 +1,5 @@
 <?php
+
 $params = array_merge(
     require(__DIR__ . '/../../common/config/params.php'),
     require(__DIR__ . '/../../common/config/params-local.php'),
@@ -31,8 +32,15 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'catalog/<id:\d+>' => 'catalog/list',
-                'catalog/<categoryId:\d+>/<productId:\d+>' => 'catalog/product',
+                'catalog/sale' => 'catalog/sale',
+                'catalog/<categorySlug:\w+>' => 'catalog/list',
+                'catalog/<categorySlug:\w+>/<productId:\d+>' => 'catalog/product',
+                'cart' => 'cart/cart',
+                'contact' => 'site/contact',
+//                'shipping' => 'site/shipping',
+//                'payment' => 'site/payment',
+//                'refund' => 'site/refund',
+//                'search' => 'site/search',
             ],
         ],
     ],

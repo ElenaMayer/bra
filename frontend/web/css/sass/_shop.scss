@@ -991,6 +991,11 @@ select.country_to_state {
   margin-bottom: 30px;
 }
 
+.ecommerce form #customer_details p.help-block-error {
+  width: auto;
+  margin-bottom: 0;
+}
+
 .ecommerce form .form-row:after {
   clear: both;
 }

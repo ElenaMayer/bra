@@ -87,10 +87,6 @@ use common\models\Category;
         ],
     ]) ?>
 
-    <?= $form->field($model, 'count')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'weight')->textInput() ?>
-
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Добавить' : 'Редактировать', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

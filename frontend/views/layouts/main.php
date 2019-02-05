@@ -17,7 +17,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= Html::encode($this->title . ' - ' . Yii::$app->params['domain']) ?></title>
     <?php $this->registerLinkTag(['rel' => 'shortcut icon', 'href' => '/img/favicon.ico']); ?>
     <?php $this->registerLinkTag(['rel' => 'apple-touch-icon', 'href' => '/img/apple-touch-icon.png']); ?>
     <?php $this->registerLinkTag(['rel' => 'apple-touch-icon', 'href' => '/img/apple-touch-icon-72x72.png', 'sizes' => '72x72']); ?>
@@ -46,7 +46,7 @@ AppAsset::register($this);
                             <div class="top-bar-links">
                                 <ul class="col-sm-6 top-bar-acc">
                                     <li class="top-bar-link"><a href="<?= Yii::$app->homeUrl ?>">Главная</a></li>
-                                    <li class="top-bar-link"><a href="#">Контакты</a></li>
+                                    <li class="top-bar-link"><a href="/contact">Контакты</a></li>
                                     <li class="top-bar-link"><a href="#">Новости</a></li>
                                 </ul>
 
@@ -83,7 +83,7 @@ AppAsset::register($this);
                                             $cart = Yii::$app->cart;
                                             $itemsInCart = $cart->getCount();
                                             ?>
-                                            <a href="/cart/list" class="nav-cart-icon"><?=$itemsInCart ? " $itemsInCart" : ''?></a>
+                                            <a href="/cart" class="nav-cart-icon"><?=$itemsInCart ? " $itemsInCart" : ''?></a>
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@ AppAsset::register($this);
                                     <div class="logo-container">
                                         <div class="logo-wrap text-center">
                                             <a href="<?= Yii::$app->homeUrl ?>">
-                                                <img class="logo" src="img/logo.png" alt="logo">
+                                                <img class="logo" src="/img/logo.png" alt="logo">
                                             </a>
                                         </div>
                                     </div>
@@ -116,50 +116,32 @@ AppAsset::register($this);
                                         <div class="nav-cart right">
                                             <div class="nav-cart-outer">
                                                 <div class="nav-cart-inner">
-                                                    <a href="/cart/list" class="nav-cart-icon"><?=$itemsInCart ? " $itemsInCart" : ''?></a>
+                                                    <a href="/cart" class="nav-cart-icon"><?=$itemsInCart ? " $itemsInCart" : ''?></a>
                                                 </div>
                                             </div>
                                             <div class="nav-cart-container">
                                                 <div class="nav-cart-items">
-                                                    <div class="nav-cart-item clearfix">
+                                                    <?php foreach ($cart->getPositions() as $product):?>
+                                                        <div class="nav-cart-item clearfix">
                                                         <div class="nav-cart-img">
-                                                            <a href="#">
-                                                                <img src="img/shop/cart_small_1.jpg" alt="">
+                                                            <a href="/catalog/<?= $product->category->slug ?>/<?= $product->id ?>">
+                                                                <?= Html::img($product->images[0]->getUrl('small'), ['alt'=>$product->title]);?>
                                                             </a>
                                                         </div>
                                                         <div class="nav-cart-title">
-                                                            <a href="#">
-                                                                Ladies Bag
+                                                            <a href="/catalog/<?= $product->category->slug ?>/<?= $product->id ?>">
+                                                                <?= $product->title ?>
                                                             </a>
                                                             <div class="nav-cart-price">
-                                                                <span>1 x</span>
-                                                                <span>1250.00</span>
+                                                                <span></span><?= $product->getQuantity() ?> x</span>
+                                                                <span><?= (int)$product->price ?><i class="fa fa-ruble"></i></span>
                                                             </div>
                                                         </div>
                                                         <div class="nav-cart-remove">
                                                             <a href="#"><i class="icon icon_close"></i></a>
                                                         </div>
                                                     </div>
-
-                                                    <div class="nav-cart-item clearfix">
-                                                        <div class="nav-cart-img">
-                                                            <a href="#">
-                                                                <img src="img/shop/cart_small_2.jpg" alt="">
-                                                            </a>
-                                                        </div>
-                                                        <div class="nav-cart-title">
-                                                            <a href="#">
-                                                                Sequin Suit longer title
-                                                            </a>
-                                                            <div class="nav-cart-price">
-                                                                <span>1 x</span>
-                                                                <span>1250.00</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="nav-cart-remove">
-                                                            <a href="#"><i class="icon icon_close"></i></a>
-                                                        </div>
-                                                    </div>
+                                                    <?php endforeach;?>
 
                                                 </div> <!-- end cart items -->
 
@@ -169,7 +151,7 @@ AppAsset::register($this);
                                                 </div>
 
                                                 <div class="nav-cart-actions mt-20">
-                                                    <a href="/cart/list" class="btn btn-md btn-dark"><span>В корзину</span></a>
+                                                    <a href="/cart" class="btn btn-md btn-dark"><span>В корзину</span></a>
                                                     <a href="/cart/order" class="btn btn-md btn-color mt-10"><span>Оформить заказ</span></a>
                                                 </div>
                                             </div>
@@ -247,8 +229,8 @@ AppAsset::register($this);
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
-        <?= $content ?>
         </div>
+        <?= $content ?>
 
         <footer class="footer footer-type-1 bg-white">
             <div class="container">
@@ -259,7 +241,7 @@ AppAsset::register($this);
                             <div class="widget footer-links">
                                 <h5 class="widget-title uppercase">Помощь</h5>
                                 <ul class="list-no-dividers">
-                                    <li><a href="#">Контакты</a></li>
+                                    <li><a href="/contact">Контакты</a></li>
                                     <li><a href="#">Скидки и акции</a></li>
                                     <li><a href="#">Доставка и оплата</a></li>
                                     <li><a href="#">Возврат</a></li>
@@ -270,15 +252,16 @@ AppAsset::register($this);
                         <div class="col-md-5 col-sm-5 col-xs-12">
                             <div class="widget">
                                 <h5 class="widget-title uppercase">О нас</h5>
-                                <p class="mb-0"><?=Yii::$app->params['description']?></p>
+                                <p class="mb-0"><?=Yii::$app->params['footerDesc']?></p>
                             </div>
                         </div>
 
                         <div class="col-md-4 col-sm-4 col-s-12">
                             <div class="widget footer-get-in-touch">
                                 <h5 class="widget-title uppercase">Контакты</h5>
-                                <address class="footer-address"><?=Yii::$app->params['address1']?></address>
-                                <address class="footer-address"><?=Yii::$app->params['address2']?></address>
+                                <?php foreach (Yii::$app->params['address'] as $k => $v):?>
+                                    <address class="footer-address"><span><?=$k?>: </span><?=$v?></address>
+                                <?php endforeach;?>
                                 <p>Телефон: <a href="tel:<?=Yii::$app->params['phone']?>"><?=Yii::$app->params['phone']?></a></p>
                                 <p>Email: <a href="mailto:<?=Yii::$app->params['email']?>"><?=Yii::$app->params['email']?></a></p>
                                 <div class="social-icons rounded mt-10">
@@ -297,7 +280,7 @@ AppAsset::register($this);
                         <div class="col-sm-5 copyright sm-text-center">
                             <span>
                                 Copyright &copy; <?= date('Y') ?> <?= Yii::$app->params['domain'] ?>.
-                                Developed with <i class="fa fa-heart-o"></i> by <b><a href="<?= Yii::$app->params['developerSite'] ?>" rel="external"><?= Yii::$app->params['developer'] ?></a></b>.
+                                Developed with <i class="fa fa-heart-o"></i> by <a href="<?= Yii::$app->params['developerSite'] ?>" rel="external"><?= Yii::$app->params['developer'] ?></a>.
                             </span>
                         </div>
 
@@ -312,9 +295,7 @@ AppAsset::register($this);
                 </div>
             </div> <!-- end bottom footer -->
         </footer> <!-- end footer -->
-
     </main> <!-- end main container -->
-
     <?php $this->endBody() ?>
 </body>
 </html>

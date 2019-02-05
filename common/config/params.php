@@ -1,13 +1,9 @@
 <?php
 return [
-    'adminEmail' => 'admin@example.com',
-    'supportEmail' => 'support@example.com',
-    'user.passwordResetTokenExpire' => 3600,
-
-    'productOriginalImageWidth'=> 1200,
-    'productOriginalImageHeight'=> 1600,
-    'productMediumImageWidth'=> 540,
-    'productMediumImageHeight'=> 960,
-    'productSmallImageWidth'=> 140,
-    'productSmallImageHeight'=> 249,
+    'productOriginalImageWidth'=> 740,
+    'productOriginalImageHeight'=> 915,
+    'productMediumImageWidth'=> 415,
+    'productMediumImageHeight'=> 513,
+    'productSmallImageWidth'=> 150,
+    'productSmallImageHeight'=> 185,
 ];

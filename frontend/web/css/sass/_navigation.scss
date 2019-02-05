@@ -66,6 +66,7 @@
   display: table;
   width: 100%;
   border-bottom: 1px solid $border-color;
+  background-color: #fff;
 }
 
 
@@ -105,6 +106,11 @@
 .logo,
 .logo-dark {
   max-height: 90px;
+}
+
+.shrink .logo,
+.shrink .logo-dark {
+  padding: 5px 0;
 }
 
 .navbar-header {
@@ -499,6 +505,10 @@
   .nav-cart-img {
     float: left;
     margin-right: 20px;
+  }
+
+  .nav-cart-img img {
+    width: 60px;
   }
 
   .nav-cart-price {

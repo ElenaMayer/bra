@@ -1,11 +1,13 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Product;
 use Yii;
 use frontend\models\ContactForm;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use common\models\Category;
 
 /**
  * Site controller
@@ -61,7 +63,9 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('index', [
+            'products' => Product::getNovelties(),
+        ]);
     }
 
     public function actionContact()

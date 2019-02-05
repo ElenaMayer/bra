@@ -77,8 +77,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'size',
             'color',
-            'count',
-            'weight',
             'time'
         ],
     ]) ?>

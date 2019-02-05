@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\models\ProductRelation;
 use frontend\models\Wishlist;
+use Imagine\Image\ManipulatorInterface;
 use Yii;
 use yii\behaviors\SluggableBehavior;
 use yz\shoppingcart\CartPositionInterface;
@@ -11,6 +12,7 @@ use yz\shoppingcart\CartPositionTrait;
 use yii\web\UploadedFile;
 use Imagine\Image\Box;
 use yii\helpers\ArrayHelper;
+use Imagine\Image\Point;
 
 /**
  * This is the model class for table "product".
@@ -124,20 +126,53 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
                 $image->product_id = $this->id;
                 if ($image->save()) {
                     $file->saveAs($image->getPath());
-                    \yii\imagine\Image::getImagine()
-                        ->open($image->getPath())
-                        ->thumbnail(new Box(Yii::$app->params['productOriginalImageWidth'], Yii::$app->params['productOriginalImageHeight']))
-                        ->save($image->getPath('origin', ['quality' => 80]))
-                        ->thumbnail(new Box(Yii::$app->params['productMediumImageWidth'], Yii::$app->params['productMediumImageHeight']))
-                        ->save($image->getPath('medium', ['quality' => 80]))
-                        ->thumbnail(new Box(Yii::$app->params['productSmallImageWidth'], Yii::$app->params['productSmallImageHeight']))
-                        ->save($image->getPath('small', ['quality' => 80]));
+                    $this->prepareImage($image);
                 }
             }
             return true;
         } else {
             return false;
         }
+    }
+
+    private function prepareImage($image){
+        $wR = Yii::$app->params['productOriginalImageWidth'];
+        $hR = Yii::$app->params['productOriginalImageHeight'];
+        $i = \yii\imagine\Image::getImagine()
+            ->open($image->getPath())
+            ->thumbnail(new Box($wR, $hR), ManipulatorInterface::THUMBNAIL_OUTBOUND);
+        $size = $i->getSize();
+        $wC = $size->getWidth();
+        $hC = $size->getHeight();
+
+        // Current img < result img
+        if($wR > $wC && $hR > $hC){
+            if($hC > $wC && ($hC/$wC > $hR/$wR)){
+                $this->cropHeight($i, $wC, $hC, $wR, $hR);
+            } elseif ($hC <= $wC || $hC/$wC < $hR/$wR){
+                $this->cropWidth($i, $wC, $hC, $wR, $hR);
+            }
+        } elseif ($wR > $wC) {
+            $this->cropHeight($i, $wC, $hC, $wR, $hR);
+        } elseif ($hR > $hC){
+            $this->cropWidth($i, $wC, $hC, $wR, $hR);
+        }
+
+        $i->save($image->getPath('origin', ['quality' => 80]))
+            ->thumbnail(new Box(Yii::$app->params['productMediumImageWidth'], Yii::$app->params['productMediumImageHeight']))
+            ->save($image->getPath('medium', ['quality' => 80]))
+            ->thumbnail(new Box(Yii::$app->params['productSmallImageWidth'], Yii::$app->params['productSmallImageHeight']))
+            ->save($image->getPath('small', ['quality' => 80]));
+    }
+
+    private function cropWidth(&$i, $wC, $hC, $wR, $hR){
+        $wNew = $wR*$hC/$hR;
+        $i->crop(new Point(($wC-$wNew)/2, 0), new Box($wNew, $hC));
+    }
+
+    private function cropHeight(&$i, $wC, $hC, $wR, $hR){
+        $hNew = $wC*$hR/$wR;
+        $i->crop(new Point(0, ($hC - $hNew)/2), new Box($wC, $hNew));
     }
 
     /**
@@ -210,7 +245,7 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
     public function getIsInStock()
     {
         $product = Product::findOne($this->id);
-        if($product->is_in_stock && $product->count > 0)
+        if($product->is_in_stock)
             return true;
         else
             return false;
@@ -236,21 +271,22 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
         return $this->id;
     }
 
-    public function getAllSizesArray()
+    public static function getAllSizesArray()
     {
-        $models = $this->find()->all();
+        $models = Product::find()->all();
         $sizes = [];
         foreach ($models as $m)
         {
             $cs = explode(",",$m->size);
             foreach ($cs as $c)
             {
-                if (!in_array($c,$sizes))
+                if ($c && !in_array($c,$sizes))
                 {
                     $sizes[$c] = $c;
                 }
             }
         }
+        asort($sizes);
         return $sizes;
     }
 
@@ -268,9 +304,9 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
         return $sizes;
     }
 
-    public function getAllColorsArray()
+    public static function getAllColorsArray()
     {
-        $models = $this->find()->all();
+        $models = Product::find()->all();
         $colors = [];
         foreach ($models as $m)
         {
@@ -384,11 +420,11 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
         }
     }
 
-    public static function getNovelties(){
+    public static function getNovelties($count = 4){
         $noveltyProducts = Product::find()
-            ->where(['is_active' => 1, 'is_in_stock' => 1, 'is_novelty' => 1])
-            ->andWhere(['>', 'count', '0'])
-            ->limit(Yii::$app->params['productNewCount'])
+            ->where(['is_active' => 1, 'is_in_stock' => 1])
+            ->limit($count)
+            ->orderBy('id DESC')
             ->all();
         return $noveltyProducts;
     }
@@ -416,11 +452,11 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            $this->weight = str_replace(',', '.', $this->weight);
-            if($this->count > 0)
-                $this->is_in_stock = 1;
-            else
-                $this->is_in_stock = 0;
+//            $this->weight = str_replace(',', '.', $this->weight);
+//            if($this->count > 0)
+//                $this->is_in_stock = 1;
+//            else
+//                $this->is_in_stock = 0;
             return true;
         }
         return false;

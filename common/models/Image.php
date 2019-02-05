@@ -42,9 +42,9 @@ class Image extends \yii\db\ActiveRecord
         return $this->hasOne(Product::className(), ['id' => 'product_id']);
     }
 
-    //'origin': $size = '1200x1600'
-    //'medium': $size = '540x960';
-    //'small': $size = '140x249';
+    //'origin': $size = '740x915'
+    //'medium': $size = '415x513';
+    //'small': $size = '150x185';
 
     public function getPath($size = 'origin')
     {

@@ -154,6 +154,8 @@
 }
 
 .pagination a,
+.pagination li.page-numbers a,
+.pagination li.page-numbers span,
 .pagination span {
   background-color: #fff;
   font-family: $heading-font;
@@ -163,12 +165,15 @@
   height: 32px;
   line-height: 30px;
   margin: 0 1px;
+  padding: 0;
   text-align: center;
+  border-radius: 0;
   border: 1px solid $border-color;
   @include transition ($all);
 }
 
-.pagination a {
+.pagination a,
+.pagination li.page-numbers a {
   color: $text-color;
 
   &:hover {
@@ -182,10 +187,13 @@
   }
 }
 
-.pagination .current {
+.pagination .current,
+.pagination li.page-numbers.current a,
+.pagination li.page-numbers.disabled span {
   background: #f2f2f2;
   color: $heading-color;
   border-color: transparent;
+  cursor: default;
 }
 
 
@@ -207,11 +215,21 @@
   margin-bottom: 0;
 }
 
-.list-dividers > li {
+.list-dividers > li,
+.list-dividers > li > ul > li {
   position: relative;
   padding: 10px 0;
   border-bottom: 1px solid $border-color;
 }
+
+.list-no-dividers > li > ul > li {
+  position: relative;
+  padding: 6px 0 !important;
+}
+
+.list-no-dividers > li > ul {
+   padding-top: 6px;
+ }
 
 .sidebar .widget:first-child {
   margin-top: 0;
@@ -230,16 +248,21 @@
   padding-top: 0 !important;
 }
 
-.widget.categories ul li.active-cat a {
+.widget.categories ul li.active-cat > a,
+.widget.categories ul li.active > a {
   color: $heading-color;
 }
 
 .widget.categories ul li a {
   color: $text-color;
 
-  &:hover, {
+  &:hover {
     color: $main-color;
   }
+}
+
+.sidebar .widget > ul > li > ul {
+  padding-left: 15px;
 }
 
 .widget.categories li span,

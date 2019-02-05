@@ -114,16 +114,7 @@ class Category extends \yii\db\ActiveRecord
                 $activeParentId = $activeCategory->parent->id;
             }
         }
-        if(!$parent) {
-            $menuItems = ['0' => [
-                'active' => ($activeId == 'all') ? 1 : 0,
-                'label' => 'Все',
-                'url' => ['/catalog']
-            ]
-            ];
-        } else {
-            $menuItems = [];
-        }
+        $menuItems = [];
         foreach ($categories as $category) {
             if ($category->parent_id === $parent) {
                 $menuItems[$category->id] = [

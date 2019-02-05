@@ -3,24 +3,46 @@ use yii\helpers\Html;
 use yii\helpers\Markdown;
 ?>
 <?php /** @var $model \common\models\Product */ ?>
-<div class="col-xs-12 well">
-    <div class="col-xs-2">
-        <?php
-        $images = $model->images;
-        if (isset($images[0])) {
-            echo Html::img($images[0]->getUrl(), ['width' => '100%']);
-        }
-        ?>
-    </div>
-    <div class="col-xs-6">
-        <h2><?= Html::encode($model->title) ?></h2>
-        <?= Markdown::process($model->description) ?>
-    </div>
 
-    <div class="col-xs-4 price">
-        <div class="row">
-            <div class="col-xs-12">$<?= $model->price ?></div>
-            <div class="col-xs-12"><?= Html::a('Add to cart', ['cart/add', 'id' => $model->id], ['class' => 'btn btn-success'])?></div>
+<div class="col-md-4 col-xs-6">
+    <div class="product-item">
+        <div class="product-img">
+            <a href="/catalog/<?= $product->category->slug?>/<?= $product->id?>" title="<?= $product->title?>">
+                <?php
+                $images = $product->images;
+                ?>
+                <img src="<?=$images[0]->getUrl('medium')?>" alt="<?= $product->title?>">
+                <?php if(isset($images[1])):?>
+                    <img src="<?=$images[1]->getUrl('medium')?>" alt="<?= $product->title?>" class="back-img">
+                <?php endif;?>
+            </a>
+            <?php if(!$product->is_in_stock):?>
+                <span class="sold-out valign">Нет в наличии</span>
+            <?php endif;?>
+            <?php if($product->is_in_stock && $product->new_price):?>
+                <div class="product-label">
+                    <span class="sale">sale</span>
+                </div>
+            <?php endif;?>
+        </div>
+        <div class="product-details">
+            <h3>
+                <a class="product-title" href="/catalog/<?= $product->category->slug?>/<?= $product->id?>" title="<?= $product->title?>"><?= $product->title?></a>
+            </h3>
+            <span class="price">
+                <?php if($product->new_price):?>
+                    <del>
+                        <span><?= (int)$product->price?><i class="fa fa-ruble"></i></span>
+                    </del>
+                    <ins>
+                        <span class="ammount"><?= $product->new_price?><i class="fa fa-ruble"></i></span>
+                    </ins>
+                <?php else:?>
+                    <ins>
+                        <span class="ammount"><?= (int)$product->price?><i class="fa fa-ruble"></i></span>
+                    </ins>
+                <?php endif;?>
+            </span>
         </div>
     </div>
 </div>
