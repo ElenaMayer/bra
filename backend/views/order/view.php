@@ -86,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <table class="table table-striped table-bordered detail-view">
         <tr>
-            <th>Фото</th><th>Товар</th><th>Цена</th><th>Количество</th><th>Всего</th><th></th>
+            <th>Фото</th><th>Товар</th><th>Размер</th><th>Цена</th><th>Количество</th><th>Всего</th><th></th>
         </tr>
         <?php
         foreach ($model->orderItems as $item): ?>
@@ -103,7 +103,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </td>
                 <td>
-                    <?php echo $item->title . ' ' . ($item->product_id ? $item->product->size . 'см (Арт. '. $item->product->article .')' : '');?>
+                    <?= $item->title . ' (Арт. '. $item->product->article .')';?>
+                </td>
+                <td>
+                    <?= $item->size;?>
                 </td>
                 <td>
                     <?= (int)($item->price) . ' руб.'?>
@@ -125,11 +128,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 </td>
             </tr>
         <?php endforeach ?>
-        <tr>
-            <td>
-                <p><string>Вес: </string> <?= $model->getWeight()?> кг</p>
-            </td>
-        </tr>
         <tr>
             <td>
                 <p><string>Итого: </string> <?= $model->getSubCost()?> руб.</p>

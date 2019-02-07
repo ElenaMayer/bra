@@ -231,6 +231,39 @@
    padding-top: 6px;
  }
 
+.sidebar .color {
+  height: 20px;
+  width: 20px;
+
+  &.gray {
+    background-color: gray;
+  }
+}
+
+.square {
+  padding-bottom: 40px;
+}
+
+.square .color {
+  height: 40px;
+  width: 40px;
+  margin-right: 15px;
+  border: solid 1px $border-color;
+  display: inline-block;
+
+  &.active {
+    border: solid 3px $light-grey;
+  }
+}
+
+.color.black {
+  background-color: black;
+}
+
+.color.beige {
+  background-color: beige;
+}
+
 .sidebar .widget:first-child {
   margin-top: 0;
 }
@@ -370,6 +403,11 @@
     background-color: $main-color;
     color: #fff;
     border-color: transparent;
+  }
+
+  &.active {
+    background-color: $light-grey;
+    color: #fff;
   }
 }
 

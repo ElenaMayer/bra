@@ -81,9 +81,9 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
             ['weight', 'match', 'pattern' => '/^[0-9]+[0-9,.]*$/', 'message' => 'Значение должно быть числом.'],
             [['title', 'article', 'category_id', 'price'], 'required'],
             [['price'], 'number'],
-            [['time, size, color, tags, subcategories'], 'safe'],
+            [['time, size, tags, subcategories'], 'safe'],
             [['slug', 'article'], 'string', 'max' => 255],
-            [['title'], 'string', 'max' => 40],
+            [['title', 'color'], 'string', 'max' => 40],
             [['article'], 'unique'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
         ];
@@ -271,9 +271,13 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
         return $this->id;
     }
 
-    public static function getAllSizesArray()
+    public static function getAllSizesArray($categoryId = null)
     {
-        $models = Product::find()->all();
+        $models = Product::find();
+        if($categoryId) {
+            $models = $models->where(['category_id' => $categoryId]);
+        }
+        $models = $models->all();
         $sizes = [];
         foreach ($models as $m)
         {
@@ -304,33 +308,40 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
         return $sizes;
     }
 
-    public static function getAllColorsArray()
+    public static function getAllColorsArray($categoryId = null)
     {
-        $models = Product::find()->all();
+        $models = Product::find();
+        if($categoryId) {
+            $models = $models->where(['category_id' => $categoryId]);
+        }
+        $models = $models->all();
         $colors = [];
+        $colorsArr = Yii::$app->params['colors'];
         foreach ($models as $m)
         {
-            $cs = explode(",",$m->color);
-            foreach ($cs as $c)
-            {
-                if (!in_array($c,$colors))
-                {
-                    $colors[$c] = $c;
-                }
+            if (isset($m->color) && !in_array($m->color, $colors)) {
+                $colors[$m->color] = isset($colorsArr[$m->color]) ? $colorsArr[$m->color] : $m->color;
             }
         }
+        asort($colors);
         return $colors;
     }
 
-    public function getColorsArray()
+    public function getProductColors()
     {
-        $colors = [];
-        $cs = explode(",",$this->color);
-        foreach ($cs as $c)
-        {
-            if (!in_array($c,$colors))
+        $colors = [
+            $this->color => [
+                'title' => Yii::$app->params['colors'][$this->color]
+            ]
+        ];
+        if($this->relations){
+            foreach ($this->relations as $relation)
             {
-                $colors[$c] = $c;
+                $cc = $relation->child->color;
+                $colors[$cc] = [
+                    'title' => Yii::$app->params['colors'][$cc],
+                    'id' => $relation->child_id,
+                ];
             }
         }
         return $colors;
@@ -371,10 +382,6 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
         return $tags;
     }
 
-    public function getColorStr(){
-        return str_replace(',', ', ', $this->color);
-    }
-
     public function saveRelations($relations){
         if($this->relations){
             foreach ($this->relations as $relation){
@@ -385,6 +392,11 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
             $relation = new ProductRelation();
             $relation->parent_id = $this->id;
             $relation->child_id = $relationId;
+            $relation->save();
+
+            $relation = new ProductRelation();
+            $relation->parent_id = $relationId;
+            $relation->child_id = $this->id;
             $relation->save();
         }
     }
@@ -469,5 +481,13 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
             return Category::findOne(trim($subcatId[0], ','));
         else
             return null;
+    }
+
+    public function getCartPosition($params = [])
+    {
+        return Yii::createObject([
+            'class' => 'frontend\models\ProductCartPosition',
+            'id' => $this->id,
+        ]);
     }
 }

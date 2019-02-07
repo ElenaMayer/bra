@@ -121,7 +121,13 @@ AppAsset::register($this);
                                             </div>
                                             <div class="nav-cart-container">
                                                 <div class="nav-cart-items">
-                                                    <?php foreach ($cart->getPositions() as $product):?>
+                                                    <?php
+                                                    $positions = $cart->getPositions();
+
+//                                                    print_r(array_shift($positions));die();
+                                                    ?>
+                                                    <?php foreach ($cart->getPositions() as $positions):?>
+                                                    <?php $product = $positions->getProduct()?>
                                                         <div class="nav-cart-item clearfix">
                                                         <div class="nav-cart-img">
                                                             <a href="/catalog/<?= $product->category->slug ?>/<?= $product->id ?>">
@@ -133,12 +139,12 @@ AppAsset::register($this);
                                                                 <?= $product->title ?>
                                                             </a>
                                                             <div class="nav-cart-price">
-                                                                <span></span><?= $product->getQuantity() ?> x</span>
-                                                                <span><?= (int)$product->price ?><i class="fa fa-ruble"></i></span>
+                                                                <span>Размер: <?= $positions->size ?></span>
+                                                                <span><?= $positions->getQuantity() ?> x <?= (int)$product->price ?><i class="fa fa-ruble"></i></span>
                                                             </div>
                                                         </div>
                                                         <div class="nav-cart-remove">
-                                                            <a href="#"><i class="icon icon_close"></i></a>
+                                                            <a data-id="<?= $positions->getId() ?>" id="remove_cart_item" class="remove"><i class="icon icon_close"></i></a>
                                                         </div>
                                                     </div>
                                                     <?php endforeach;?>

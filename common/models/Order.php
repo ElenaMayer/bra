@@ -103,20 +103,20 @@ class Order extends \yii\db\ActiveRecord
             if ($this->isNewRecord) {
                 $this->status = self::STATUS_NEW;
             } else {
-                $oldAttributes = $this->getOldAttributes();
-                if($this->status != $oldAttributes['status']) {
-                    if($this->status != $oldAttributes['status']) {
-                        if($this->status == self::STATUS_CANCELED) {
-                            foreach ($this->orderItems as $item){
-                                $item->product->plusCount($item->quantity);
-                            }
-                        } elseif($oldAttributes['status'] == self::STATUS_CANCELED){
-                            foreach ($this->orderItems as $item){
-                                $item->product->minusCount($item->quantity);
-                            }
-                        }
-                    }
-                }
+//                $oldAttributes = $this->getOldAttributes();
+//                if($this->status != $oldAttributes['status']) {
+//                    if($this->status != $oldAttributes['status']) {
+//                        if($this->status == self::STATUS_CANCELED) {
+//                            foreach ($this->orderItems as $item){
+//                                $item->product->plusCount($item->quantity);
+//                            }
+//                        } elseif($oldAttributes['status'] == self::STATUS_CANCELED){
+//                            foreach ($this->orderItems as $item){
+//                                $item->product->minusCount($item->quantity);
+//                            }
+//                        }
+//                    }
+//                }
             }
             return true;
         } else {

@@ -69,12 +69,13 @@ $this->title = 'Оформление заказа';
                             <h2 class="heading uppercase mb-30">Заказ</h2>
                             <table class="table shop_table ecommerce-checkout-review-order-table">
                                 <tbody>
-                                <?php foreach ($products as $product):?>
+                                <?php foreach ($positions as $position):?>
+                                <?php $product = $position->getProduct();?>
                                     <?php if($product->getIsActive() && $product->getIsInStock()):?>
                                         <tr>
-                                            <th><?= $product->title?><span class="count"> x <?= $product->getQuantity()?></span></th>
+                                            <th><?= $product->title?><span class="count"> x <?= $position->getQuantity()?></span></th>
                                             <td>
-                                                <span class="amount"><?= (int)$product->getCost()?><i class="fa fa-ruble"></i></span>
+                                                <span class="amount"><?= (int)$position->getCost()?><i class="fa fa-ruble"></i></span>
                                             </td>
                                         </tr>
                                     <?php endif;?>

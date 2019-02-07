@@ -22,7 +22,8 @@ use common\models\StaticFunction;
     <!-- Select size -->
     <div class="widget tags clearfix">
         <h3 class="widget-title uppercase">Размер</h3>
-        <?php $sizes = Product::getAllSizesArray()?>
+        <?php $sizes = Product::getAllSizesArray($category->id)?>
+        <a href="<?= StaticFunction::addGetParamToCurrentUrl('size', 'all')?>" title="Все" class="<?php if(!Yii::$app->request->get('size') || Yii::$app->request->get('size') == 'all') echo 'active'?>">Все</a>
         <?php foreach ($sizes as $size):?>
             <a href="<?= StaticFunction::addGetParamToCurrentUrl('size', $size)?>" title="<?= $size ?>" class=" <?php if(Yii::$app->request->get('size') && Yii::$app->request->get('size') == $size) echo 'active'?>">
                 <?= $size ?>
@@ -33,10 +34,13 @@ use common\models\StaticFunction;
     <!-- Select color -->
     <div class="widget categories">
         <h3 class="widget-title uppercase">Цвет</h3>
-        <?php  $colors = Product::getAllColorsArray()?>
+        <?php  $colors = Product::getAllColorsArray($category->id)?>
         <ul class="list-no-dividers">
+            <li class="<?php if(!Yii::$app->request->get('color') || Yii::$app->request->get('color') == 'all') echo 'active'?>">
+                <a href="<?= StaticFunction::addGetParamToCurrentUrl('color', 'all')?>" title="Все">Все</a>
+            </li>
         <?php foreach ($colors as $color):?>
-                <li class=" <?php if(Yii::$app->request->get('color') && Yii::$app->request->get('size') == $size) echo 'active'?>">
+                <li class=" <?php if(Yii::$app->request->get('color') && Yii::$app->request->get('color') == $color) echo 'active'?>">
                     <a href="<?= StaticFunction::addGetParamToCurrentUrl('color', $color)?>" title="<?= $color ?>">
                         <?= $color?>
                     </a>
@@ -45,7 +49,7 @@ use common\models\StaticFunction;
         </ul>
     </div>
 
-    <!-- Filter by Price -->
+<!--     Фильтр по цене-->
 <!--    <div class="widget filter-by-price clearfix">-->
 <!--        <h3 class="widget-title uppercase">Цена</h3>-->
 <!---->

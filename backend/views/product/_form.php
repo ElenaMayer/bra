@@ -51,24 +51,14 @@ use common\models\Category;
 
     <?= $form->field($model, 'is_active')->checkbox() ?>
 
+    <?= $form->field($model, 'color')->dropDownList(Yii::$app->params['colors'], ['prompt' => 'Выберите цвет ...']) ?>
+
     <?= $form->field($model, 'size')->widget(Select2::classname(), [
         'options' => [
             'multiple' => true,
             'placeholder' => Yii::t('app','Выберите размер ...'),
         ],
         'data'=>$model->getAllSizesArray(),
-        'pluginOptions' => [
-            'tags' => true,
-            'tokenSeparators'=>[',',' '],
-        ],
-    ]) ?>
-
-    <?= $form->field($model, 'color')->widget(Select2::classname(), [
-        'options' => [
-            'multiple' => true,
-            'placeholder' => Yii::t('app','Выберите цвет ...'),
-        ],
-        'data'=>$model->getAllColorsArray(),
         'pluginOptions' => [
             'tags' => true,
             'tokenSeparators'=>[',',' '],

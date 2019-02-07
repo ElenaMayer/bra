@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </form>
                 </div>
 
-                <div class="shop-catalogue grid-view left">
+                <div class="shop-catalogue grid-view">
                     <div class="row row-10 items-grid">
                         <?php foreach (array_values($models) as $index => $model) :?>
                             <?= $this->render('_product', ['product'=>$model]); ?>
@@ -75,6 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             </div> <!-- end col -->
             <?= $this->render('_sidebar', [
+                    'category' => $category,
                     'menuItems' => $menuItems,
                     'noveltyProducts' => Product::getNovelties()
             ]); ?>

@@ -60,15 +60,22 @@ $this->title = Html::encode($title);
                 <div class="select-options">
                     <div class="row row-20">
                         <div class="col-sm-6">
-                            <select class="color-select">
-                                <option value>Цвет</option>
-                                <?php foreach($product->getColorsArray() as $color):?>
-                                    <option value="<?=$color?>"><?=$color?></option>
+                            <div class="colors square">
+                                <?php foreach($product->getProductColors() as $key => $color):?>
+                                    <?php if(isset($color['id'])):?>
+                                        <a href="/catalog/<?= $product->category->slug?>/<?=$color['id']?>" title="<?=$color['title']?>">
+                                            <div class="color <?= $key ?>"></div>
+                                        </a>
+                                    <?php else:?>
+                                        <div class="color <?= $product->color ?> active"></div>
+                                    <?php endif;?>
                                 <?php endforeach;?>
-                            </select>
+                            </div>
                         </div>
+                    </div>
+                    <div class="row row-20">
                         <div class="col-sm-6">
-                            <select class="size-options">
+                            <select name="p_size" id="p_size" class="size-options">
                                 <option value>Размер</option>
                                 <?php foreach($product->getSizesArray() as $size):?>
                                     <option value="<?=$size?>"><?=$size?></option>
@@ -84,9 +91,6 @@ $this->title = Html::encode($title);
                         </button>
                     </li>
                     <li>
-                        <div class="quantity buttons_added">
-                            <input type="button" value="-" class="minus" /><input type="number" step="1" min="0" value="1" title="Qty" class="input-text qty text" /><input type="button" value="+" class="plus" />
-                        </div>
                     </li>
                 </ul>
             </div> <!-- end col product description -->

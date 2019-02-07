@@ -76,7 +76,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'size',
-            'color',
+            [
+                'attribute' => 'color',
+                'value' => function ($model) {
+                    return Yii::$app->params['colors'][$model->color];
+                },
+            ],
             'time'
         ],
     ]) ?>

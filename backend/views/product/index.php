@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'image',
                 'value'=>function($model) { return isset($model->images[0])?$model->images[0]->getUrl('small'):''; }
             ],
+            'id',
             'article',
             [
                 'attribute'=>'category_id',

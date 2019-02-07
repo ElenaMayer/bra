@@ -23,7 +23,7 @@ class AppAsset extends AssetBundle
         'css/magnific-popup.css',
         'css/font-icons.css',
         'css/sliders.css',
-        'css/style.css?19',
+        'css/style.css?27',
         'css/animate.min.css',
 //        'css/site.css',
     ];

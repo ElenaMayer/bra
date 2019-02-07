@@ -82,9 +82,6 @@ class ProductController extends Controller
             if (is_array($post['Product']['size'])) {
                 $model->size = implode(",", $post['Product']['size']);
             }
-            if (is_array($post['Product']['color'])) {
-                $model->color = implode(",", $post['Product']['color']);
-            }
             if (is_array($post['Product']['subcategories']))
             {
                 $model->subcategories = implode(",",$post['Product']['subcategories']);
@@ -126,12 +123,6 @@ class ProductController extends Controller
             } else {
                 $model->size = '';
             }
-            if (is_array($post['Product']['color']))
-            {
-                $model->color = implode(",",$post['Product']['color']);
-            } else {
-                $model->color = '';
-            }
             if (is_array($post['Product']['subcategories']))
             {
                 $model->subcategories = implode(",",$post['Product']['subcategories']);
@@ -155,7 +146,6 @@ class ProductController extends Controller
             }
         } else {
             $model->size = !empty($model->size)?explode(",",$model->size):[];
-            $model->color = !empty($model->color)?explode(",",$model->color):[];
             $model->subcategories = !empty($model->subcategories)?explode(",",$model->subcategories):[];
             return $this->render('update', [
                 'model' => $model,

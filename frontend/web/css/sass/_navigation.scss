@@ -537,6 +537,11 @@
 
 .nav-cart-price {
   margin-top: 5px;
+
+  span:first-child {
+    display: block;
+    padding-bottom: 3px;
+  }
 }
 
 .nav-cart-remove {

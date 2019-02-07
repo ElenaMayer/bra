@@ -4,6 +4,9 @@ use \yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $products common\models\Product[] */
 $this->title = 'Корзина';
+
+$cart = \Yii::$app->cart;
+$positions = $cart->getPositions();
 ?>
 <!-- Page Title -->
 <section class="page-title text-center">
@@ -31,9 +34,10 @@ $this->title = 'Корзина';
                         </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($products as $product):?>
+                            <?php foreach ($positions as $position):?>
+                            <?php $product = $position->getProduct();?>
                                 <?php if($product->getIsActive()):?>
-                                    <?php $quantity = $product->getQuantity(); ?>
+                                    <?php $quantity = $position->getQuantity(); ?>
                                     <tr class="cart_item <?php if(!$product->getIsInStock()):?>out_of_stock<?php endif;?>">
                                         <td class="product-thumbnail">
                                             <a href="/catalog/<?= $product->category->slug ?>/<?= $product->id ?>">
@@ -43,8 +47,7 @@ $this->title = 'Корзина';
                                         <td class="product-name">
                                             <a href="/catalog/<?= $product->category->slug ?>/<?= $product->id ?>"><?= $product->title ?></a>
                                             <ul>
-                                                <li>Размер: <?= $product->size ?></li>
-                                                <li>Цвет: <?= $product->color ?></li>
+                                                <li>Размер: <?= $position->size ?></li>
                                             </ul>
                                         </td>
                                         <td class="product-price">
@@ -56,10 +59,10 @@ $this->title = 'Корзина';
                                             </div>
                                         </td>
                                         <td class="product-subtotal">
-                                            <span class="amount"><?= $product->getCost() ?><i class="fa fa-ruble"></i></span>
+                                            <span class="amount"><?= $position->getCost() ?><i class="fa fa-ruble"></i></span>
                                         </td>
                                         <td class="product-remove">
-                                            <a data-id="<?= $product->id ?>" id="remove_cart_item" class="remove"  title="Удалить">
+                                            <a data-id="<?= $position->getId() ?>" id="remove_cart_item" class="remove"  title="Удалить">
                                                 <i class="icon icon_close"></i>
                                             </a>
                                         </td>
