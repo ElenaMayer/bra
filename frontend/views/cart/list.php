@@ -51,15 +51,33 @@ $positions = $cart->getPositions();
                                             </ul>
                                         </td>
                                         <td class="product-price">
-                                            <span class="amount"><?= $product->new_price ? $product->new_price : (int)$product->price ?><i class="fa fa-ruble"></i></span>
+                                            <span class="price">
+                                                <?php if($product->new_price):?>
+                                                    <del>
+                                                        <span><?= (int)$product->price?><i class="fa fa-ruble"></i></span>
+                                                    </del>
+                                                    <ins>
+                                                        <span class="ammount"><?= $product->new_price?><i class="fa fa-ruble"></i></span>
+                                                    </ins>
+                                                <?php else:?>
+                                                    <ins>
+                                                        <span class="ammount"><?= (int)$product->price?><i class="fa fa-ruble"></i></span>
+                                                    </ins>
+                                                <?php endif;?>
+                                            </span>
                                         </td>
                                         <td class="product-quantity">
                                             <div class="quantity buttons_added">
-                                                <input type="button" value="-" class="minus" /><input type="number" step="1" min="0" value="<?= $quantity ?>" title="Qty" class="input-text qty text" /><input type="button" value="+" class="plus">
+                                                <form>
+                                                    <input type="button" value="-" class="minus cart-qty" />
+                                                    <input type="number" name="quantity" step="1" min="1" value="<?= $quantity ?>" title="Количество" class="input-text qty text" />
+                                                    <input type="button" value="+" class="plus cart-qty">
+                                                    <input type="hidden" name="id" value="<?=$position->getId()?>">
+                                                </form>
                                             </div>
                                         </td>
                                         <td class="product-subtotal">
-                                            <span class="amount"><?= $position->getCost() ?><i class="fa fa-ruble"></i></span>
+                                            <span class="amount"><span id="amount_val_<?= $position->getId() ?>"><?= $position->getCost() ?></span><i class="fa fa-ruble"></i></span>
                                         </td>
                                         <td class="product-remove">
                                             <a data-id="<?= $position->getId() ?>" id="remove_cart_item" class="remove"  title="Удалить">
@@ -89,38 +107,34 @@ $positions = $cart->getPositions();
         </div> <!-- end row -->
 
         <div class="row">
-            <div class="col-md-6 shipping-calculator-form"></div> <!-- end col shipping calculator -->
-
-            <div class="col-md-4 col-md-offset-2">
-                <div class="cart_totals">
-                    <h2 class="heading relative heading-small uppercase mb-30">Итого</h2>
-
-                    <table class="table shop_table">
-                        <tbody>
-                        <tr class="cart-subtotal">
-                            <th>Подитог</th>
-                            <td>
-                                <span class="amount"><?= $cart->getCost()?><i class="fa fa-ruble"></i></span>
-                            </td>
-                        </tr>
-                        <tr class="shipping">
-                            <th>Доставка</th>
-                            <td>
-                                <span>Free Shipping</span>
-                            </td>
-                        </tr>
-                        <tr class="order-total">
-                            <th><strong>Итого</strong></th>
-                            <td>
-                                <strong><span class="amount"><?= $cart->getCost()?><i class="fa fa-ruble"></i></span></strong>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-
+            <div class="col-md-6 shipping-calculator-form">
+                <h2 class="heading relative heading-small uppercase mb-30">Расчет стоимости доставки</h2>
+                <p class="form-row form-row-wide">
+                    <select name="calc_shipping_country" id="calc_shipping_country" class="country_to_state" rel="calc_shipping_state">
+                        <option>Способ доставки</option>
+                    </select>
+                </p>
+                <div class="row row-20">
+                    <div class="col-sm-6">
+                        <p class="form-row form-row-wide">
+                            <input type="text" class="input-text" value placeholder="Город" name="calc_shipping_state" id="calc_shipping_state">
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="form-row form-row-wide">
+                            <input type="text" class="input-text" value placeholder="Индекс" name="calc_shipping_postcode" id="calc_shipping_postcode">
+                        </p>
+                    </div>
                 </div>
-            </div> <!-- end col cart totals -->
 
+                <p>
+                    <button type="submit" name="calc_shipping" value="1" class="btn btn-md btn-dark mt-20 mb-mdm-40">Считать</button>
+                </p>
+            </div> <!-- end col shipping calculator -->
+
+            <div id="cart-total" class="col-md-4 col-md-offset-2">
+                <?= $this->render('_total'); ?>
+            </div>
         </div> <!-- end row -->
 
 

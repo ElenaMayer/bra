@@ -718,8 +718,9 @@ button.btn.btn-lg {
   font-size: 15px;
   padding: 0 38px;
 
-  span {
+  span, em {
     line-height: 48px;
+    font-style: normal;
   }
 }
 

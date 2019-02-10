@@ -42,10 +42,6 @@ class Image extends \yii\db\ActiveRecord
         return $this->hasOne(Product::className(), ['id' => 'product_id']);
     }
 
-    //'origin': $size = '740x915'
-    //'medium': $size = '415x513';
-    //'small': $size = '150x185';
-
     public function getPath($size = 'origin')
     {
         return Yii::getAlias('@frontend/web/uploads/product/' . $this->product_id . '_' . $this->id . '_' . $size . '.jpg');

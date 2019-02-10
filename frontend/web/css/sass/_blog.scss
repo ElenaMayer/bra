@@ -234,10 +234,18 @@
 .sidebar .color {
   height: 20px;
   width: 20px;
+  display: inline-block;
+  border: solid 1px $border-color;
+  margin-bottom: -5px;
 
-  &.gray {
-    background-color: gray;
+  &:before {
+    content: " ";
   }
+}
+
+.sidebar .color-title {
+  display: inline-block;
+  padding-left: 10px;
 }
 
 .square {
@@ -252,16 +260,54 @@
   display: inline-block;
 
   &.active {
-    border: solid 3px $light-grey;
+    border: solid 3px $main-color;
   }
 }
 
-.color.black {
-  background-color: black;
-}
+.color {
+  &.white {
+    background-color: white;
+  }
 
-.color.beige {
-  background-color: beige;
+  &.beige {
+    background-color: beige;
+  }
+
+  &.red {
+    background-color: red;
+  }
+
+  &.pink {
+    background-color: deeppink;
+  }
+
+  &.lightblue {
+    background-color: deepskyblue;
+  }
+
+  &.blue {
+    background-color: blue;
+  }
+
+  &.green {
+    background-color: green;
+  }
+
+  &.black {
+    background-color: black;
+  }
+
+  &.gray {
+    background-color: gray;
+  }
+
+  &.yellow {
+    background-color: yellow;
+  }
+
+  &.orange {
+    background-color: orange;
+  }
 }
 
 .sidebar .widget:first-child {
@@ -349,7 +395,7 @@
   }
 
   &.w-thumbs ul > li {
-    padding: 20px 0; 
+    padding: 20px 0;
   }
 
   .post-small img {
@@ -510,7 +556,7 @@
 
   .entry-title {
     font-size: 15px;
-    line-height: 1.5; 
+    line-height: 1.5;
   }
 
   .entry {

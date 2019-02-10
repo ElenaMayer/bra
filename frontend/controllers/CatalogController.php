@@ -20,19 +20,28 @@ class CatalogController extends \yii\web\Controller
         }
     }
 
-    public function actionList($categorySlug)
-    {
-        $get = Yii::$app->request->get();
-        if (!empty($get) && isset($get['urlParams'])){
-            $this->redirect($get['urlParams']);
-        }
-
-        /** @var Category $category */
-        $category = null;
+    public function actionCatalog($categorySlug) {
 
         $categories = Category::find()->indexBy('id')->orderBy('id')->all();
 
         $productsQuery = Product::find()->where(['is_active' => 1]);
+        return $this->listCatalog($categorySlug, $categories, $productsQuery);
+    }
+
+    public function actionSale($categorySlug){
+        $categories = Category::find()->indexBy('id')->orderBy('id')->all();
+
+        $productsQuery = Product::find()->where(['is_active' => 1])->andWhere(['not', ['new_price' => null]]);
+        return $this->listCatalog($categorySlug, $categories, $productsQuery);
+    }
+
+    public function listCatalog($categorySlug, $categories, $productsQuery){
+        /** @var Category $category */
+        $category = null;
+        $get = Yii::$app->request->get();
+        if (!empty($get) && isset($get['urlParams'])){
+            $this->redirect($get['urlParams']);
+        }
 
         $this->prepareFilter($productsQuery);
         if ($categorySlug !== null) {
@@ -64,7 +73,7 @@ class CatalogController extends \yii\web\Controller
     private function prepareFilter(&$query){
         if($get = Yii::$app->request->get()){
             if(isset($get['color']) && $get['color'] != 'all'){
-                $query->andFilterWhere(['like', 'color', $get['color']]);
+                $query->andWhere(['color' => $get['color']]);
             }
             if(isset($get['size']) && $get['size'] != 'all'){
                 $query->andFilterWhere(['like', 'size', $get['size']]);
@@ -106,42 +115,6 @@ class CatalogController extends \yii\web\Controller
         } else {
             return $this->redirect('/catalog/list');
         }
-    }
-
-    public function actionSale()
-    {
-        $get = Yii::$app->request->get();
-        if (!empty($get) && isset($get['urlParams'])){
-            $this->redirect($get['urlParams']);
-        }
-
-        $productsQuery = Product::find()
-            ->where(['is_active' => 1, 'is_in_stock' => 1])
-            ->andWhere(['>', 'new_price', 0])
-            ->andWhere(['>', 'count', 0]);
-
-        $this->prepareFilter($productsQuery);
-
-        $productsDataProvider = new ActiveDataProvider([
-            'query' => $productsQuery,
-            'pagination' => [
-                'pageSize' => isset($get['limit'])? $get['limit']: Yii::$app->params['catalogPageSize'],
-            ],
-        ]);
-
-        $maxSale = Product::find()
-            ->where(['is_active' => 1, 'is_in_stock' => 1])
-            ->andWhere(['>', 'new_price', 0])
-            ->andWhere(['>', 'count', 0])
-            ->max('(price - new_price) * 100 / price');
-
-        return $this->render('sale', [
-            'maxSale' => round($maxSale),
-            'models' => $productsDataProvider->getModels(),
-            'pagination' => $productsDataProvider->getPagination(),
-            'pageCount' => $productsDataProvider->getCount(),
-            'noveltyProducts' => Product::getNovelties(),
-        ]);
     }
 
     /**

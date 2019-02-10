@@ -90,8 +90,7 @@
 
   & > a {
     display: table-cell;
-    vertical-align: middle;
-    height: 118px;
+    height: 100px;
   }
 
   &.shrink > a {
@@ -143,7 +142,6 @@
     font-size: 12px;
     padding: 0 17px;
     line-height: 45px;
-
     &:hover {
       color: #000;
     }
@@ -151,6 +149,13 @@
 
   & > .active > a {
     color: $main-color;
+  }
+
+  .dropdown.sale a,
+  .dropdown.sale a:hover,
+  .dropdown.sale .dropdown-menu a,
+  .dropdown.sale .dropdown-menu a:hover {
+    color: #ff4646;
   }
 
   & > li:last-child > a {
@@ -469,7 +474,7 @@
   left: auto;
   right: -15px;
   background-color: #fff;
-  padding: 30px;
+  padding: 20px;
   line-height: 1;
   border: 1px solid $border-color;
   text-align: left; 
@@ -540,7 +545,7 @@
 
   span:first-child {
     display: block;
-    padding-bottom: 3px;
+    padding-bottom: 5px;
   }
 }
 
@@ -557,6 +562,7 @@
     line-height: 20px;
     text-align: center;
     display: block;
+    cursor: pointer;
     color: $heading-color;
   }
 

@@ -18,10 +18,10 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title . ' - ' . Yii::$app->params['domain']) ?></title>
-    <?php $this->registerLinkTag(['rel' => 'shortcut icon', 'href' => '/img/favicon.ico']); ?>
-    <?php $this->registerLinkTag(['rel' => 'apple-touch-icon', 'href' => '/img/apple-touch-icon.png']); ?>
-    <?php $this->registerLinkTag(['rel' => 'apple-touch-icon', 'href' => '/img/apple-touch-icon-72x72.png', 'sizes' => '72x72']); ?>
-    <?php $this->registerLinkTag(['rel' => 'apple-touch-icon', 'href' => '/img/apple-touch-icon-114x114.png', 'sizes' => '114x114']); ?>
+    <?php $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/img/favicon-16x16.png', 'sizes' => '16x16']); ?>
+    <?php $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/img/favicon-32x32.png', 'sizes' => '32x32']); ?>
+    <?php $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/img/favicon-72x72.png', 'sizes' => '72x72']); ?>
+    <?php $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/img/favicon-114x114.png', 'sizes' => '114x114']); ?>
     <?php $this->head() ?>
 </head>
 <body>
@@ -76,16 +76,8 @@ AppAsset::register($this);
                                     <span class="icon-bar"></span>
                                 </button>
                                 <!-- Mobile cart -->
-                                <div class="nav-cart mobile-cart hidden-lg hidden-md">
-                                    <div class="nav-cart-outer">
-                                        <div class="nav-cart-inner">
-                                            <?php
-                                            $cart = Yii::$app->cart;
-                                            $itemsInCart = $cart->getCount();
-                                            ?>
-                                            <a href="/cart" class="nav-cart-icon"><?=$itemsInCart ? " $itemsInCart" : ''?></a>
-                                        </div>
-                                    </div>
+                                <div  id="header-mobile-cart" class="nav-cart mobile-cart hidden-lg hidden-md">
+                                    <?= $this->render('_mobile_cart');?>
                                 </div>
                             </div> <!-- end navbar-header -->
 
@@ -94,12 +86,12 @@ AppAsset::register($this);
 
                                     <!-- Search -->
                                     <div class="nav-search hidden-sm hidden-xs">
-                                        <form method="get">
-                                            <input type="search" class="form-control" placeholder="Поиск">
-                                            <button type="submit" class="search-button">
-                                                <i class="icon icon_search"></i>
-                                            </button>
-                                        </form>
+<!--                                        <form method="get">-->
+<!--                                            <input type="search" class="form-control" placeholder="Поиск">-->
+<!--                                            <button type="submit" class="search-button">-->
+<!--                                                <i class="icon icon_search"></i>-->
+<!--                                            </button>-->
+<!--                                        </form>-->
                                     </div>
 
                                     <!-- Logo -->
@@ -110,66 +102,10 @@ AppAsset::register($this);
                                             </a>
                                         </div>
                                     </div>
-
                                     <!-- Cart -->
-                                    <div class="nav-cart-wrap hidden-sm hidden-xs">
-                                        <div class="nav-cart right">
-                                            <div class="nav-cart-outer">
-                                                <div class="nav-cart-inner">
-                                                    <a href="/cart" class="nav-cart-icon"><?=$itemsInCart ? " $itemsInCart" : ''?></a>
-                                                </div>
-                                            </div>
-                                            <div class="nav-cart-container">
-                                                <div class="nav-cart-items">
-                                                    <?php
-                                                    $positions = $cart->getPositions();
-
-//                                                    print_r(array_shift($positions));die();
-                                                    ?>
-                                                    <?php foreach ($cart->getPositions() as $positions):?>
-                                                    <?php $product = $positions->getProduct()?>
-                                                        <div class="nav-cart-item clearfix">
-                                                        <div class="nav-cart-img">
-                                                            <a href="/catalog/<?= $product->category->slug ?>/<?= $product->id ?>">
-                                                                <?= Html::img($product->images[0]->getUrl('small'), ['alt'=>$product->title]);?>
-                                                            </a>
-                                                        </div>
-                                                        <div class="nav-cart-title">
-                                                            <a href="/catalog/<?= $product->category->slug ?>/<?= $product->id ?>">
-                                                                <?= $product->title ?>
-                                                            </a>
-                                                            <div class="nav-cart-price">
-                                                                <span>Размер: <?= $positions->size ?></span>
-                                                                <span><?= $positions->getQuantity() ?> x <?= (int)$product->price ?><i class="fa fa-ruble"></i></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="nav-cart-remove">
-                                                            <a data-id="<?= $positions->getId() ?>" id="remove_cart_item" class="remove"><i class="icon icon_close"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <?php endforeach;?>
-
-                                                </div> <!-- end cart items -->
-
-                                                <div class="nav-cart-summary">
-                                                    <span>Подитог</span>
-                                                    <span class="total-price"><?= $cart->getCost() ?><i class="fa fa-ruble"></i></span>
-                                                </div>
-
-                                                <div class="nav-cart-actions mt-20">
-                                                    <a href="/cart" class="btn btn-md btn-dark"><span>В корзину</span></a>
-                                                    <a href="/cart/order" class="btn btn-md btn-color mt-10"><span>Оформить заказ</span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="menu-cart-amount right">
-                                            <span>
-                                                 Корзина /
-                                                <a href="/cart/list"><?= $cart->getCost() ?><i class="fa fa-ruble"></i></a>
-                                            </span>
-                                        </div>
+                                    <div id="header-cart" class="nav-cart-wrap hidden-sm hidden-xs">
+                                        <?= $this->render('_cart');?>
                                     </div> <!-- end cart -->
-
                                 </div>
                             </div> <!-- end header wrap -->
 
@@ -178,14 +114,14 @@ AppAsset::register($this);
 
                                     <ul class="nav navbar-nav">
 
-                                        <li id="mobile-search" class="hidden-lg hidden-md">
-                                            <form method="get" class="mobile-search relative">
-                                                <input type="search" class="form-control" placeholder="Поиск...">
-                                                <button type="submit" class="search-button">
-                                                    <i class="icon icon_search"></i>
-                                                </button>
-                                            </form>
-                                        </li>
+<!--                                        <li id="mobile-search" class="hidden-lg hidden-md">-->
+<!--                                            <form method="get" class="mobile-search relative">-->
+<!--                                                <input type="search" class="form-control" placeholder="Поиск...">-->
+<!--                                                <button type="submit" class="search-button">-->
+<!--                                                    <i class="icon icon_search"></i>-->
+<!--                                                </button>-->
+<!--                                            </form>-->
+<!--                                        </li>-->
                                         <?php $categories = Category::find()->where(['parent_id' => null])->all(); ?>
                                         <?php foreach ($categories as $category):?>
                                             <li class="dropdown">
@@ -201,7 +137,14 @@ AppAsset::register($this);
                                                 <?php endif;?>
                                             </li>
                                         <?php endforeach;?>
-                                        <li><a class="red" href="/catalog/sale">Скидки</a></li>
+                                        <li class="dropdown sale">
+                                            <a href="/sale/<?= Category::find()->one()->slug?>">Скидки</a>
+                                            <ul class="dropdown-menu">
+                                                <?php foreach ($categories as $category):?>
+                                                    <li><a href="/sale/<?= $category->slug ?>"><?= $category->title ?></a></li>
+                                                <?php endforeach;?>
+                                            </ul>
+                                        </li>
 
                                         <li class="mobile-links">
                                             <ul>

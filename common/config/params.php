@@ -1,18 +1,22 @@
 <?php
 return [
-    'productOriginalImageWidth'=> 740,
-    'productOriginalImageHeight'=> 915,
+    'productOriginalImageWidth'=> 1000,
+    'productOriginalImageHeight'=> 1000,
     'productMediumImageWidth'=> 415,
-    'productMediumImageHeight'=> 513,
+    'productMediumImageHeight'=> 415,
     'productSmallImageWidth'=> 150,
-    'productSmallImageHeight'=> 185,
+    'productSmallImageHeight'=> 150,
     'colors' => [
         'white' => 'Белый',
-        'milky' => 'Молочный',
         'beige' => 'Бежевый',
+        'gray' => 'Серый',
         'black' => 'Черный',
         'red' => 'Красный',
         'blue' => 'Синий',
         'pink' => 'Розовый',
+        'green' => 'Зеленый',
+        'lightblue' => 'Голубой',
+        'yellow' => 'Желтый',
+        'orange' => 'Оранжевый',
     ],
 ];

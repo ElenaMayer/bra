@@ -26,7 +26,7 @@ $(document).ready(function() {
                 size: size,
             },
         }).done(function( data ) {
-            add_to_cart_animation(button, data.count);
+            add_to_cart_animation(button, data);
         });
 
     });
@@ -114,16 +114,44 @@ $(document).ready(function() {
 //             $('tr.shipping > td > p').html('Оплата при получении. Уточнить стоимость можно <a target="_blank" class="text-primary" href="https://nrg-tk.ru/client/calculator/">ТУТ</a>');
 //         }
 //     });
-//
-//
-//     //Change cart qty
-//     $(document.body).on('change', 'input.cart-qty' ,function(){
-//         updateCartQty($(this).parents('form'));
-//     });
-//     $(document.body).on('keyup', 'input.cart-qty' ,function(){
-//         updateCartQty($(this).parents('form'));
-//     });
-//
+
+    //Change cart qty
+    $(document.body).on('click', 'input.cart-qty' ,function(){
+    	qty = $(this).parent().find('.qty');
+    	if($(this).hasClass('plus')){
+            qty.val(parseInt(qty.val()) + 1);
+            updateCartQty($(this));
+		} else if($(this).hasClass('minus')){
+			if(qty.val() > 1){
+                qty.val(parseInt(qty.val()) - 1);
+                updateCartQty($(this));
+			}
+		}
+    });
+
+    $(document.body).on('click', '#header-remove_cart_item' ,function(){
+        e = $(this).parents('.nav-cart-item');
+        $.ajax({
+            method: 'get',
+            url: '/cart/remove',
+            dataType: 'json',
+            data: {
+                id: $(this).data('id'),
+				action: 'main',
+            },
+        }).done(function( data ) {
+            if(data.cartCount > 0){
+				e.hide('slow');
+				$('.total-price span').text(data.cartTotal);
+                $('.menu-cart-amount span').text(data.cartTotal);
+                $('.nav-cart-icon').text(data.cartCount);
+			} else {
+                $("#header-cart").html(data.cart);
+			}
+            $("#header-mobile-cart").html(data.mobileCart);
+        });
+    });
+
     $(document.body).on('click', '#remove_cart_item' ,function(){
         e = $(this).parents('.cart_item');
         $.ajax({
@@ -132,56 +160,16 @@ $(document).ready(function() {
             dataType: 'json',
             data: {
                 id: $(this).data('id'),
+                action: 'cart',
             },
         }).done(function( data ) {
             e.hide('slow');
-            $('.has-cart').each(function(){
-                $(this).children('em').show().text(data.count);
-            });
-            // orderAvailableCheck(data);
-            $("#data_total").html(data.data);
+            $("#header-cart").html(data.cart);
+            $("#header-mobile-cart").html(data.mobileCart);
+            $("#cart-total").html(data.cartTotal);
         });
     });
-//
-//     $(document.body).on('click', '#remove_order_item' ,function(){
-//         e = $(this).parents('li');
-//         $.ajax({
-//             method: 'get',
-//             url: '/cart/remove',
-//             dataType: 'json',
-//             data: {
-//                 id: $(this).data('id'),
-//             },
-//         }).done(function( data ) {
-//             e.hide('slow');
-//             $('.has-cart').each(function(){
-//                 $(this).children('em').show().text(data.count);
-//             });
-//             $("#data_total").html(data.data);
-//             shipping = parseInt($('#amount_shipping').text());
-//             if(shipping) {
-//                 $('#amount_total').text(data.total + shipping);
-//             } else {
-//                 $('#amount_total').text(data.total);
-//             }
-//             orderAvailableCheck(data);
-//         });
-//     });
-//
-//     $(document.body).on('click', '#remove_wl_item' ,function(){
-//         e = $(this).parents('tr');
-//         $.ajax({
-//             method: 'get',
-//             url: '/wishlist/remove',
-//             dataType: 'json',
-//             data: {
-//                 id: $(this).data('id'),
-//             },
-//         }).done(function( data ) {
-//             e.hide('slow');
-//         });
-//     });
-//
+
 //     $(document.body).on('change', 'input.product-qty' ,function(){
 //         checkProductCount($(this).parents('form'));
 //     });
@@ -586,15 +574,14 @@ $(document).ready(function() {
 //     });
 });
 
-function add_to_cart_animation(button, count){
+function add_to_cart_animation(button, data){
         button.addClass('is-added').find('path').eq(0).animate({
             //draw the check icon
             'stroke-dashoffset':0
         }, 300, function(){
             setTimeout(function(){
-                $('.has-cart').each(function(){
-                    $(this).children('em').show().text(count);
-                });
+            	$("#header-cart").html(data.cart);
+            	$("#header-mobile-cart").html(data.mobileCart);
                 button.removeClass('is-added').find('em').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
                     //wait for the end of the transition to reset the check icon
                     button.find('path').eq(0).css('stroke-dashoffset', '19.79');
@@ -830,32 +817,21 @@ function aweProductRender(thumbHorizontal) {
     sThumb.params.control = sMain;
 }
 
-function updateCartQty(form) {
-	var e = form.find('input.cart-qty');
-	var count = form.find("input[name='count']").val();
-	if(!e.hasClass('disable') && e.val() && e.val() > 0){
-		if(parseInt(e.val()) > count){
-            form.find("input[name='quantity']").val(count);
-            e.parents('.product-quantity').find('.count-error').show();
-		} else {
-            e.parents('.product-quantity').find('.count-error').hide();
-		}
-        //e.addClass('disable').prop('readonly', true);
-        $.ajax({
-           method: 'get',
-           url: '/cart/update_cart_qty',
-           dataType: 'json',
-           data: $(form).serialize(),
-        }).done(function( data ) {
-			$('#amount_val_'+data.id).text(data.productTotal);
-            e.val(data.count);
-            orderAvailableCheck(data);
-            $("#data_total").html(data.data);
-            // e.removeClass('disable').prop('readonly', false);
-        }).fail(function( data ) {
-            e.removeClass('disable').prop('readonly', false);
-        });
-	}
+function updateCartQty(b) {
+	var form = b.parents('form');
+	var e = form.find('input.qty');
+	var id = form.find('input[name=id]').val();
+	$.ajax({
+	   method: 'get',
+	   url: '/cart/update_cart_qty',
+	   dataType: 'json',
+	   data: $(form).serialize(),
+	}).done(function( data ) {
+		$('#amount_val_'+id).text(data.productTotal);
+        $("#header-cart").html(data.cart);
+        $("#header-mobile-cart").html(data.mobileCart);
+        $("#cart-total").html(data.cartTotal);
+	});
 
 }
 
@@ -884,14 +860,4 @@ function updateWishlist(e) {
         else
             p.addClass('active');
     });
-}
-
-function orderAvailableCheck(data) {
-    if(data.orderAvailable){
-        $('.min_order_sum').hide();
-        $('.checkout-button').removeClass('disabled');
-    } else {
-        $('.min_order_sum').show();
-        $('.checkout-button').addClass('disabled');
-    }
 }

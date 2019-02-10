@@ -17,10 +17,9 @@ $this->title = Html::encode($title);
 <section class="section-wrap single-product">
     <div class="container relative">
         <div class="row">
-            <div class="col-sm-6 col-xs-12 mb-60">
-                <div class="flickity flickity-slider-wrap mfp-hover" id="gallery-main"><?php
-                    $images = $product->images;
-                    ?>
+            <div class="col-sm-7 col-xs-12 mb-60">
+                <div class="flickity flickity-slider-wrap mfp-hover" id="gallery-main">
+                    <?php $images = $product->images;?>
                     <?php foreach($images as $image):?>
                         <div class="gallery-cell">
                             <a href="<?=$image->getUrl('origin')?>" class="lightbox-img">
@@ -40,8 +39,13 @@ $this->title = Html::encode($title);
                 </div> <!-- end gallery thumbs -->
             </div> <!-- end col img slider -->
 
-            <div class="col-sm-6 col-xs-12 product-description-wrap">
+            <div class="col-sm-5 col-xs-12 product-description-wrap">
                 <h1 class="product-title"><?= $product->title?></h1>
+                <div class="product-status">
+                    <?php if($product->getIsInStock()):?><span class="green">В наличии </span><?php else:?><span class="red">Отсутствует</span><?php endif;?>
+                    <span>&nbsp;-&nbsp;</span>
+                    <span>Арт: <?= $product->article?></span>
+                </div>
                 <span class="price">
                     <?php if($product->new_price):?>
                         <del>
@@ -75,8 +79,8 @@ $this->title = Html::encode($title);
                     </div>
                     <div class="row row-20">
                         <div class="col-sm-6">
+                            <label>Размер</label>
                             <select name="p_size" id="p_size" class="size-options">
-                                <option value>Размер</option>
                                 <?php foreach($product->getSizesArray() as $size):?>
                                     <option value="<?=$size?>"><?=$size?></option>
                                 <?php endforeach;?>
@@ -85,9 +89,12 @@ $this->title = Html::encode($title);
                     </div>
                 </div>
                 <ul class="product-actions clearfix">
-                    <li>
-                        <button type="button" class="add-to-cart single_add_to_cart_button btn btn-color btn-lg add-to-cart left" data-id="<?= $product->id ?>">
-                            <span>В корзину</span>
+                    <li class="cd-customization">
+                        <button data-id ="<?=$product->id?>" type="button" class="add-to-cart single_add_to_cart_button btn btn-color btn-lg add-to-cart left">
+                            <em>В корзину</em>
+                            <svg x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32">
+                                <path stroke-dasharray="19.79 19.79" stroke-dashoffset="19.79" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"/>
+                            </svg>
                         </button>
                     </li>
                     <li>
@@ -109,9 +116,7 @@ $this->title = Html::encode($title);
         </div>
 
         <div class="row row-10">
-
             <div id="owl-related-products" class="owl-carousel owl-theme nopadding">
-
                 <?php foreach (Product::getNovelties(8) as $product):?>
                     <div class="product-item">
                         <div class="product-img">

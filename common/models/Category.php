@@ -120,7 +120,7 @@ class Category extends \yii\db\ActiveRecord
                 $menuItems[$category->id] = [
                     'active' => $activeId === $category->id,
                     'label' => $category->title,
-                    'url' => ['/catalog/'.$category->slug],
+                    'url' => ['/'.Yii::$app->controller->action->id.'/'.$category->slug],
                 ];
                 if($activeId === $category->id || (isset($activeParentId) && $activeParentId === $category->id))
                     $menuItems[$category->id]['items'] = Category::getMenuItems($activeId, $category->id);

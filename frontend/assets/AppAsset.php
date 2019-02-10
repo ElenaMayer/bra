@@ -23,7 +23,7 @@ class AppAsset extends AssetBundle
         'css/magnific-popup.css',
         'css/font-icons.css',
         'css/sliders.css',
-        'css/style.css?27',
+        'css/style.css?45',
         'css/animate.min.css',
 //        'css/site.css',
     ];
@@ -32,7 +32,7 @@ class AppAsset extends AssetBundle
         'js/bootstrap.min.js',
         'js/plugins.js',
         'js/scripts.js',
-        'js/custom.js?2',
+        'js/custom.js?6',
     ];
     public $depends = [
         'yii\web\YiiAsset',

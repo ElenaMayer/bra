@@ -36,15 +36,15 @@ use common\models\StaticFunction;
         <h3 class="widget-title uppercase">Цвет</h3>
         <?php  $colors = Product::getAllColorsArray($category->id)?>
         <ul class="list-no-dividers">
-            <li class="<?php if(!Yii::$app->request->get('color') || Yii::$app->request->get('color') == 'all') echo 'active'?>">
+            <li <?php if(!Yii::$app->request->get('color') || Yii::$app->request->get('color') == 'all'):?>class="active"<?php endif;?>>
                 <a href="<?= StaticFunction::addGetParamToCurrentUrl('color', 'all')?>" title="Все">Все</a>
             </li>
-        <?php foreach ($colors as $color):?>
-                <li class=" <?php if(Yii::$app->request->get('color') && Yii::$app->request->get('color') == $color) echo 'active'?>">
-                    <a href="<?= StaticFunction::addGetParamToCurrentUrl('color', $color)?>" title="<?= $color ?>">
-                        <?= $color?>
-                    </a>
-                </li>
+        <?php foreach ($colors as $key => $color):?>
+            <li <?php if(Yii::$app->request->get('color') && Yii::$app->request->get('color') == $key):?>class="active"<?php endif;?>>
+                <a href="<?= StaticFunction::addGetParamToCurrentUrl('color', $key)?>" title="<?= $color ?>">
+                    <div class="color <?= $key?>"></div><div class="color-title"><?= $color?></div>
+                </a>
+            </li>
         <?php endforeach;?>
         </ul>
     </div>

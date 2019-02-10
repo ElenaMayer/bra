@@ -33,71 +33,72 @@ class CartController extends \yii\web\Controller
             $cart->put($position, $quantity);
             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             return [
-                'count' => $cart->getCount(),
+                'cart' => $this->renderPartial('@frontend/views/layouts/_cart'),
+                'mobileCart' => $this->renderPartial('@frontend/views/layouts/_mobile_cart'),
             ];
         }
     }
 
-//    public function actionUpdate_cart_qty()
-//    {
-//        $get = Yii::$app->request->get();
-//        if($get && isset($get['id']) && isset($get['quantity']) && $get['quantity'] > 0) {
+    public function actionUpdate_cart_qty()
+    {
+        $get = Yii::$app->request->get();
+        if($get && isset($get['id']) && isset($get['quantity']) && $get['quantity'] > 0) {
+
 //            $product = Product::findOne($get['id']);
 //            if($product->count > $get['quantity']){
 //                $count = $get['quantity'];
 //            } else {
 //                $count = $product->count;
 //            }
-//            $this->updateQty($get['id'], $count);
-//            $cart = \Yii::$app->cart;
-//
-//            $product = $cart->getPositionById($get['id']);
-//            $total = $cart->getCost();
-//            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-//            return [
-//                'id' => $get['id'],
-//                'count' => $count,
-//                'productTotal' => $product->getCost(),
-//                'data' => $this->renderPartial('_total', [
-//                    'subtotal' => $cart->getCost(),
-//                    'total' => $cart->getCost(true),
-//                ])
-//            ];
-//        } else {
-//            return false;
-//        }
-//
-//    }
+            $this->updateQty($get['id'], $get['quantity']);
+            $cart = \Yii::$app->cart;
+            $product = $cart->getPositionById($get['id']);
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return [
+                'productTotal' => $product->getCost(),
+                'cart' => $this->renderPartial('@frontend/views/layouts/_cart'),
+                'mobileCart' => $this->renderPartial('@frontend/views/layouts/_mobile_cart'),
+                'cartTotal' => $this->renderPartial('_total'),
+            ];
+        } else {
+            return false;
+        }
+
+    }
 
     public function actionCart()
     {
         return $this->render('list');
     }
 
-    public function actionRemove($id)
+    public function actionRemove($id, $action)
     {
         \Yii::$app->cart->removeById($id);
-//        $cart = \Yii::$app->cart;
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return [
-//            'data' => $this->renderPartial('_total', [
-//                'subtotal' => $cart->getCost(),
-//                'total' => $cart->getCost(true),
-//            ])
-        ];
-    }
+        if($action == 'main'){
+            $cart = \Yii::$app->cart;
+            return [
+                'cartCount' => $cart->getCount(),
+                'cartTotal' => $cart->getCost(),
+                'cart' => $this->renderPartial('@frontend/views/layouts/_cart'),
+                'mobileCart' => $this->renderPartial('@frontend/views/layouts/_mobile_cart'),
+            ];
+        } elseif($action == 'cart'){
+            return [
+                'cart' => $this->renderPartial('@frontend/views/layouts/_cart'),
+                'mobileCart' => $this->renderPartial('@frontend/views/layouts/_mobile_cart'),
+                'cartTotal' => $this->renderPartial('_total'),
+            ];
+        }
 
-    public function actionUpdate($id, $quantity)
-    {
-        $this->updateQty($id, $quantity);
-        $this->redirect(['cart/list']);
     }
 
     public function updateQty($id, $quantity)
     {
-        $product = Product::findOne($id);
-        if ($product) {
-            \Yii::$app->cart->update($product, $quantity);
+        $cart = \Yii::$app->cart;
+        $position = $cart->getPositionById($id);
+        if ($position) {
+            $cart->update($position, $quantity);
         }
     }
 
