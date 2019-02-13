@@ -36,11 +36,11 @@ $this->title = 'Оформление заказа';
                         <div>
                             <h2 class="heading uppercase mb-30">Адрес</h2>
 
-                                <?= $form->field($order, 'fio')->textInput(['placeholder' => 'Фимилия Имя Отчество', 'class' => 'input-text']); ?>
+                                <?= $form->field($order, 'fio')->textInput(['placeholder' => 'Фамилия Имя Отчество', 'class' => 'input-text']); ?>
                                 <?= $form->field($order, 'phone')->textInput(['placeholder' => '+7777-777-7777', 'class' => 'input-text']); ?>
                                 <?= $form->field($order, 'email')->textInput(['placeholder' => 'example@mail.ru', 'class' => 'input-text']); ?>
 
-                            <?php echo $form->field($order, 'shipping_method')->dropDownList(Order::getShippingMethods(), ['class' => 'country_to_state country_select']); ?>
+                            <?= $form->field($order, 'shipping_method')->dropDownList(Order::getShippingMethods(), ['class' => 'country_to_state country_select']); ?>
 
                             <div class="shipping_methods">
                                 <div class="rp" style="display: none">
@@ -73,7 +73,7 @@ $this->title = 'Оформление заказа';
                                 <?php $product = $position->getProduct();?>
                                     <?php if($product->getIsActive() && $product->getIsInStock()):?>
                                         <tr>
-                                            <th><?= $product->title?><span class="count"> x <?= $position->getQuantity()?></span></th>
+                                            <th><?= $product->title?> <?= $position->size?><span class="count"> x <?= $position->getQuantity()?></span></th>
                                             <td>
                                                 <span class="amount"><?= (int)$position->getCost()?><i class="fa fa-ruble"></i></span>
                                             </td>
@@ -89,7 +89,7 @@ $this->title = 'Оформление заказа';
                                 <tr class="shipping">
                                     <th>Доставка</th>
                                     <td>
-                                        <span>Free Shipping</span>
+                                        <span>Бесплатно</span>
                                     </td>
                                 </tr>
                                 <tr class="order-total">
@@ -105,10 +105,10 @@ $this->title = 'Оформление заказа';
                                 <h2 class="heading uppercase mb-30">Способ оплаты</h2>
                                 <ul class="payment_methods methods">
                                     <?php foreach (Order::getPaymentMethods() as $key=>$value):?>
-                                    <li class="payment_method_bacs">
-                                        <input id="order-payment_method" type="radio" class="input-radio" name="Order[payment_method]" value="<?=$key?>">
-                                        <label for="order-payment_method"><?=$value?></label>
-                                    </li>
+                                        <li class="payment_method_<?=$key?>">
+                                            <input id="payment_method_<?=$key?>" type="radio" class="input-radio" name="Order[payment_method]" value="<?=$key?>" checked>
+                                            <label for="payment_method_<?=$key?>"><?=$value?></label>
+                                        </li>
                                     <?php endforeach;?>
                                 </ul>
                                 <div class="form-row place-order">

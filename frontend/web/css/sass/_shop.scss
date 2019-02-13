@@ -1100,6 +1100,15 @@ abbr.required {
   padding: 40px 30px;
 }
 
+.ecommerce .input-text {
+  margin-bottom: 0;
+}
+
+.ecommerce .required .control-label::after {
+  content: '*';
+  color: #ff4646;
+}
+
 #billing_address_1_field {
   margin-bottom: 10px !important;
 }
