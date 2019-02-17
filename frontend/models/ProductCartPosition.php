@@ -60,6 +60,16 @@ class ProductCartPosition implements CartPositionInterface
         return $this->_quantity;
     }
 
+    public function getActiveQuantity()
+    {
+        $product = $this->getProduct();
+        if($product->getIsInStock()){
+            return $this->_quantity;
+        } else {
+            return 0;
+        }
+    }
+
     public function setQuantity($quantity)
     {
         $this->_quantity = $quantity;

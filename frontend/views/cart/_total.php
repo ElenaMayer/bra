@@ -14,7 +14,7 @@
             <tr class="shipping">
                 <th>Доставка</th>
                 <td>
-                    <span>Free Shipping</span>
+                    <span>В зависимости от способа доставки</span>
                 </td>
             </tr>
             <tr class="order-total">

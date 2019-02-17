@@ -1,5 +1,6 @@
 <?php
 use \yii\helpers\Html;
+use common\models\Order;
 
 /* @var $this yii\web\View */
 /* @var $products common\models\Product[] */
@@ -38,7 +39,7 @@ $positions = $cart->getPositions();
                             <?php $product = $position->getProduct();?>
                                 <?php if($product->getIsActive()):?>
                                     <?php $quantity = $position->getQuantity(); ?>
-                                    <tr class="cart_item <?php if(!$product->getIsInStock()):?>out_of_stock<?php endif;?>">
+                                    <tr class="cart_item <?php if(!$product->getIsInStock()):?>disabled<?php endif;?>">
                                         <td class="product-thumbnail">
                                             <a href="/catalog/<?= $product->category->slug ?>/<?= $product->id ?>">
                                                 <?= Html::img($product->images[0]->getUrl('small'), ['width' => '100', 'height' => '100', 'alt'=>$product->title]);?>
@@ -46,13 +47,17 @@ $positions = $cart->getPositions();
                                         </td>
                                         <td class="product-name">
                                             <a href="/catalog/<?= $product->category->slug ?>/<?= $product->id ?>"><?= $product->title ?></a>
-                                            <ul>
-                                                <li>Размер: <?= $position->size ?></li>
-                                            </ul>
+                                            <?php if($product->getIsInStock()):?>
+                                                <ul>
+                                                    <li>Размер: <?= $position->size ?></li>
+                                                </ul>
+                                            <?php else:?>
+                                                <p>Нет в наличии</p>
+                                            <?php endif;?>
                                         </td>
                                         <td class="product-price">
                                             <span class="price">
-                                                <?php if($product->new_price):?>
+                                                <?php if($product->getIsInStock() && $product->new_price):?>
                                                     <del>
                                                         <span><?= (int)$product->price?><i class="fa fa-ruble"></i></span>
                                                     </del>
@@ -69,10 +74,14 @@ $positions = $cart->getPositions();
                                         <td class="product-quantity">
                                             <div class="quantity buttons_added">
                                                 <form>
-                                                    <input type="button" value="-" class="minus cart-qty" />
-                                                    <input type="number" name="quantity" step="1" min="1" value="<?= $quantity ?>" title="Количество" class="input-text qty text" />
-                                                    <input type="button" value="+" class="plus cart-qty">
-                                                    <input type="hidden" name="id" value="<?=$position->getId()?>">
+                                                    <?php if($product->getIsInStock()):?>
+                                                        <input type="button" value="-" class="minus cart-qty" />
+                                                        <input type="number" name="quantity" step="1" min="1" value="<?= $quantity ?>" title="Количество" class="input-text qty text" />
+                                                        <input type="button" value="+" class="plus cart-qty">
+                                                        <input type="hidden" name="id" value="<?=$position->getId()?>">
+                                                    <?php else:?>
+                                                        <input type="number" name="quantity" value="0" title="Количество" class="input-text qty text" />
+                                                    <?php endif;?>
                                                 </form>
                                             </div>
                                         </td>
@@ -108,28 +117,30 @@ $positions = $cart->getPositions();
 
         <div class="row">
             <div class="col-md-6 shipping-calculator-form">
-                <h2 class="heading relative heading-small uppercase mb-30">Расчет стоимости доставки</h2>
-                <p class="form-row form-row-wide">
-                    <select name="calc_shipping_country" id="calc_shipping_country" class="country_to_state" rel="calc_shipping_state">
-                        <option>Способ доставки</option>
-                    </select>
-                </p>
-                <div class="row row-20">
-                    <div class="col-sm-6">
-                        <p class="form-row form-row-wide">
-                            <input type="text" class="input-text" value placeholder="Город" name="calc_shipping_state" id="calc_shipping_state">
-                        </p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="form-row form-row-wide">
-                            <input type="text" class="input-text" value placeholder="Индекс" name="calc_shipping_postcode" id="calc_shipping_postcode">
-                        </p>
-                    </div>
-                </div>
-
-                <p>
-                    <button type="submit" name="calc_shipping" value="1" class="btn btn-md btn-dark mt-20 mb-mdm-40">Считать</button>
-                </p>
+<!--                <h2 class="heading relative heading-small uppercase mb-30">Расчет стоимости доставки</h2>-->
+<!--                <p class="form-row form-row-wide">-->
+<!--                    <select name="calc_shipping_country" id="calc_shipping_country" class="country_to_state" rel="calc_shipping_state">-->
+<!--                        --><?php //foreach (Order::getShippingMethods() as $key => $method):?>
+<!--                            <option value="--><?//=$key?><!--">--><?//=$method?><!--</option>-->
+<!--                        --><?php //endforeach;?>
+<!--                    </select>-->
+<!--                </p>-->
+<!--                <div class="row row-20 shipping_methods">-->
+<!--                    <div class="col-sm-6">-->
+<!--                        <p class="form-row form-row-wide">-->
+<!--                            <input type="text" class="input-text" value placeholder="Город" name="calc_shipping_state" id="calc_shipping_state">-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-6">-->
+<!--                        <p class="form-row form-row-wide">-->
+<!--                            <input type="text" class="input-text" value placeholder="Индекс" name="calc_shipping_postcode" id="calc_shipping_postcode">-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!---->
+<!--                <p>-->
+<!--                    <button type="submit" name="calc_shipping" value="1" class="btn btn-md btn-dark mt-20 mb-mdm-40">Считать</button>-->
+<!--                </p>-->
             </div> <!-- end col shipping calculator -->
 
             <div id="cart-total" class="col-md-4 col-md-offset-2">

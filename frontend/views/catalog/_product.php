@@ -16,10 +16,10 @@ use yii\helpers\Markdown;
                     <img src="<?=$images[1]->getUrl('medium')?>" alt="<?= $product->title?>" class="back-img">
                 <?php endif;?>
             </a>
-            <?php if(!$product->is_in_stock):?>
+            <?php if(!$product->getIsInStock()):?>
                 <span class="sold-out valign">Нет в наличии</span>
             <?php endif;?>
-            <?php if($product->is_in_stock && $product->new_price):?>
+            <?php if($product->getIsInStock() && $product->new_price):?>
                 <div class="product-label">
                     <span class="sale">sale</span>
                 </div>
@@ -30,7 +30,7 @@ use yii\helpers\Markdown;
                 <a class="product-title" href="/catalog/<?= $product->category->slug?>/<?= $product->id?>" title="<?= $product->title?>"><?= $product->title?></a>
             </h3>
             <span class="price">
-                <?php if($product->new_price):?>
+                <?php if($product->getIsInStock() && $product->new_price):?>
                     <del>
                         <span><?= (int)$product->price?><i class="fa fa-ruble"></i></span>
                     </del>

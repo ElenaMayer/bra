@@ -1,8 +1,25 @@
+<?php
+
+use frontend\assets\ContactAsset;
+
+ContactAsset::register($this);
+
+/* @var $this yii\web\View */
+$this->title = 'Контакты';
+$this->params['breadcrumbs'][] = $this->title;
+?>
 <!-- Google Map -->
 <div class="container mt-60">
-    <div id="google-map" class="gmap" data-address="V Tytana St, Manila, Philippines"></div>
+    <div id="googleMap" class="gmap"
+         data-icon="/img/map_pin.png"
+         data-lat-r="<?= Yii::$app->params['googleLatR'] ?>"
+         data-lon-r="<?= Yii::$app->params['googleLonR'] ?>"
+         data-lat-l="<?= Yii::$app->params['googleLatL'] ?>"
+         data-lon-l="<?= Yii::$app->params['googleLonL'] ?>"
+         data-lat-c="<?= Yii::$app->params['googleLatC'] ?>"
+         data-lon-c="<?= Yii::$app->params['googleLonC'] ?>">
 
-<!--    <div id="googleMap" data-icon="images/icon_location.png" data-lat="--><?//= Yii::$app->params['googleLat'] ?><!--" data-lon="--><?//= Yii::$app->params['googleLon'] ?><!--"></div>-->
+    </div>
 </div>
 
 <!-- Contact -->

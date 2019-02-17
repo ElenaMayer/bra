@@ -74,35 +74,53 @@ $(document).ready(function() {
 //     });
 //
 //     // aweProductRender(true);
-//
-//     $(document.body).on('change', '#order-shipping_method' ,function(){
-//         $('.shipping_methods').children().each(function(){
-//         	$(this).hide();
-//         	$('#order-zip').val(null);
-//             $('#amount_total').text($('#amount_subtotal').text());
-// 		});
-//         if($(this).children("option:selected").val() == 'self'){
-//             $('#order-payment_method').append($('<option>', {
-//                 value: 'cash',
-//                 text: 'Наличными при получении'
-//             }));
-//             $('tr.shipping > td > p').html('0<i class="fa fa-ruble"></i>');
-//         } else {
-//             $('#order-payment_method').children("option[value='cash']").remove();
-//
-//             if($(this).children("option:selected").val() == 'rcr'){
-//                 $('.shipping_methods .rcr').show();
-//                 $('tr.shipping > td > p').html('0<i class="fa fa-ruble"></i>');
-//             } else if($(this).children("option:selected").val() == 'rp'){
-//                 $('.shipping_methods .rp').show();
-//                 $('tr.shipping > td > p').html('Для расчета стоимости введите индекс');
-//             } else if($(this).children("option:selected").val() == 'tk'){
-//                 $('.shipping_methods .tk').show();
-//                 $('tr.shipping > td > p').html('Уточнить стоимость можно у нашего менеджера');
-//             }
-// 		}
-//     });
-//
+
+    $(document.body).on('change', '#order-shipping_method' ,function(){
+        $('.shipping_methods').children().each(function(){
+        	$(this).hide();
+        	$('#order-zip').val(null);
+            $('#amount_total').text($('#amount_subtotal').text());
+		});
+        method = $(this).children("option:selected").val();
+        if(method == 'self' || method == 'courier'){
+            $('.payment_method_cash').show();
+            $('#payment_method_cash').prop("checked", true);
+        } else {
+            $('.payment_method_cash').hide();
+            $('#payment_method_card').prop("checked", true);
+        }
+
+        if($(this).children("option:selected").val() == 'self'){
+            $('.shipping_methods .courier').show();
+            $('tr.shipping > td > .shipping-cost').html('0<i class="fa fa-ruble"></i>');
+            $('.amount.total span').text($('.amount.subtotal span').text());
+        } else if($(this).children("option:selected").val() == 'courier'){
+			$('.shipping_methods .courier').show();
+			$('tr.shipping > td > .shipping-cost').html('Бесплатно, кроме удаленных районов');
+			$('.amount.total span').text($('.amount.subtotal span').text());
+		} else if($(this).children("option:selected").val() == 'rp'){
+			$('.shipping_methods .rp').show();
+            $.ajax({
+                method: 'get',
+                url: '/cart/get_rp_shipping_cost',
+            }).done(function( data ) {
+            	console.log(data);
+                $('tr.shipping > td > .shipping-cost').html(data + '<i class="fa fa-ruble"></i>');
+                $('.amount.total span').text(parseInt($('.amount.subtotal span').text()) + parseInt(data));
+            });
+		} else if($(this).children("option:selected").val() == 'tk'){
+            $('.shipping_methods .tk').show();
+            $.ajax({
+                method: 'get',
+                url: '/cart/get_tk_shipping_cost',
+            }).done(function( data ) {
+                console.log(data);
+                $('tr.shipping > td > .shipping-cost').html(data + '<i class="fa fa-ruble"></i>');
+                $('.amount.total span').text(parseInt($('.amount.subtotal span').text()) + parseInt(data));
+            });
+		}
+    });
+
 //     $(document.body).on('change', '#order-tk' ,function(){
 //         if($(this).children("option:selected").val() == 'cdek'){
 //             $('tr.shipping > td > p').html('Уточнить стоимость можно у нашего менеджера');

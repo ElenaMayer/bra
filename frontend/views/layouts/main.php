@@ -46,8 +46,8 @@ AppAsset::register($this);
                             <div class="top-bar-links">
                                 <ul class="col-sm-6 top-bar-acc">
                                     <li class="top-bar-link"><a href="<?= Yii::$app->homeUrl ?>">Главная</a></li>
+                                    <li class="top-bar-link"><a href="/shipping">Доставка и оплата</a></li>
                                     <li class="top-bar-link"><a href="/contact">Контакты</a></li>
-                                    <li class="top-bar-link"><a href="#">Новости</a></li>
                                 </ul>
 
                                 <ul class="col-sm-6 text-right top-bar-currency-language">
@@ -149,13 +149,10 @@ AppAsset::register($this);
                                         <li class="mobile-links">
                                             <ul>
                                                 <li>
-                                                    <a href="#">Login</a>
+                                                    <a href="/shipping">Доставка и оплата</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">My Account</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">My Wishlist</a>
+                                                    <a href="/contact">Контакты</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -191,9 +188,8 @@ AppAsset::register($this);
                                 <h5 class="widget-title uppercase">Помощь</h5>
                                 <ul class="list-no-dividers">
                                     <li><a href="/contact">Контакты</a></li>
-                                    <li><a href="#">Скидки и акции</a></li>
-                                    <li><a href="#">Доставка и оплата</a></li>
-                                    <li><a href="#">Возврат</a></li>
+                                    <li><a href="/sale/<?= Category::find()->one()->slug?>">Скидки и акции</a></li>
+                                    <li><a href="/shipping">Доставка и оплата</a></li>
                                 </ul>
                             </div>
                         </div>

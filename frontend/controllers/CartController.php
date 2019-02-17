@@ -112,6 +112,7 @@ class CartController extends \yii\web\Controller
         }
 
         $order = new Order();
+        $order->payment_method = 'cash';
         /* @var $cart ShoppingCart */
         $cart = \Yii::$app->cart;
         $positions = $cart->getPositions();
@@ -188,6 +189,26 @@ class CartController extends \yii\web\Controller
                 return false;
             } else
             $this->redirect('/cart/list');
+        }
+    }
+
+    public function actionGet_rp_shipping_cost(){
+        $cart = \Yii::$app->cart;
+        $cartCount = $cart->getCount();
+        if($cartCount > 0 && $cartCount < 3) {
+            return 250;
+        } else {
+            return 350;
+        }
+    }
+
+    public function actionGet_tk_shipping_cost(){
+        $cart = \Yii::$app->cart;
+        $cartCount = $cart->getCount();
+        if($cartCount > 0 && $cartCount < 3) {
+            return 350;
+        } else {
+            return 450;
         }
     }
 

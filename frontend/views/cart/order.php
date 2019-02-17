@@ -44,11 +44,18 @@ $this->title = 'Оформление заказа';
 
                             <div class="shipping_methods">
                                 <div class="rp" style="display: none">
-                                    <?= $form->field($order, 'zip')->textInput(['placeholder' => '630000', 'class' => 'form-control dark', 'maxlength' => 6]); ?>
-                                    <?= $form->field($order, 'address')->textInput(['placeholder' => 'Новосибирск, ул.Ленина д.1 кв.1', 'class' => 'form-control dark']); ?>
+                                    <div class="col-sm-3">
+                                        <?= $form->field($order, 'zip')->textInput(['placeholder' => '630000', 'class' => 'form-control dark', 'maxlength' => 6]); ?>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <?= $form->field($order, 'address')->textInput(['placeholder' => 'Новосибирск, ул.Ленина д.1 кв.1', 'class' => 'form-control dark']); ?>
+                                    </div>
                                 </div>
                                 <div class="tk" style="display: none">
                                     <?= $form->field($order, 'city')->textInput(['class' => 'form-control dark']); ?>
+                                </div>
+                                <div class="courier" style="display: none">
+                                    <?= $form->field($order, 'address')->textInput(['placeholder' => 'ул.Ленина д.1 кв.1', 'class' => 'form-control dark']); ?>
                                 </div>
                             </div>
                             <div class="clear"></div>
@@ -83,19 +90,19 @@ $this->title = 'Оформление заказа';
                                 <tr class="cart-subtotal">
                                     <th>Подитог</th>
                                     <td>
-                                        <span class="amount"><?= $cart->getCost()?><i class="fa fa-ruble"></i></span>
+                                        <span class="amount subtotal"><span><?= $cart->getCost()?></span><i class="fa fa-ruble"></i></span>
                                     </td>
                                 </tr>
                                 <tr class="shipping">
                                     <th>Доставка</th>
                                     <td>
-                                        <span>Бесплатно</span>
+                                        <span class="shipping-cost">0<i class="fa fa-ruble"></i></span>
                                     </td>
                                 </tr>
                                 <tr class="order-total">
                                     <th><strong>Итого</strong></th>
                                     <td>
-                                        <strong><span class="amount"><?= $cart->getCost()?><i class="fa fa-ruble"></i></span></strong>
+                                        <strong><span class="amount total"><span><?= $cart->getCost()?></span><i class="fa fa-ruble"></i></span></strong>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -103,13 +110,15 @@ $this->title = 'Оформление заказа';
 
                             <div id="payment" class="ecommerce-checkout-payment">
                                 <h2 class="heading uppercase mb-30">Способ оплаты</h2>
-                                <ul class="payment_methods methods">
-                                    <?php foreach (Order::getPaymentMethods() as $key=>$value):?>
-                                        <li class="payment_method_<?=$key?>">
-                                            <input id="payment_method_<?=$key?>" type="radio" class="input-radio" name="Order[payment_method]" value="<?=$key?>" checked>
-                                            <label for="payment_method_<?=$key?>"><?=$value?></label>
-                                        </li>
-                                    <?php endforeach;?>
+                                <ul class="payment_methods methods" id="order-payment_method">
+                                    <li class="payment_method_cash">
+                                        <input id="payment_method_cash" type="radio" class="input-radio" name="Order[payment_method]" value="cash" checked>
+                                        <label for="payment_method_cash">Наличными при получении</label>
+                                    </li>
+                                    <li class="payment_method_card">
+                                        <input id="payment_method_card" type="radio" class="input-radio" name="Order[payment_method]" value="card">
+                                        <label for="payment_method_card">На карту</label>
+                                    </li>
                                 </ul>
                                 <div class="form-row place-order">
                                     <?= Html::submitInput('Отправить заказ', ['class' => 'checkout-button btn btn-lg']) ?>

@@ -86,8 +86,8 @@ class SiteController extends Controller
         }
     }
 
-    public function actionAbout()
+    public function actionShipping()
     {
-        return $this->render('about');
+        return $this->render('shipping');
     }
 }

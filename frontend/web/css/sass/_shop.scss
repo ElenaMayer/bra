@@ -1052,6 +1052,21 @@ select.country_to_state {
   line-height: 24px;
 }
 
+.table.shop_table tr.cart_item.disabled {
+  .product-name a,
+  .product-price span,
+  .product-subtotal span {
+    color: $text-color;
+  }
+
+  .product-thumbnail img {
+    opacity: 0.4;
+  }
+
+  .quantity .input-text.qty {
+    margin-left: 32px;
+  }
+}
 
 /*-------------------------------------------------------*/
 /* Checkout
@@ -1172,6 +1187,10 @@ abbr.required {
   color: $heading-color;
   vertical-align: middle;
   margin-bottom: 0;
+}
+
+.shipping_methods .rp .col-sm-3 {
+  padding-left: 0;
 }
 
 

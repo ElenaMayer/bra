@@ -512,6 +512,14 @@
     margin-right: 20px;
   }
 
+  &.disabled .nav-cart-img {
+    opacity: 0.4;
+  }
+
+  &.disabled .nav-cart-title a {
+    color: $text-color;
+  }
+
   .nav-cart-img img {
     width: 60px;
   }
@@ -520,22 +528,22 @@
     color: $text-color;
     font-size: 13px;
   }
-}
 
-.nav-cart-title {
-  position: relative;
-  overflow: hidden;
-  margin-right: 30px;
-
-  & > a {
+  .nav-cart-title {
     position: relative;
-    color: $heading-color;
-    font-size: 14px;
-    vertical-align: top;
-    line-height: 1.5;
+    overflow: hidden;
+    margin-right: 30px;
 
-    &:hover {
-      color: #000;
+    & > a {
+      position: relative;
+      color: $heading-color;
+      font-size: 14px;
+      vertical-align: top;
+      line-height: 1.5;
+
+      &:hover {
+        color: #000;
+      }
     }
   }
 }

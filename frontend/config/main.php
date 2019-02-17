@@ -26,7 +26,7 @@ return [
             'errorAction' => 'site/error',
         ],
         'cart' => [
-            'class' => 'yz\shoppingcart\ShoppingCart',
+            'class' => 'frontend\models\MyShoppingCart',
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -37,7 +37,7 @@ return [
                 'catalog/<categorySlug:\w+>/<productId:\d+>' => 'catalog/product',
                 'cart' => 'cart/cart',
                 'contact' => 'site/contact',
-//                'shipping' => 'site/shipping',
+                'shipping' => 'site/shipping',
 //                'payment' => 'site/payment',
 //                'refund' => 'site/refund',
 //                'search' => 'site/search',

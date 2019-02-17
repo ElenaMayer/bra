@@ -3,11 +3,12 @@ use yii\helpers\Html;
 
 $cart = Yii::$app->cart;
 $itemsInCart = $cart->getCount();
+$activeItemsInCart = $cart->getActiveCount();
 ?>
 <div class="nav-cart right">
     <div class="nav-cart-outer">
         <div class="nav-cart-inner">
-            <a <?php if($itemsInCart):?>href="/cart"<?php endif;?> class="nav-cart-icon"><?=$itemsInCart ? $itemsInCart : 0?></a>
+            <a <?php if($itemsInCart):?>href="/cart"<?php endif;?> class="nav-cart-icon"><?=$activeItemsInCart ? $activeItemsInCart : 0?></a>
         </div>
     </div>
     <?php if($itemsInCart > 0 && $itemsInCart < 4):?>
@@ -16,7 +17,7 @@ $itemsInCart = $cart->getCount();
                 <?php $positions = $cart->getPositions(); ?>
                 <?php foreach ($cart->getPositions() as $positions):?>
                     <?php $product = $positions->getProduct()?>
-                    <div class="nav-cart-item clearfix">
+                    <div class="nav-cart-item clearfix <?= $product->getIsInStock() ? '' : 'disabled'?>">
                         <div class="nav-cart-img">
                             <a href="/catalog/<?= $product->category->slug ?>/<?= $product->id ?>">
                                 <?= Html::img($product->images[0]->getUrl('small'), ['alt'=>$product->title]);?>
