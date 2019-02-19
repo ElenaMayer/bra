@@ -36,7 +36,6 @@ AppAsset::register($this);
     </div>
 
     <main class="content-wrapper oh">
-
         <!-- Navigation -->
         <header class="nav-type-1">
             <div class="top-bar hidden-sm hidden-xs">
@@ -70,7 +69,7 @@ AppAsset::register($this);
                         <div class="row">
                             <div class="navbar-header">
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
-                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="sr-only">Меню</span>
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
@@ -126,9 +125,9 @@ AppAsset::register($this);
                                         <?php foreach ($categories as $category):?>
                                             <li class="dropdown">
                                                 <a href="/catalog/<?= $category->slug ?>"><?= $category->title ?></a>
-                                                <i class="fa fa-angle-down dropdown-toggle" data-toggle="dropdown"></i>
                                                 <?php $subcategories = Category::find()->where(['parent_id' => $category->id])->all(); ?>
                                                 <?php if($subcategories):?>
+                                                    <i class="fa fa-angle-down dropdown-toggle" data-toggle="dropdown"></i>
                                                     <ul class="dropdown-menu">
                                                         <?php foreach ($subcategories as $subcategory):?>
                                                             <li><a href="/catalog/<?= $subcategory->slug ?>"><?= $subcategory->title ?></a></li>
@@ -139,6 +138,7 @@ AppAsset::register($this);
                                         <?php endforeach;?>
                                         <li class="dropdown sale">
                                             <a href="/sale/<?= Category::find()->one()->slug?>">Скидки</a>
+                                            <i class="fa fa-angle-down dropdown-toggle" data-toggle="dropdown"></i>
                                             <ul class="dropdown-menu">
                                                 <?php foreach ($categories as $category):?>
                                                     <li><a href="/sale/<?= $category->slug ?>"><?= $category->title ?></a></li>
@@ -188,8 +188,10 @@ AppAsset::register($this);
                                 <h5 class="widget-title uppercase">Помощь</h5>
                                 <ul class="list-no-dividers">
                                     <li><a href="/contact">Контакты</a></li>
-                                    <li><a href="/sale/<?= Category::find()->one()->slug?>">Скидки и акции</a></li>
                                     <li><a href="/shipping">Доставка и оплата</a></li>
+                                    <li><a href="/wholesale">Опт</a></li>
+                                    <li><a href="/certificate">Подарочные сертификаты</a></li>
+                                    <li><a href="/franchise">Франшиза</a></li>
                                 </ul>
                             </div>
                         </div>

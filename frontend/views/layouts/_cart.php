@@ -44,11 +44,12 @@ $activeItemsInCart = $cart->getActiveCount();
                 <span>Подитог</span>
                 <span class="total-price"><span><?= $cart->getCost() ?></span><i class="fa fa-ruble"></i></span>
             </div>
-
-            <div class="nav-cart-actions mt-20">
-                <a href="/cart" class="btn btn-md btn-dark"><span>В корзину</span></a>
-                <a href="/cart/order" class="btn btn-md btn-color mt-10"><span>Оформить заказ</span></a>
-            </div>
+            <?php if($activeItemsInCart > 0):?>
+                <div class="nav-cart-actions mt-20">
+                    <a href="/cart" class="btn btn-md btn-dark"><span>В корзину</span></a>
+                    <a href="/cart/order" class="btn btn-md btn-color mt-10"><span>Оформить заказ</span></a>
+                </div>
+            <?php endif;?>
         </div>
     <?php endif;?>
 </div>

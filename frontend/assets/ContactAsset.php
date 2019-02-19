@@ -10,7 +10,7 @@ class ContactAsset extends AssetBundle
     ];
     public $js = [
         'http://maps.googleapis.com/maps/api/js?key=AIzaSyAEJgte17bKvMyyWXo1JcWbzsl9Qy-3-uo',
-        'js/google-map-custom.js?4',
+        'js/google-map-custom.js?5',
     ];
     public $depends = [
         'frontend\assets\AppAsset',

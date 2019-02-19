@@ -104,6 +104,12 @@ class CartController extends \yii\web\Controller
 
     public function actionOrder()
     {
+        /* @var $cart ShoppingCart */
+        $cart = \Yii::$app->cart;
+        $activeItemsInCart = $cart->getActiveCount();
+        if($activeItemsInCart == 0)
+            return $this->redirect('/cart');
+
         $get = Yii::$app->request->get();
         $ajax = false;
         if($get && isset($get['id'])) {
@@ -113,8 +119,7 @@ class CartController extends \yii\web\Controller
 
         $order = new Order();
         $order->payment_method = 'cash';
-        /* @var $cart ShoppingCart */
-        $cart = \Yii::$app->cart;
+
         $positions = $cart->getPositions();
 
         if($positions) {
@@ -196,9 +201,9 @@ class CartController extends \yii\web\Controller
         $cart = \Yii::$app->cart;
         $cartCount = $cart->getCount();
         if($cartCount > 0 && $cartCount < 3) {
-            return 250;
+            return 200;
         } else {
-            return 350;
+            return 300;
         }
     }
 

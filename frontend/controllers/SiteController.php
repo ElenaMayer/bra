@@ -90,4 +90,19 @@ class SiteController extends Controller
     {
         return $this->render('shipping');
     }
+
+    public function actionWholesale()
+    {
+        return $this->render('wholesale');
+    }
+
+    public function actionCertificate()
+    {
+        return $this->render('certificate');
+    }
+
+    public function actionFranchise()
+    {
+        return $this->render('franchise');
+    }
 }

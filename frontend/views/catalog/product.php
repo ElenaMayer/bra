@@ -52,7 +52,7 @@ $this->title = Html::encode($title);
                             <span><?= (int)$product->price?><i class="fa fa-ruble"></i></span>
                         </del>
                             <ins>
-                            <span class="ammount"><?= $product->new_price?><i class="fa fa-ruble"></i></span>
+                            <span class="ammount sale"><?= $product->new_price?><i class="fa fa-ruble"></i></span>
                         </ins>
                     <?php else:?>
                         <ins>

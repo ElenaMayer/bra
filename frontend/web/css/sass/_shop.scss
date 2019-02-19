@@ -874,9 +874,9 @@ input[type=number] {
   }
 }
 
-
-
-
+.ammount.sale {
+  color: $color-red;
+}
 
 /*-------------------------------------------------------*/
 /* Cart Page
@@ -1121,7 +1121,7 @@ abbr.required {
 
 .ecommerce .required .control-label::after {
   content: '*';
-  color: #ff4646;
+  color: $color-red;
 }
 
 #billing_address_1_field {

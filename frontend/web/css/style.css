@@ -1628,6 +1628,10 @@ ol.numbers {
   .logo-container {
     position: absolute;
     top: 0;
+    padding: 5px 15px;
+  }
+  .logo-container img {
+    max-height: 50px;
   }
 
   .logo-wrap {
@@ -1761,6 +1765,14 @@ ol.numbers {
     top: 0;
     z-index: 50;
     cursor: pointer;
+  }
+}
+@media (max-width: 767px) {
+  .logo-container {
+    padding: 6px 15px;
+  }
+  .logo-container img {
+    max-height: 50px;
   }
 }
 /*-------------------------------------------------------*/
@@ -4877,6 +4889,10 @@ input[type=number] {
 .collection-item:hover .overlay {
   opacity: 0;
   visibility: hidden;
+}
+
+.ammount.sale {
+  color: #ff4646;
 }
 
 /*-------------------------------------------------------*/

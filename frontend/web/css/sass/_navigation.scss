@@ -155,7 +155,7 @@
   .dropdown.sale a:hover,
   .dropdown.sale .dropdown-menu a,
   .dropdown.sale .dropdown-menu a:hover {
-    color: #ff4646;
+    color: $color-red;
   }
 
   & > li:last-child > a {
@@ -805,7 +805,13 @@
   .logo-container {
     position: absolute;
     top: 0;
+    padding: 5px 15px;
+
+    img {
+      max-height: 50px;
+    }
   }
+
 
   .logo-wrap {
     width: auto;
@@ -943,5 +949,15 @@
     top: 0;
     z-index: 50;
     cursor: pointer;
+  }
+}
+
+@media (max-width: 767px){
+  .logo-container {
+    padding: 6px 15px;
+
+    img {
+      max-height: 50px;
+    }
   }
 }
