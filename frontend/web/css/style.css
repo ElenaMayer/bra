@@ -1845,7 +1845,7 @@ ol.numbers {
 }
 
 #flexslider-hero img {
-  min-height: 400px;
+  min-height: 536px;
 }
 
 #flexslider-hero .img-holder {
@@ -5523,6 +5523,7 @@ abbr.required {
 
   #flexslider-hero .hero-holder.left-align {
     left: 10%;
+    padding-right: 30px;
   }
 
   .banner-wrap .hero-heading {
