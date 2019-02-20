@@ -11,36 +11,36 @@ $this->title = Yii::$app->params['indexTitle'];
             <div class="flexslider" id="flexslider-hero">
                 <ul class="slides clearfix">
                     <li>
-                        <img src="img/slider/2.jpg?1" alt="">
-                        <div class="img-holder img-1"></div>
+                        <img alt="Лето 2019">
+                        <div class="img-holder img-2"></div>
                         <div class="hero-holder text-center right-align">
                             <div class="hero-lines">
                                 <h1 class="hero-heading white">Лето 2019</h1>
                                 <h4 class="hero-subheading white uppercase">Топы от 880 рублей</h4>
                             </div>
-                            <a href="#" class="btn btn-lg btn-white"><span>Купить</span></a>
+                            <a href="/catalog/homewear" class="btn btn-lg btn-white"><span>Купить</span></a>
                         </div>
                     </li>
                     <li>
-                        <img src="img/slider/4.jpg?1" alt="">
-                        <div class="img-holder img-2"></div>
+                        <img alt="Коллекция 2019">
+                        <div class="img-holder img-4"></div>
                         <div class="hero-holder text-center right-align">
                             <div class="hero-lines">
                                 <h1 class="hero-heading white">Коллекция 2019</h1>
                                 <p class="white">Новая коллекция белья и аксессуаров</p>
                             </div>
-                            <a href="#" class="btn btn-lg btn-white"><span>Купить</span></a>
+                            <a href="/catalog/underwear" class="btn btn-lg btn-white"><span>Купить</span></a>
                         </div>
                     </li>
                     <li>
-                        <img src="img/slider/4.jpg" alt="">
-                        <div class="img-holder img-3"></div>
+                        <img alt="Порадуй друзей">
+                        <div class="img-holder img-7"></div>
                         <div class="hero-holder left-align">
                             <div class="hero-lines">
                                 <h1 class="hero-heading white">Порадуй друзей</h1>
                                 <p class="white">Подарочные сертификаты на любую сумму</p>
                             </div>
-                            <a href="#" class="btn btn-lg btn-white"><span>Подробнее</span></a>
+                            <a href="/certificate" class="btn btn-lg btn-white"><span>Подробнее</span></a>
                         </div>
                     </li>
                 </ul>

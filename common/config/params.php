@@ -1,7 +1,7 @@
 <?php
 return [
-    'productOriginalImageWidth'=> 1000,
-    'productOriginalImageHeight'=> 1000,
+    'productBigImageWidth'=> 1000,
+    'productBigImageHeight'=> 1000,
     'productMediumImageWidth'=> 415,
     'productMediumImageHeight'=> 415,
     'productSmallImageWidth'=> 150,

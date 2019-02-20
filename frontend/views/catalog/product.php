@@ -22,8 +22,8 @@ $this->title = Html::encode($title);
                     <?php $images = $product->images;?>
                     <?php foreach($images as $image):?>
                         <div class="gallery-cell">
-                            <a href="<?=$image->getUrl('origin')?>" class="lightbox-img">
-                                <img src="<?=$image->getUrl('origin')?>" alt="<?= $product->title?>" />
+                            <a href="<?=$image->getUrl('big')?>" class="lightbox-img">
+                                <img src="<?=$image->getUrl('big')?>" alt="<?= $product->title?>" />
                                 <i class="icon arrow_expand"></i>
                             </a>
                         </div>

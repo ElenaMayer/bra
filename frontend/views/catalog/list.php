@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-md-9 catalogue-col right mb-50">
                 <div class="banner-wrap relative">
-                    <img src="/img/slider/1.jpg?1" alt="">
+                    <img src="/img/slider/1.jpg?1" alt="Все лучшее для тебя">
                     <div class="hero-holder text-center right-align">
                         <div class="hero-lines mb-0">
                             <h1 class="hero-heading white">Все лучшее для тебя</h1>

@@ -125,7 +125,7 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
                 $image = new Image();
                 $image->product_id = $this->id;
                 if ($image->save()) {
-                    $file->saveAs($image->getPath());
+                    $file->saveAs($image->getPath('origin'));
                     $this->prepareImage($image);
                 }
             }
@@ -136,10 +136,10 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
     }
 
     private function prepareImage($image){
-        $wR = Yii::$app->params['productOriginalImageWidth'];
-        $hR = Yii::$app->params['productOriginalImageHeight'];
+        $wR = Yii::$app->params['productBigImageWidth'];
+        $hR = Yii::$app->params['productBigImageHeight'];
         $i = \yii\imagine\Image::getImagine()
-            ->open($image->getPath())
+            ->open($image->getPath('origin'))
             ->thumbnail(new Box($wR, $hR), ManipulatorInterface::THUMBNAIL_OUTBOUND);
         $size = $i->getSize();
         $wC = $size->getWidth();
@@ -158,7 +158,7 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
             $this->cropWidth($i, $wC, $hC, $wR, $hR);
         }
 
-        $i->save($image->getPath('origin', ['quality' => 80]))
+        $i->save($image->getPath('big', ['quality' => 80]))
             ->thumbnail(new Box(Yii::$app->params['productMediumImageWidth'], Yii::$app->params['productMediumImageHeight']))
             ->save($image->getPath('medium', ['quality' => 80]))
             ->thumbnail(new Box(Yii::$app->params['productSmallImageWidth'], Yii::$app->params['productSmallImageHeight']))
