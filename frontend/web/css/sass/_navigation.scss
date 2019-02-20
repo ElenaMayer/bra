@@ -683,6 +683,18 @@
       background-color: transparent;
       color: $heading-color;
     }
+
+    i {
+      vertical-align: sub;
+    }
+  }
+
+  .social-icons a.phone {
+    width: 120px;
+
+    span {
+      vertical-align: middle;
+    }
   }
 }
 

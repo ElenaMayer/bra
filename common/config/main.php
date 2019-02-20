@@ -16,11 +16,11 @@ return [
             'class' => 'dektrium\user\Module',
             'admins' => ['admin'],
             'mailer' => [
-                'sender'                => 'no-reply@myhost.com', // or ['no-reply@myhost.com' => 'Sender name']
-                'welcomeSubject'        => 'Welcome subject',
-                'confirmationSubject'   => 'Confirmation subject',
-                'reconfirmationSubject' => 'Email change subject',
-                'recoverySubject'       => 'Recovery subject',
+                'sender'                => ['support@lacorsashop.ru' => 'Lacorsa'], // or ['no-reply@myhost.com' => 'Sender name']
+                'welcomeSubject'        => 'Спасибо за регистрацию!',
+                'confirmationSubject'   => 'Подтверждение учетной записи',
+                'reconfirmationSubject' => 'Изменение Email',
+                'recoverySubject'       => 'Восстановление пароля',
             ],
         ],
     ],

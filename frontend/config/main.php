@@ -28,6 +28,9 @@ return [
         'cart' => [
             'class' => 'frontend\models\MyShoppingCart',
         ],
+        'request' => [
+            'baseUrl' => '',
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,

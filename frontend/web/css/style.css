@@ -1513,6 +1513,15 @@ ol.numbers {
   background-color: transparent;
   color: #444444;
 }
+.top-bar .social-icons a i {
+  vertical-align: sub;
+}
+.top-bar .social-icons a.phone {
+  width: 120px;
+}
+.top-bar .social-icons a.phone span {
+  vertical-align: middle;
+}
 
 .top-bar-links {
   line-height: 45px;

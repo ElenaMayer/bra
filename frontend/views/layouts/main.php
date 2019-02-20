@@ -52,6 +52,10 @@ AppAsset::register($this);
                                 <ul class="col-sm-6 text-right top-bar-currency-language">
                                     <li>
                                         <div class="social-icons">
+                                            <a class="phone" href="tel:<?=Yii::$app->params['phone']?>">
+                                                <i class="fa fa-phone"></i>
+                                                <span><?=Yii::$app->params['phone']?></span>
+                                            </a>
                                             <a href="<?=Yii::$app->params['linkInstagram']?>"><i class="fa fa-instagram"></i></a>
                                             <a href="<?=Yii::$app->params['linkVk']?>"><i class="fa fa-vk"></i></a>
                                         </div>

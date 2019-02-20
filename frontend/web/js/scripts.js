@@ -303,7 +303,7 @@
     delegate: '.lightbox-img, .lightbox-video',
     callbacks: {
       elementParse: function(item) {
-      if(item.el.context.className == 'lightbox-video') {
+      if(item.el.attr("class") == 'lightbox-video') {
           item.type = 'iframe';
         } else {
           item.type = 'image';
@@ -323,7 +323,7 @@
   $('.lightbox-img, .lightbox-video').magnificPopup({
     callbacks: {
       elementParse: function(item) {
-      if(item.el.context.className == 'lightbox-video') {
+          if(item.el.attr("class") == 'lightbox-video') {
           item.type = 'iframe';
         } else {
           item.type = 'image';

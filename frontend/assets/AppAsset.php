@@ -25,13 +25,13 @@ class AppAsset extends AssetBundle
         'css/magnific-popup.css',
         'css/font-icons.css',
         'css/sliders.css',
-        'css/style.css?61',
+        'css/style.css?64',
         'css/animate.min.css',
     ];
     public $js = [
         'js/bootstrap.min.js',
         'js/plugins.js',
-        'js/scripts.js?3',
+        'js/scripts.js?5',
         'js/custom.js?7',
     ];
     public $depends = [
