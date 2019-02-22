@@ -11,7 +11,7 @@ $this->title = Yii::$app->params['indexTitle'];
             <div class="flexslider" id="flexslider-hero">
                 <ul class="slides clearfix">
                     <li>
-                        <img alt="Лето 2019">
+                        <img src="/img/slider/2.jpg?1" alt="Лето 2019">
                         <div class="img-holder img-2"></div>
                         <div class="hero-holder text-center right-align">
                             <div class="hero-lines">
@@ -22,7 +22,7 @@ $this->title = Yii::$app->params['indexTitle'];
                         </div>
                     </li>
                     <li>
-                        <img alt="Коллекция 2019">
+                        <img src="/img/slider/4.jpg?4" alt="Коллекция 2019">
                         <div class="img-holder img-4"></div>
                         <div class="hero-holder text-center right-align">
                             <div class="hero-lines">
@@ -33,7 +33,7 @@ $this->title = Yii::$app->params['indexTitle'];
                         </div>
                     </li>
                     <li>
-                        <img alt="Порадуй друзей">
+                        <img src="/img/slider/7.jpg?7" alt="Порадуй друзей">
                         <div class="img-holder img-7"></div>
                         <div class="hero-holder left-align">
                             <div class="hero-lines">
