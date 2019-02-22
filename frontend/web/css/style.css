@@ -5486,12 +5486,12 @@ abbr.required {
   }
 
   .hero-heading {
-    font-size: 25px;
+    font-size: 18px;
     margin-bottom: 5px;
   }
 
   .hero-subheading {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   #flexslider-hero .btn-lg {
@@ -5518,12 +5518,12 @@ abbr.required {
   }
 
   .hero-holder .btn span {
-    line-height: 30px;
+    line-height: 25px;
   }
 
   .hero-holder p {
     margin-bottom: 0;
-    font-size: 15px;
+    font-size: 12px;
   }
 
   #flexslider-hero .hero-holder.left-align {
@@ -5545,6 +5545,19 @@ abbr.required {
 
   .catalogue.pt-70 {
     padding-top: 30px;
+  }
+
+  #flexslider-hero .hero-lines:before,
+#flexslider-hero .hero-lines:after {
+    width: 165px;
+  }
+
+  #flexslider-hero .text-center.hero-holder p {
+    padding: 0 20px;
+  }
+
+  #flexslider-hero .left-align.hero-holder p {
+    margin-right: 50px;
   }
 }
 @media (max-width: 540px) {
