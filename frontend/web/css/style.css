@@ -1844,8 +1844,14 @@ ol.numbers {
   margin-top: 31px;
 }
 
+.flex-active-slide {
+  overflow: hidden;
+}
+
 #flexslider-hero img {
   min-height: 536px;
+  min-width: 1139px;
+  margin-left: -150px;
 }
 
 #flexslider-hero .img-holder {
@@ -5475,10 +5481,8 @@ abbr.required {
 
   #flexslider-hero img {
     min-height: 215px;
-  }
-
-  #flexslider-hero img {
-    min-height: 215px;
+    min-width: 457px;
+    margin-left: -85px;
   }
 
   .hero-heading {
