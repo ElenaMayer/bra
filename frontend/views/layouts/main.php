@@ -207,7 +207,7 @@ AppAsset::register($this);
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-sm-4 col-s-12">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="widget footer-get-in-touch">
                                 <h5 class="widget-title uppercase">Контакты</h5>
                                 <?php foreach (Yii::$app->params['address'] as $k => $v):?>
