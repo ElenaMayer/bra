@@ -68,18 +68,20 @@ use common\models\StaticFunction;
             <ul class="product-list-widget">
                 <?php $products = Product::getNovelties(2);?>
                 <?php foreach ($products as $product):?>
-                    <li class="clearfix">
-                        <a href="/catalog/<?= $product->category->slug?>/<?= $product->id?>">
-                            <?php $images = $product->images; ?>
-                            <img src="<?=$images[0]->getUrl('small')?>" alt="<?= $product->title?>">
-                            <span class="product-title"><?=$product->title?></span>
-                        </a>
-                        <span class="price">
-                          <ins>
-                            <span class="ammount"><?=$product->new_price ? $product->new_price : (int)$product->price?><i class="fa fa-ruble"></i></span>
-                          </ins>
-                        </span>
-                    </li>
+                    <?php $images = $product->images; ?>
+                    <?php if(isset($images[0])):?>
+                        <li class="clearfix">
+                            <a href="/catalog/<?= $product->category->slug?>/<?= $product->id?>">
+                                <img src="<?=$images[0]->getUrl('small')?>" alt="<?= $product->title?>">
+                                <span class="product-title"><?=$product->title?></span>
+                            </a>
+                            <span class="price">
+                              <ins>
+                                <span class="ammount"><?=$product->new_price ? $product->new_price : (int)$product->price?><i class="fa fa-ruble"></i></span>
+                              </ins>
+                            </span>
+                        </li>
+                    <?php endif;?>
                 <?php endforeach;?>
             </ul>
         </div>
