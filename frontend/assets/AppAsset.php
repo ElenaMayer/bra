@@ -23,9 +23,9 @@ class AppAsset extends AssetBundle
     public $css = [
         'http://fonts.googleapis.com/css?family=Maven+Pro:400,700%7CRaleway:300,400,700%7CPlayfair+Display:700',
         'css/magnific-popup.css',
-        'css/font-icons.css',
+        'css/font-icons.css?2',
         'css/sliders.css',
-        'css/style.css?97',
+        'css/style.css?99',
         'css/animate.min.css',
     ];
     public $js = [

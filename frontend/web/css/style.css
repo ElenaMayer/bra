@@ -558,7 +558,7 @@ ul {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   margin-top: 0;
   color: #444444;
   font-weight: 400;
@@ -676,7 +676,7 @@ blockquote {
 blockquote > p {
   font-size: 18px;
   line-height: 28px;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   margin-bottom: 5px !important;
   color: #444444;
   position: relative;
@@ -691,7 +691,7 @@ blockquote > span {
   background-color: #f7f7f7;
 }
 .blockquote-style-1 span {
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   color: #f570bb;
 }
 
@@ -701,7 +701,7 @@ blockquote > span {
 }
 
 .dropcap {
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
 }
 
 .dropcap.style-1 {
@@ -974,7 +974,7 @@ ol.numbers {
   display: inline-block;
 }
 .navbar-nav > li > a {
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   text-transform: uppercase;
   font-weight: 400;
   letter-spacing: 0.1em;
@@ -1112,7 +1112,7 @@ ol.numbers {
   display: block;
   margin-bottom: 15px;
   color: #444444;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   font-size: 13px;
   font-weight: 600;
   line-height: 1;
@@ -1267,7 +1267,7 @@ ol.numbers {
   font-size: 10px;
   text-align: center;
   line-height: 16px;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   font-weight: 700;
   color: #444444;
   border: 2px solid #979797;
@@ -1289,7 +1289,7 @@ ol.numbers {
 
 .menu-cart-amount {
   padding-right: 10px;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   text-transform: uppercase;
   font-size: 13px;
   letter-spacing: 0.05em;
@@ -1894,7 +1894,7 @@ ol.numbers {
   padding: 0 100px;
 }
 .testimonials .testimonial-text {
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   font-size: 20px;
   color: #979797;
   line-height: 28px;
@@ -1903,7 +1903,7 @@ ol.numbers {
 }
 .testimonials .testimonial span {
   font-size: 14px;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   color: #444444;
 }
 .testimonials .testimonial a {
@@ -1948,7 +1948,7 @@ ol.numbers {
 .statistic span {
   color: #444444;
   font-size: 30px;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   letter-spacing: 0.1em;
 }
 .statistic h4 {
@@ -1968,7 +1968,7 @@ ol.numbers {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: #979797;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
 }
 
 .team-details {
@@ -2092,7 +2092,7 @@ ol.numbers {
 .gmap-btn {
   background-color: #f7f7f7;
   color: #444444;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   width: 100%;
   height: 70px;
   line-height: 70px;
@@ -2336,7 +2336,7 @@ ol.numbers {
 .pagination li.page-numbers span,
 .pagination span {
   background-color: #fff;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   font-size: 15px;
   display: inline-block;
   width: 32px;
@@ -2623,7 +2623,7 @@ ol.numbers {
   margin-right: 10px;
   font-size: 15px;
   line-height: 28px;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   color: #444444;
 }
 
@@ -2720,7 +2720,7 @@ ol.numbers {
 
 .entry-comments .comment-author {
   color: #444444;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -3122,7 +3122,7 @@ ol.numbers {
 }
 .progress-bars h6 span {
   color: #444444;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   font-size: 14px;
   float: right;
   font-weight: 400;
@@ -3222,7 +3222,7 @@ ol.numbers {
   text-decoration: none;
   padding: 12px 20px;
   color: #444444;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -3314,7 +3314,7 @@ ol.numbers {
   margin-right: -1px;
   border: 1px solid #ebebeb;
   border-radius: 0;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   color: #979797;
   font-size: 14px;
   text-transform: uppercase;
@@ -3630,7 +3630,7 @@ textarea {
   width: 100%;
   margin-bottom: 30px;
   font-size: 14px;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   padding: 0 16px;
   resize: none;
   -webkit-box-shadow: none;
@@ -3795,7 +3795,7 @@ input[type=radio]:focus {
 label {
   color: #444444;
   font-size: 14px;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   vertical-align: middle;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -3847,7 +3847,7 @@ table th {
 .table thead tr th {
   font-size: 12px;
   color: #444444;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 0.05em;
@@ -4135,7 +4135,7 @@ table th {
   font-weight: bold;
   cursor: default;
   font-size: 11px;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   letter-spacing: 0.05em;
 }
 
@@ -4166,7 +4166,7 @@ table th {
 
 .price,
 .amount {
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   text-transform: uppercase;
   font-weight: 700;
 }
@@ -4481,7 +4481,7 @@ table th {
   margin-bottom: 0;
   box-shadow: none;
   line-height: 1;
-  font-family: "Maven Pro", sans-serif;
+  font-family: "Etelka Light Pro", sans-serif;
   vertical-align: middle;
 }
 .filter-by-price label {
