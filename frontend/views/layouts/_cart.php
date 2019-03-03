@@ -28,7 +28,9 @@ $activeItemsInCart = $cart->getActiveCount();
                                 <?= $product->title ?>
                             </a>
                             <div class="nav-cart-price">
-                                <span>Размер: <?= $positions->size ?></span>
+                                <?php if($positions->size):?>
+                                    <span>Размер: <?= $positions->size ?></span>
+                                <?php endif;?>
                                 <span><?= $positions->getQuantity() ?> x <?= (int)$product->getPrice() ?><i class="fa fa-ruble"></i></span>
                             </div>
                         </div>

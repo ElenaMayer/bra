@@ -1813,7 +1813,6 @@ ol.numbers {
 }
 
 .hero-heading {
-  font-family: "Playfair Display", serif;
   font-size: 62px;
   font-weight: 700;
   margin-bottom: 12px;
@@ -2472,8 +2471,29 @@ ol.numbers {
 .color.yellow {
   background-color: yellow;
 }
-.color.orange {
-  background-color: orange;
+.color.ivory {
+  background-color: ivory;
+}
+.color.body {
+  background-color: #F8E4Bf;
+}
+.color.graphite {
+  background-color: #474a51;
+}
+.color.burgundy {
+  background-color: #b00000;
+}
+.color.eggplant {
+  background-color: #800080;
+}
+.color.mint {
+  background-color: #98ff98;
+}
+.color.emerald {
+  background-color: #50c878;
+}
+.color.brown {
+  background-color: brown;
 }
 
 .sidebar .widget:first-child {

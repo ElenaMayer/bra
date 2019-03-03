@@ -62,22 +62,24 @@ $this->title = Html::encode($title);
                 </span>
                 <p class="product-description"><?= $product->description?></p>
                 <div class="select-options">
-                    <div class="row row-20">
-                        <div class="col-sm-6">
-                            <div class="colors square">
-                                <?php foreach($product->getProductColors() as $key => $color):?>
-                                    <?php if(isset($color['id'])):?>
-                                        <a href="/catalog/<?= $product->category->slug?>/<?=$color['id']?>" title="<?=$color['title']?>">
-                                            <div class="color <?= $key ?>"></div>
-                                        </a>
-                                    <?php else:?>
-                                        <div class="color <?= $product->color ?> active"></div>
-                                    <?php endif;?>
-                                <?php endforeach;?>
+                    <?php if($product->color):?>
+                        <div class="row row-20">
+                            <div class="col-sm-6">
+                                <div class="colors square">
+                                    <?php foreach($product->getProductColors() as $key => $color):?>
+                                        <?php if(isset($color['id'])):?>
+                                            <a href="/catalog/<?= $product->category->slug?>/<?=$color['id']?>" title="<?=$color['title']?>">
+                                                <div class="color <?= $key ?>"></div>
+                                            </a>
+                                        <?php else:?>
+                                            <div class="color <?= $product->color ?> active"></div>
+                                        <?php endif;?>
+                                    <?php endforeach;?>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <?php if($product->getIsInStock()):?>
+                    <?php endif;?>
+                    <?php if($product->getIsInStock() && $product->size):?>
                         <div class="row row-20">
                             <div class="col-sm-6">
                                 <label>Размер</label>

@@ -46,6 +46,7 @@ AppAsset::register($this);
                                 <ul class="col-sm-6 top-bar-acc">
                                     <li class="top-bar-link"><a href="<?= Yii::$app->homeUrl ?>">Главная</a></li>
                                     <li class="top-bar-link"><a href="/shipping">Доставка и оплата</a></li>
+                                    <li class="top-bar-link"><a href="/tryon">Примерка</a></li>
                                     <li class="top-bar-link"><a href="/contact">Контакты</a></li>
                                 </ul>
 
@@ -156,6 +157,9 @@ AppAsset::register($this);
                                                     <a href="/shipping">Доставка и оплата</a>
                                                 </li>
                                                 <li>
+                                                    <a href="/tryon">Примерка</a>
+                                                </li>
+                                                <li>
                                                     <a href="/contact">Контакты</a>
                                                 </li>
                                             </ul>
@@ -193,6 +197,7 @@ AppAsset::register($this);
                                 <ul class="list-no-dividers">
                                     <li><a href="/contact">Контакты</a></li>
                                     <li><a href="/shipping">Доставка и оплата</a></li>
+                                    <li><a href="/tryon">Примерка</a></li>
                                     <li><a href="/wholesale">Опт</a></li>
                                     <li><a href="/certificate">Подарочные сертификаты</a></li>
                                     <li><a href="/franchise">Франшиза</a></li>

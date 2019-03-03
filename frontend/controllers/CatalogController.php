@@ -88,6 +88,9 @@ class CatalogController extends \yii\web\Controller
                 } elseif ($get['order'] == 'price_hl'){
                     $query->select(['*', '(CASE WHEN new_price > 0 THEN new_price ELSE price END) as price_common']);
                     $query->orderBy('price_common DESC');
+                } elseif ($get['order'] == 'sale'){
+                    $query->select(['*', '(CASE WHEN new_price > 0 THEN (price/new_price) ELSE 0 END) as sale']);
+                    $query->orderBy('is_in_stock DESC, sale DESC');
                 } else {
                     $query->orderBy('is_in_stock DESC, id DESC');
                 }

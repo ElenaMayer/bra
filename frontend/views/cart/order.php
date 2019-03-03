@@ -41,18 +41,21 @@ $this->title = 'Оформление заказа';
                                 <?= $form->field($order, 'email')->textInput(['placeholder' => 'example@mail.ru', 'class' => 'input-text']); ?>
 
                             <?= $form->field($order, 'shipping_method')->dropDownList(Order::getShippingMethods(), ['class' => 'country_to_state country_select']); ?>
-
+                            <div class="order-try-on" style="display: none">
+                                <a href="/tryon" target="_blank">Оснакомьтесь с условиями примерки</a>
+                                <div class="pb-20"></div>
+                            </div>
                             <div class="shipping_methods">
                                 <div class="rp" style="display: none">
                                     <div class="col-sm-3">
                                         <?= $form->field($order, 'zip')->textInput(['placeholder' => '630000', 'class' => 'form-control dark', 'maxlength' => 6]); ?>
                                     </div>
                                     <div class="col-sm-9">
-                                        <?= $form->field($order, 'address')->textInput(['placeholder' => 'Новосибирск, ул.Ленина д.1 кв.1', 'class' => 'form-control dark']); ?>
+                                        <?= $form->field($order, 'address')->textInput(['placeholder' => 'Москва, ул.Ленина д.1 кв.1', 'class' => 'form-control dark']); ?>
                                     </div>
                                 </div>
                                 <div class="tk" style="display: none">
-                                    <?= $form->field($order, 'city')->textInput(['class' => 'form-control dark']); ?>
+                                    <?= $form->field($order, 'city')->textInput(['placeholder' => 'Москва, ул.Ленина д.1', 'class' => 'form-control dark']); ?>
                                 </div>
                                 <div class="courier" style="display: none">
                                     <?= $form->field($order, 'address')->textInput(['placeholder' => 'ул.Ленина д.1 кв.1', 'class' => 'form-control dark']); ?>

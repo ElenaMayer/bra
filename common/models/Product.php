@@ -22,7 +22,7 @@ use Imagine\Image\Point;
  * @property string $slug
  * @property string $description
  * @property integer $category_id
- * @property string $price
+ * @property integer $price
  * @property string $article
  * @property integer $is_in_stock
  * @property integer $is_active
@@ -77,10 +77,9 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
     {
         return [
             [['description'], 'string'],
-            [['category_id', 'is_in_stock', 'is_active', 'is_novelty', 'new_price', 'count'], 'integer'],
+            [['category_id', 'is_in_stock', 'is_active', 'is_novelty', 'new_price', 'count', 'price'], 'integer'],
             ['weight', 'match', 'pattern' => '/^[0-9]+[0-9,.]*$/', 'message' => 'Значение должно быть числом.'],
             [['title', 'article', 'category_id', 'price'], 'required'],
-            [['price'], 'number'],
             [['time, size, tags, subcategories'], 'safe'],
             [['slug', 'article'], 'string', 'max' => 255],
             [['title', 'color'], 'string', 'max' => 40],

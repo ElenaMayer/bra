@@ -18,15 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="container relative">
         <div class="row">
             <div class="col-md-9 catalogue-col right mb-50">
-                <div class="banner-wrap relative">
-                    <img src="/img/slider/1.jpg?1" alt="Все лучшее для тебя">
-                    <div class="hero-holder text-center right-align">
-                        <div class="hero-lines mb-0">
-                            <h1 class="hero-heading white">Все лучшее для тебя</h1>
-                            <h4 class="hero-subheading white uppercase">Всегда самые свежие и горячие тренды</h4>
-                        </div>
-                    </div>
-                </div>
                 <div class="shop-filter">
                     <?php
                     $begin = $pagination->getPage() * $pagination->pageSize + 1;
@@ -36,9 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <form class="ecommerce-ordering">
                         <select name="orderby" class="orderby" id="p_sort_by" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-                            <option value="<?= StaticFunction::addGetParamToCurrentUrl('order', 'popular') ?>" <?php if(!Yii::$app->request->get('order') || Yii::$app->request->get('order') == 'popular'):?>selected="selected"<?php endif;?>>По дате</option>
+                            <option value="<?= StaticFunction::addGetParamToCurrentUrl('order', 'popular') ?>" <?php if(!Yii::$app->request->get('order') || Yii::$app->request->get('order') == 'popular'):?>selected="selected"<?php endif;?>>По новинкам</option>
                             <option value="<?= StaticFunction::addGetParamToCurrentUrl('order', 'price_lh') ?>" <?php if(Yii::$app->request->get('order') && Yii::$app->request->get('order') == 'price_lh'):?>selected="selected"<?php endif;?>>По возрастанию цены</option>
                             <option value="<?= StaticFunction::addGetParamToCurrentUrl('order', 'price_hl') ?>" <?php if(Yii::$app->request->get('order') && Yii::$app->request->get('order') == 'price_hl'):?>selected="selected"<?php endif;?>>По убыванию цены</option>
+                            <option value="<?= StaticFunction::addGetParamToCurrentUrl('order', 'sale') ?>" <?php if(Yii::$app->request->get('order') && Yii::$app->request->get('order') == 'sale'):?>selected="selected"<?php endif;?>>По скидке</option>
                         </select>
                     </form>
                 </div>

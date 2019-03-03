@@ -105,4 +105,9 @@ class SiteController extends Controller
     {
         return $this->render('franchise');
     }
+
+    public function actionTryon()
+    {
+        return $this->render('tryon');
+    }
 }

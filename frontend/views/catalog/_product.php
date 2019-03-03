@@ -20,7 +20,7 @@ use yii\helpers\Markdown;
                 <?php endif;?>
                 <?php if($product->getIsInStock() && $product->new_price):?>
                     <div class="product-label">
-                        <span class="sale">sale</span>
+                        <span class="sale">-<?= $product->getSale()?>%</span>
                     </div>
                 <?php endif;?>
             </div>
@@ -38,7 +38,7 @@ use yii\helpers\Markdown;
                         </ins>
                     <?php else:?>
                         <ins>
-                            <span class="ammount"><?= (int)$product->price?><i class="fa fa-ruble"></i></span>
+                            <span class="ammount"><?= $product->price?><i class="fa fa-ruble"></i></span>
                         </ins>
                     <?php endif;?>
                 </span>

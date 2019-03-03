@@ -79,7 +79,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'color',
                 'value' => function ($model) {
-                    return Yii::$app->params['colors'][$model->color];
+                    if($model->color)
+                        return Yii::$app->params['colors'][$model->color];
+                    else
+                        return false;
                 },
             ],
             'time'

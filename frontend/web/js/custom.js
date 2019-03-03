@@ -82,6 +82,7 @@ $(document).ready(function() {
             $('#amount_total').text($('#amount_subtotal').text());
 		});
         method = $(this).children("option:selected").val();
+        $('.order-try-on').hide();
         if(method == 'self' || method == 'courier'){
             $('.payment_method_cash').show();
             $('#payment_method_cash').prop("checked", true);
@@ -96,15 +97,20 @@ $(document).ready(function() {
             $('.amount.total span').text($('.amount.subtotal span').text());
         } else if($(this).children("option:selected").val() == 'courier'){
 			$('.shipping_methods .courier').show();
-			$('tr.shipping > td > .shipping-cost').html('Бесплатно, кроме удаленных районов');
-			$('.amount.total span').text($('.amount.subtotal span').text());
+			$('.order-try-on').show();
+            $.ajax({
+                method: 'get',
+                url: '/cart/get_courier_cost',
+            }).done(function( data ) {
+                $('tr.shipping > td > .shipping-cost').html(data + '<i class="fa fa-ruble"></i>');
+                $('.amount.total span').text(parseInt($('.amount.subtotal span').text()) + parseInt(data));
+            });
 		} else if($(this).children("option:selected").val() == 'rp'){
 			$('.shipping_methods .rp').show();
             $.ajax({
                 method: 'get',
                 url: '/cart/get_rp_shipping_cost',
             }).done(function( data ) {
-            	console.log(data);
                 $('tr.shipping > td > .shipping-cost').html(data + '<i class="fa fa-ruble"></i>');
                 $('.amount.total span').text(parseInt($('.amount.subtotal span').text()) + parseInt(data));
             });

@@ -15,10 +15,10 @@ $this->title = Yii::$app->params['indexTitle'];
                         <div class="img-holder img-2"></div>
                         <div class="hero-holder text-center right-align">
                             <div class="hero-lines">
-                                <h1 class="hero-heading white">Лето 2019</h1>
+                                <h1 class="hero-heading white">Lady In White</h1>
                                 <h4 class="hero-subheading white uppercase">Топы от 880 рублей</h4>
                             </div>
-                            <a href="/catalog/homewear" class="btn btn-lg btn-white"><span>Купить</span></a>
+                            <a href="/catalog/top" class="btn btn-lg btn-white"><span>Купить</span></a>
                         </div>
                     </li>
                     <li>
@@ -26,7 +26,7 @@ $this->title = Yii::$app->params['indexTitle'];
                         <div class="img-holder img-4"></div>
                         <div class="hero-holder text-center right-align">
                             <div class="hero-lines">
-                                <h1 class="hero-heading white">Коллекция 2019</h1>
+                                <h1 class="hero-heading white">Lady In Red</h1>
                                 <p class="white">Новая коллекция белья и аксессуаров</p>
                             </div>
                             <a href="/catalog/underwear" class="btn btn-lg btn-white"><span>Купить</span></a>

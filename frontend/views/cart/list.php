@@ -65,9 +65,11 @@ $activeItemsInCart = $cart->getActiveCount();
                                             <td class="product-name">
                                                 <a href="/catalog/<?= $product->category->slug ?>/<?= $product->id ?>"><?= $product->title ?></a>
                                                 <?php if($product->getIsInStock()):?>
-                                                    <ul>
-                                                        <li>Размер: <?= $position->size ?></li>
-                                                    </ul>
+                                                    <?php if($position->size):?>
+                                                        <ul>
+                                                            <li>Размер: <?= $position->size ?></li>
+                                                        </ul>
+                                                    <?php endif;?>
                                                 <?php else:?>
                                                     <p>Нет в наличии</p>
                                                 <?php endif;?>
