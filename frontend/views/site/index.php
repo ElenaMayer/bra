@@ -37,7 +37,7 @@ $this->title = Yii::$app->params['indexTitle'];
                         <div class="img-holder img-7"></div>
                         <div class="hero-holder left-align">
                             <div class="hero-lines">
-                                <h1 class="hero-heading white">Порадуй друзей</h1>
+                                <h1 class="hero-heading white">Подари билет </br>в кружевной рай</h1>
                                 <p class="white">Подарочные сертификаты на любую сумму</p>
                             </div>
                             <a href="/certificate" class="btn btn-lg btn-white"><span>Подробнее</span></a>

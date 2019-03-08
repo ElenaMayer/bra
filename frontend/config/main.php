@@ -45,6 +45,8 @@ return [
                 'certificate' => 'site/certificate',
                 'franchise' => 'site/franchise',
                 'tryon' => 'site/tryon',
+                'returns' => 'site/returns',
+                'offer' => 'site/offer',
             ],
         ],
     ],

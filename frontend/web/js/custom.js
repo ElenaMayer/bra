@@ -83,7 +83,7 @@ $(document).ready(function() {
 		});
         method = $(this).children("option:selected").val();
         $('.order-try-on').hide();
-        if(method == 'self' || method == 'courier'){
+        if(method == 'self' || method == 'courier' || method == 'tyron'){
             $('.payment_method_cash').show();
             $('#payment_method_cash').prop("checked", true);
         } else {
@@ -91,13 +91,15 @@ $(document).ready(function() {
             $('#payment_method_card').prop("checked", true);
         }
 
-        if($(this).children("option:selected").val() == 'self'){
+        if(method == 'self'){
             $('.shipping_methods .courier').show();
             $('tr.shipping > td > .shipping-cost').html('0<i class="fa fa-ruble"></i>');
             $('.amount.total span').text($('.amount.subtotal span').text());
-        } else if($(this).children("option:selected").val() == 'courier'){
+        } else if(method == 'courier' || method == 'tryon'){
 			$('.shipping_methods .courier').show();
-			$('.order-try-on').show();
+            if(method == 'tryon'){
+                $('.order-try-on').show();
+            }
             $.ajax({
                 method: 'get',
                 url: '/cart/get_courier_cost',
@@ -105,7 +107,7 @@ $(document).ready(function() {
                 $('tr.shipping > td > .shipping-cost').html(data + '<i class="fa fa-ruble"></i>');
                 $('.amount.total span').text(parseInt($('.amount.subtotal span').text()) + parseInt(data));
             });
-		} else if($(this).children("option:selected").val() == 'rp'){
+		} else if(method == 'rp'){
 			$('.shipping_methods .rp').show();
             $.ajax({
                 method: 'get',
@@ -114,13 +116,12 @@ $(document).ready(function() {
                 $('tr.shipping > td > .shipping-cost').html(data + '<i class="fa fa-ruble"></i>');
                 $('.amount.total span').text(parseInt($('.amount.subtotal span').text()) + parseInt(data));
             });
-		} else if($(this).children("option:selected").val() == 'tk'){
+		} else if(method == 'tk'){
             $('.shipping_methods .tk').show();
             $.ajax({
                 method: 'get',
                 url: '/cart/get_tk_shipping_cost',
             }).done(function( data ) {
-                console.log(data);
                 $('tr.shipping > td > .shipping-cost').html(data + '<i class="fa fa-ruble"></i>');
                 $('.amount.total span').text(parseInt($('.amount.subtotal span').text()) + parseInt(data));
             });

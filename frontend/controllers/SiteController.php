@@ -110,4 +110,14 @@ class SiteController extends Controller
     {
         return $this->render('tryon');
     }
+
+    public function actionReturns()
+    {
+        return $this->render('returns');
+    }
+
+    public function actionOffer()
+    {
+        return $this->render('offer');
+    }
 }

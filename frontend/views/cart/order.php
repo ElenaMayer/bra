@@ -123,6 +123,7 @@ $this->title = 'Оформление заказа';
                                         <label for="payment_method_card">На карту</label>
                                     </li>
                                 </ul>
+                                <div class="offer">Нажимая кнопку "Отправить заказ" Вы соглашаетесь с <a href="/offer">Политикой конфиденциальности</a></div>
                                 <div class="form-row place-order">
                                     <?= Html::submitInput('Отправить заказ', ['class' => 'checkout-button btn btn-lg']) ?>
                                 </div>

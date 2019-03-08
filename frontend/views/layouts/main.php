@@ -191,21 +191,23 @@ AppAsset::register($this);
                 <div class="footer-widgets top-bottom-dividers pb-mdm-20">
                     <div class="row">
 
-                        <div class="col-md-3 col-sm-3 col-xs-4 col-xxs-12">
+                        <div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12">
                             <div class="widget footer-links">
                                 <h5 class="widget-title uppercase">Помощь</h5>
                                 <ul class="list-no-dividers">
                                     <li><a href="/contact">Контакты</a></li>
                                     <li><a href="/shipping">Доставка и оплата</a></li>
                                     <li><a href="/tryon">Примерка</a></li>
+                                    <li><a href="/returns">Возврат</a></li>
                                     <li><a href="/wholesale">Опт</a></li>
-                                    <li><a href="/certificate">Подарочные сертификаты</a></li>
                                     <li><a href="/franchise">Франшиза</a></li>
+                                    <li><a href="/certificate">Подарочные сертификаты</a></li>
+                                    <li><a href="/offer">Политика конфиденциальности</a></li>
                                 </ul>
                             </div>
                         </div>
 
-                        <div class="col-md-5 col-sm-5 col-xs-12">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="widget">
                                 <h5 class="widget-title uppercase">О нас</h5>
                                 <p class="mb-0"><?=Yii::$app->params['footerDesc']?></p>

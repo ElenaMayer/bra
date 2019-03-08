@@ -141,7 +141,8 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             'self' => 'Самовывоз (бесплатно)',
-            'courier' => "Курьер (с примеркой)",
+            'courier' => "Курьер",
+            'tryon' => "Курьер (с примеркой)",
             'rp' => 'Почта России',
             'tk' => 'ТК СДЭК',
         ];
@@ -172,7 +173,7 @@ class Order extends \yii\db\ActiveRecord
             $emails[] = $this->email;
         return Yii::$app->mailer->compose('order', ['order' => $this])
             ->setTo($emails)
-            ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['title']])
+            ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['desc']])
             ->setSubject('Заказ #' . $this->id . ' создан.')
             ->send();
     }
