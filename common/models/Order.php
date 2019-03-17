@@ -18,10 +18,11 @@ use yii\behaviors\TimestampBehavior;
  * @property string $status
  * @property string $fio
  * @property integer $shipping_cost
- * @property integer $payment
+ * @property string $payment
  * @property string $city
  * @property string $shipping_method
  * @property string $payment_method
+ * @property string $payment_url
  * @property integer $zip
  *
  * @property OrderItem[] $orderItems
@@ -57,9 +58,9 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at', 'updated_at', 'shipping_cost', 'zip', 'payment'], 'integer'],
+            [['created_at', 'updated_at', 'shipping_cost', 'zip'], 'integer'],
             [['address', 'notes'], 'string'],
-            [['phone', 'email', 'status', 'fio', 'city', 'shipping_method', 'payment_method'], 'string', 'max' => 255],
+            [['phone', 'email', 'status', 'fio', 'city', 'shipping_method', 'payment_method', 'payment', 'payment_url'], 'string', 'max' => 255],
             [['phone', 'fio'], 'required'],
             [['email'], 'email'],
         ];

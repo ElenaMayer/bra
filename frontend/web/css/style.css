@@ -1914,6 +1914,10 @@ ol.numbers {
   max-width: 1170px;
 }
 
+.container.payment {
+  text-align: center;
+}
+
 /*-------------------------------------------------------*/
 /* Partners
 /*-------------------------------------------------------*/
@@ -5247,6 +5251,11 @@ abbr.required {
   color: #444444;
   vertical-align: middle;
   margin-bottom: 0;
+}
+
+.payment_box.payment_method_cart p {
+  font-size: 10px;
+  line-height: 1.4;
 }
 
 .shipping_methods .rp .col-sm-3 {

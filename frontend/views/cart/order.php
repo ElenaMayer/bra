@@ -117,10 +117,17 @@ $this->title = 'Оформление заказа';
                                     <li class="payment_method_cash">
                                         <input id="payment_method_cash" type="radio" class="input-radio" name="Order[payment_method]" value="cash" checked>
                                         <label for="payment_method_cash">Наличными при получении</label>
+                                        <div class="payment_box payment_method_bacs">
+                                            <p></p>
+                                        </div>
                                     </li>
                                     <li class="payment_method_card">
                                         <input id="payment_method_card" type="radio" class="input-radio" name="Order[payment_method]" value="card">
                                         <label for="payment_method_card">На карту</label>
+                                        <img src="/img/carts.png" alt="Carts">
+                                        <div class="payment_box payment_method_cart">
+                                            <p>Вы будете перенаправлены на платежный шлюз ОАО "Сбербанк России", где Вы сможете указать реквизиты Вашей банковской карты. Соединение с платежным шлюзом и передача параметров Вашей пластиковой карты осуществляется в защищенном режиме с использованием 128-битного протокола шифрования SSL.</p>
+                                        </div>
                                     </li>
                                 </ul>
                                 <div class="offer">Нажимая кнопку "Отправить заказ" Вы соглашаетесь с <a href="/offer">Политикой конфиденциальности</a></div>

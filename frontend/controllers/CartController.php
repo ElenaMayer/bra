@@ -5,7 +5,7 @@ namespace frontend\controllers;
 use common\models\Order;
 use common\models\OrderItem;
 use common\models\Product;
-use common\models\User;
+use frontend\models\Sberbank;
 use Yii;
 use yii\filters\AccessControl;
 
@@ -165,10 +165,14 @@ class CartController extends \yii\web\Controller
 //                    $user->save(false);
 //                }
 
-                \Yii::$app->session->addFlash('success', 'Спасибо за заказ. Мы свяжемся с Вами в ближайшее время.');
-                $order->sendEmail();
+                if($order->payment_method == 'card') {
+                    $this->sberbankPay($order);
+                } else {
+                    \Yii::$app->session->addFlash('success', 'Спасибо за заказ. Мы свяжемся с Вами в ближайшее время.');
+                    $order->sendEmail();
 
-                return $this->redirect('/');
+                    return $this->redirect('/');
+                }
             }
 //            if(!Yii::$app->user->isGuest) {
 //                $order->fio = Yii::$app->user->getIdentity()->fio;
@@ -195,6 +199,30 @@ class CartController extends \yii\web\Controller
             } else
             $this->redirect('/cart/list');
         }
+    }
+
+    /**
+     * Создание оплаты редеректим в шлюз сберабнка
+     * @param $id
+     * @return \yii\web\Response
+     * @throws ErrorException
+     * @throws \Exception
+     * @throws \yii\db\StaleObjectException
+     * @throws \Throwable
+     */
+    public function sberbankPay($order)
+    {
+        $sb = new Sberbank();
+        $result = $sb->create($order);
+        if (array_key_exists('errorCode', $result)) {
+            throw new ErrorException($result['errorMessage']);
+        }
+        $formUrl = $result['formUrl'];
+
+        $order->payment_url = $formUrl;
+        $order->save();
+
+        return $this->redirect($formUrl);
     }
 
     public function actionGet_courier_cost(){
@@ -231,6 +259,45 @@ class CartController extends \yii\web\Controller
         } else {
             return 550;
         }
+    }
+
+    /**
+     * Сюда будет перенаправлен результат оплаты
+     * @throws NotFoundHttpException
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionPayment_complete()
+    {
+        $orderId = Yii::$app->request->get('orderId');
+        if (is_null($orderId)) {
+            throw new NotFoundHttpException();
+        }
+        $sb = new Sberbank();
+        $result = $sb->complete($orderId);
+        $order = Order::findOne($result['OrderNumber']);
+        if (is_null($order)) {
+            throw new NotFoundHttpException();
+        }
+        //Проверяем статус оплаты если всё хорошо обновим инвойс и редерекним
+        if (isset($result['OrderStatus']) && ($result['OrderStatus'] == 2)) {
+            $action = 'success';
+        } else {
+            $action = 'fail';
+        }
+        $order->payment = $action;
+        $order->save();
+        $order->sendEmail();
+        $this->redirect('/payment/'.$order->id);
+    }
+
+    public function actionPayment_result($orderId)
+    {
+        $order = Order::findOne($orderId);
+        return $this->render('payment_result', [
+            'order' => $order,
+        ]);
     }
 
 //    public function actionHistory(){

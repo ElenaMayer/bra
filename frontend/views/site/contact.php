@@ -30,6 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         <address class="address"><?=$v?></address>
                     <?php endforeach;?>
                 </div>
+                <div class="address-wrap">
+                    <h4 class="uppercase">Часы работы</h4>
+                    <p>Ежедневно: с 12:00 до 20:00</p>
+                </div>
             </div>
             <div class="col-md-4 mb-40 mt-mdm-40 contact-info">
                 <div class="address-wrap">
@@ -42,8 +46,13 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="col-md-4 mb-40 mt-mdm-40 contact-info">
                 <div class="address-wrap">
-                    <h4 class="uppercase">Часы работы</h4>
-                    <p>Ежедневно: с 12:00 до 20:00</p>
+                    <h4 class="uppercase">Реквизиты</h4>
+                    <ul class="contact-info-list">
+                        <li><?=Yii::$app->params['ip']?></li>
+                        <li><span>ИНН: </span><?=Yii::$app->params['inn']?></li>
+                        <li><span>ОГРН: </span><?=Yii::$app->params['ogrn']?></li>
+                        <li><span>Юридический адрес: </span><?=Yii::$app->params['ipAddress']?></li>
+                    </ul>
                 </div>
             </div>
 
