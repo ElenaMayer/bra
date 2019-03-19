@@ -36,8 +36,6 @@ use \common\models\Order;
 
     <?= $form->field($model, 'payment_method')->dropDownList(Order::getPaymentMethods()) ?>
 
-    <?= $form->field($model, 'payment')->dropDownList([1 => 'Есть', 0 => 'Нет']) ?>
-
     <?= $form->field($model, 'notes')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">

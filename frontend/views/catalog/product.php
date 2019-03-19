@@ -81,13 +81,14 @@ $this->title = Html::encode($title);
                     <?php endif;?>
                     <?php if($product->getIsInStock() && $product->size):?>
                         <div class="row row-20">
-                            <div class="col-sm-6">
-                                <label>Размер</label>
+                            <div class="col-sm-6 size-form">
                                 <select name="p_size" id="p_size" class="size-options">
+                                    <option value="0">Размер...</option>
                                     <?php foreach($product->getSizesArray() as $size):?>
                                         <option value="<?=$size?>"><?=$size?></option>
                                     <?php endforeach;?>
                                 </select>
+                                <p class="error-msg">Выберите размер</p>
                             </div>
                         </div>
                     <?php endif;?>

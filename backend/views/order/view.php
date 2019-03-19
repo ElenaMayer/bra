@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'payment',
                 'value' => function ($model) {
-                    return $model->payment ? 'Есть' : 'Нет';
+                    return $model->payment == 'success' ? 'Есть' : 'Нет';
                 },
             ],
             'notes:ntext',

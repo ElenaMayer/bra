@@ -4543,6 +4543,28 @@ table th {
   float: left;
 }
 
+.size-form .error-msg {
+  display: none;
+}
+
+.size-form .size-options {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
+}
+
+.size-form.has-error .size-options {
+  color: #ff4646;
+  border-color: #ff4646;
+  margin-bottom: 5px;
+}
+.size-form.has-error .error-msg {
+  color: #ff4646;
+  display: block;
+  margin-bottom: -1px;
+}
+
 .color-swatches li:last-child a {
   margin-right: 0;
 }
@@ -5238,6 +5260,10 @@ abbr.required {
   border-bottom: 1px solid #ebebeb;
 }
 
+.payment_methods img {
+  padding-top: 10px;
+}
+
 .payment_method_paypal img {
   margin-left: 15px;
 }
@@ -5253,7 +5279,7 @@ abbr.required {
   margin-bottom: 0;
 }
 
-.payment_box.payment_method_cart p {
+.payment_box.payment_method_card p {
   font-size: 10px;
   line-height: 1.4;
 }
@@ -5641,7 +5667,6 @@ abbr.required {
 
   .size-options {
     width: 150px;
-    margin-left: 20px;
   }
 
   .section-wrap {

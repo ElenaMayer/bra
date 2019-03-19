@@ -3,13 +3,13 @@
 use yii\helpers\Html;
 use common\models\Order;
 ?>
-<?php if($order->payment == 'success'):?>
+<?php if(!$order->payment):?>
+    <h1>Заказ #<?= $order->id ?> успешно создан.</h1>
+<?php elseif($order->payment == 'success'):?>
     <h1>Оплата заказа #<?= $order->id ?> прошла успешно.</h1>
 <?php elseif ($order->payment == 'fail'):?>
     <h1>При оплате заказа #<?= $order->id ?> произошла ошибка.</h1>
     <h4>Вы можете произвести оплату повторно перейдя по <a href="<?=$order->payment_url?>">этой ссылке</a>>.</h4>
-<?php else:?>
-    <h1>Заказ #<?= $order->id ?> успешно создан.</h1>
 <?php endif;?>
 
 <ul style="list-style: none;">

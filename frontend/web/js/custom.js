@@ -16,19 +16,29 @@ $(document).ready(function() {
 //
     $(document.body).on('click', '.add-to-cart', function (event) {
         button = $(this);
-        size = $('#p_size option:selected').text();
-        $.ajax({
-            method: 'get',
-            url: '/cart/add',
-            dataType: 'json',
-            data: {
-                id: button.data('id'),
-                size: size,
-            },
-        }).done(function( data ) {
-            add_to_cart_animation(button, data);
-        });
+        size = $('#p_size option:selected').val();
+        if(size != 0){
+            $.ajax({
+                method: 'get',
+                url: '/cart/add',
+                dataType: 'json',
+                data: {
+                    id: button.data('id'),
+                    size: size,
+                },
+            }).done(function( data ) {
+                add_to_cart_animation(button, data);
+            });
+		} else {
+			$('.size-form').addClass('has-error');
+		}
+    });
 
+    $(document.body).on('click', '.size-options', function (event) {
+        size = $('#p_size option:selected').text();
+        if(size.length > 0) {
+            $('.size-form.has-error').removeClass('has-error');
+        }
     });
 //
 //     $(document.body).on('click', '.product_wishlist', function () {
@@ -83,12 +93,21 @@ $(document).ready(function() {
 		});
         method = $(this).children("option:selected").val();
         $('.order-try-on').hide();
-        if(method == 'self' || method == 'courier' || method == 'tyron'){
+        if(method == 'self' || method == 'courier'){
             $('.payment_method_cash').show();
-            $('#payment_method_cash').prop("checked", true);
+            $('.payment_method_card').show();
+            $('.payment_method_cash').prop("checked", true);
+            $('.payment_box.payment_method_card').hide();
+        } else if(method == 'tryon') {
+            $('.payment_method_cash').show();
+            $('.payment_method_cash').prop("checked", true);
+            $('.payment_method_card').hide();
+            $('.payment_box.payment_method_card').hide();
         } else {
+            $('.payment_method_card').show();
             $('.payment_method_cash').hide();
-            $('#payment_method_card').prop("checked", true);
+            $('.payment_method_card').prop("checked", true);
+            $('.payment_box.payment_method_card').show();
         }
 
         if(method == 'self'){

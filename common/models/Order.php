@@ -153,7 +153,7 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             'cash' => 'Наличными при получении',
-            'card' => 'На карту',
+            'card' => 'Банковской картой',
         ];
     }
 

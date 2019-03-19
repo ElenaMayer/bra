@@ -54,9 +54,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'payment',
                 'value' => function ($model) {
-                    return $model->payment ? 'Есть' : 'Нет';
+                    return $model->payment == 'success' ? 'Есть' : 'Нет';
                 },
-                'filter' => [1 => 'Есть', 0 => 'Нет']
+                'filter' => ['success' => 'Есть']
             ],
             'created_at:datetime',
             [

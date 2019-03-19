@@ -509,6 +509,29 @@
   margin-right: 9px;
   float: left;
 }
+.size-form .error-msg {
+  display: none;
+}
+.size-form .size-options {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
+}
+
+.size-form.has-error {
+
+  .size-options {
+    color: $color-red;
+    border-color: $color-red;
+    margin-bottom: 5px;
+  }
+  .error-msg {
+    color: $color-red;
+    display: block;
+    margin-bottom: -1px;
+  }
+}
 
 .color-swatches li:last-child a {
   margin-right: 0;
@@ -1179,6 +1202,10 @@ abbr.required {
   border-bottom: 1px solid $border-color;
 }
 
+.payment_methods img {
+  padding-top: 10px;
+}
+
 .payment_method_paypal img {
   margin-left: 15px;
 }
@@ -1194,7 +1221,7 @@ abbr.required {
   margin-bottom: 0;
 }
 
-.payment_box.payment_method_cart p {
+.payment_box.payment_method_card p {
   font-size: 10px;
   line-height: 1.4;
 }
