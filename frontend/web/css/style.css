@@ -5014,6 +5014,11 @@ input[type=number] {
   min-width: 132px;
 }
 
+.product-quantity .count-error {
+  clear: both;
+  color: #ff4646;
+}
+
 .table.shop_table .product-name > a,
 .table.shop_table .product-price > span,
 .table.shop_table .product-subtotal > span {

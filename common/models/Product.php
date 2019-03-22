@@ -2,7 +2,6 @@
 
 namespace common\models;
 
-use common\models\ProductRelation;
 use frontend\models\Wishlist;
 use Imagine\Image\ManipulatorInterface;
 use Yii;
@@ -40,6 +39,7 @@ use Imagine\Image\Point;
  * @property OrderItem[] $orderItems
  * @property Category $category
  * @property ProductRelation[] $relations
+ * @property ProductSize[] $sizes
  */
 class Product extends \yii\db\ActiveRecord implements CartPositionInterface
 {
@@ -51,6 +51,7 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
     public $imageFiles;
 
     public $relationsArr;
+    public $_productSizes;
 
     /**
      * @inheritdoc
@@ -191,6 +192,14 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
     }
 
     /**
+     * @return ProductSize[]
+     */
+    public function getSizes()
+    {
+        return $this->hasMany(ProductSize::className(), ['product_id' => 'id']);
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getOrderItems()
@@ -272,22 +281,21 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
 
     public static function getAllSizesArray($categoryId = null)
     {
-        $models = Product::find();
-        if($categoryId) {
-            $models = $models->where(['category_id' => $categoryId]);
-        }
-        $models = $models->all();
         $sizes = [];
-        foreach ($models as $m)
-        {
-            $cs = explode(",",$m->size);
-            foreach ($cs as $c)
-            {
-                if ($c && !in_array($c,$sizes))
-                {
-                    $sizes[$c] = $c;
-                }
+        if($categoryId) {
+            $models = Product::find()
+                ->select(['{{product_size}}.size'])
+                ->joinWith('sizes')
+                ->where(['category_id' => $categoryId])
+                ->andWhere(['>', '{{product_size}}.count', 0])
+                ->distinct()
+                ->all();
+            foreach ($models as $model) {
+                $sizes[$model->size] = $model->size;
             }
+        } else {
+            $models = ProductSize::find()->distinct()->all();
+            $sizes = ArrayHelper::map($models, 'size', 'size');
         }
         asort($sizes);
         return $sizes;
@@ -296,13 +304,9 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
     public function getSizesArray()
     {
         $sizes = [];
-        $cs = explode(",",$this->size);
-        foreach ($cs as $c)
-        {
-            if (!in_array($c,$sizes))
-            {
-                $sizes[$c] = $c;
-            }
+        foreach ($this->sizes as $size) {
+            if($size->count > 0)
+                $sizes[$size->id] = $size->size;
         }
         return $sizes;
     }
@@ -381,25 +385,6 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
         return $tags;
     }
 
-    public function saveRelations($relations){
-        if($this->relations){
-            foreach ($this->relations as $relation){
-                $relation->delete();
-            }
-        }
-        foreach ($relations as $relationId){
-            $relation = new ProductRelation();
-            $relation->parent_id = $this->id;
-            $relation->child_id = $relationId;
-            $relation->save();
-
-            $relation = new ProductRelation();
-            $relation->parent_id = $relationId;
-            $relation->child_id = $this->id;
-            $relation->save();
-        }
-    }
-
     public function afterFind()
     {
         parent::afterFind();
@@ -407,20 +392,41 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
         $this->relationsArr = ArrayHelper::map($this->relations, 'id', 'child_id');
     }
 
-    public function minusCount($count){
-        $this->count -= $count;
-        if($this->count <= 0){
-            $this->is_in_stock = 0;
+    public function minusCount($count, $size){
+
+        if($this->size && $size){
+            $productSize = ProductSize::find()
+                ->where(['product_id' => $this->id, 'size' => $size])
+                ->one();
+            if($productSize) {
+                $productSize->count -= $count;
+                $productSize->save();
+            }
+        } else {
+            $this->count -= $count;
+            if ($this->count <= 0) {
+                $this->is_in_stock = 0;
+            }
+            $this->save(false);
         }
-        $this->save(false);
     }
 
-    public function plusCount($count){
-        $this->count += $count;
-        if($this->count > 0){
-            $this->is_in_stock = 1;
+    public function plusCount($count, $size){
+        if($this->size && $size){
+            $productSize = ProductSize::find()
+                ->where(['product_id' => $this->id, 'size' => $size])
+                ->one();
+            if($productSize) {
+                $productSize->count += $count;
+                $productSize->save();
+            }
+        } else {
+            $this->count += $count;
+            if ($this->count > 0) {
+                $this->is_in_stock = 1;
+            }
+            $this->save(false);
         }
-        $this->save(false);
     }
 
     public function getSale(){
@@ -460,17 +466,92 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
         return ArrayHelper::map($model, 'id', 'description');
     }
 
+    public function getProductSizes()
+    {
+        if ($this->_productSizes === null) {
+            $this->_productSizes = $this->isNewRecord ? [] : $this->sizes;
+        }
+        return $this->_productSizes;
+    }
+
+    private function getProductSize($key)
+    {
+        $size = $key && strpos($key, 'new') === false ? ProductSize::findOne($key) : false;
+        if (!$size) {
+            $size = new ProductSize();
+            $size->loadDefaultValues();
+        }
+        return $size;
+    }
+
+    public function setProductSizes($sizes)
+    {
+        unset($sizes['__id__']); // remove the hidden "new ProductSize" row
+        $this->_productSizes = [];
+        foreach ($sizes as $key => $size) {
+            if (is_array($size)) {
+                $this->_productSizes[$key] = $this->getProductSize($key);
+                $this->_productSizes[$key]->setAttributes($size);
+            } elseif ($size instanceof ProductSize) {
+                $this->_productSizes[$size->id] = $size;
+            }
+        }
+    }
+
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
 //            $this->weight = str_replace(',', '.', $this->weight);
-//            if($this->count > 0)
-//                $this->is_in_stock = 1;
-//            else
-//                $this->is_in_stock = 0;
             return true;
         }
         return false;
+    }
+
+    public function afterSave($insert, $changedAttributes){
+        parent::afterSave($insert, $changedAttributes);
+        $this->saveSizes();
+    }
+
+    public function saveRelations($relations)
+    {
+        if ($this->relations) {
+            foreach ($this->relations as $relation) {
+                $relation->delete();
+            }
+        }
+        foreach ($relations as $relationId) {
+            $relation = new ProductRelation();
+            $relation->parent_id = $this->id;
+            $relation->child_id = $relationId;
+            $relation->save();
+
+            $relation = new ProductRelation();
+            $relation->parent_id = $relationId;
+            $relation->child_id = $this->id;
+            $relation->save();
+        }
+    }
+
+    public function saveSizes()
+    {
+        $keep = [];
+        foreach ($this->productSizes as $size) {
+            if($size->size) {
+                $size->product_id = $this->id;
+                if (!$size->save(false)) {
+                    return false;
+                }
+                $keep[] = $size->id;
+            }
+        }
+        $query = ProductSize::find()->andWhere(['product_id' => $this->id]);
+        if ($keep) {
+            $query->andWhere(['not in', 'id', $keep]);
+        }
+        foreach ($query->all() as $size) {
+            $size->delete();
+        }
+        return true;
     }
 
     public function getSubcategory()
@@ -488,5 +569,35 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
             'class' => 'frontend\models\ProductCartPosition',
             'id' => $this->id,
         ]);
+    }
+
+    public function getProductSizesStr(){
+        $result = '';
+        foreach ($this->sizes as $size){
+            $result .= $size->size . ', ';
+        }
+        return trim(trim($result), ',');
+    }
+
+    public function getItemCount($size){
+        if($size) {
+            $productSize = ProductSize::findOne([
+                'product_id' => $this->id,
+                'size' => $size,
+            ]);
+            $count = $productSize->count;
+        } else {
+            $count = $this->count;
+        }
+        return $count;
+    }
+
+    public function getProductSizesArr()
+    {
+        $result = [];
+        foreach ($this->sizes as $size){
+            $result[$size] = $size;
+        }
+        return $result;
     }
 }

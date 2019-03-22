@@ -50,6 +50,7 @@ class OrderItem extends \yii\db\ActiveRecord
             'price' => 'Цена',
             'product_id' => 'Товар',
             'quantity' => 'Количество',
+            'size' => 'Размер',
         ];
     }
 

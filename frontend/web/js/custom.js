@@ -17,7 +17,7 @@ $(document).ready(function() {
     $(document.body).on('click', '.add-to-cart', function (event) {
         button = $(this);
         size = $('#p_size option:selected').val();
-        if(size != 0){
+        if(button.hasClass('one-size') || size != 0){
             $.ajax({
                 method: 'get',
                 url: '/cart/add',
@@ -147,30 +147,20 @@ $(document).ready(function() {
 		}
     });
 
-//     $(document.body).on('change', '#order-tk' ,function(){
-//         if($(this).children("option:selected").val() == 'cdek'){
-//             $('tr.shipping > td > p').html('Уточнить стоимость можно у нашего менеджера');
-//         } else if($(this).children("option:selected").val() == 'pec') {
-//             $('tr.shipping > td > p').html('Оплата при получении. Уточнить стоимость можно <a target="_blank" class="text-primary" href="https://pecom.ru/services-are/the-calculation-of-the-cost/">ТУТ</a>');
-//         } else if($(this).children("option:selected").val() == 'dellin') {
-//             $('tr.shipping > td > p').html('Оплата при получении. Уточнить стоимость можно <a target="_blank" class="text-primary" href="https://novosibirsk.dellin.ru/">ТУТ</a>');
-//         } else if($(this).children("option:selected").val() == 'nrg') {
-//             $('tr.shipping > td > p').html('Оплата при получении. Уточнить стоимость можно <a target="_blank" class="text-primary" href="https://nrg-tk.ru/client/calculator/">ТУТ</a>');
-//         }
-//     });
-
     //Change cart qty
     $(document.body).on('click', 'input.cart-qty' ,function(){
-    	qty = $(this).parent().find('.qty');
-    	if($(this).hasClass('plus')){
-            qty.val(parseInt(qty.val()) + 1);
-            updateCartQty($(this));
-		} else if($(this).hasClass('minus')){
-			if(qty.val() > 1){
-                qty.val(parseInt(qty.val()) - 1);
+        if (checkProductCount($(this).parents('form'))) {
+            qty = $(this).parent().find('.qty');
+            if ($(this).hasClass('plus')) {
+                qty.val(parseInt(qty.val()) + 1);
                 updateCartQty($(this));
-			}
-		}
+            } else if ($(this).hasClass('minus')) {
+                if (qty.val() > 1) {
+                    qty.val(parseInt(qty.val()) - 1);
+                    updateCartQty($(this));
+                }
+            }
+        }
     });
 
     $(document.body).on('click', '#header-remove_cart_item' ,function(){
@@ -214,14 +204,6 @@ $(document).ready(function() {
         });
     });
 
-//     $(document.body).on('change', 'input.product-qty' ,function(){
-//         checkProductCount($(this).parents('form'));
-//     });
-//
-//     $(document.body).on('keyup', 'input.product-qty' ,function(){
-//         checkProductCount($(this).parents('form'));
-//     });
-//
 //     $(".mobile-filter").on("click", function() {
 //         i = $(this).find('i');
 //         console.log(i);
@@ -881,11 +863,14 @@ function updateCartQty(b) {
 
 function checkProductCount(form) {
     var count = form.find("input[name='count']").val();
-    if(parseInt($('input.product-qty').val()) > count){
-        form.find("input[name='quantity']").val(count);
-        $('.count-error').show();
+    var qty = form.find("input[name='quantity']");
+    if(parseInt(qty.val()) > count){
+        qty.val(count);
+        form.find('.count-error').show();
+        return false;
     } else {
-        $('.count-error').hide();
+        form.find('.count-error').hide();
+        return true;
     }
 }
 

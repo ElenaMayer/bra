@@ -77,6 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'data'=>Product::getProductArr(),
         ]) ?>
+        <?= $form->field($orderItem, 'size')->dropDownList(array_merge(['' => 'Универсальный'], Product::getAllSizesArray())); ?>
 
         <?= $form->field($orderItem, 'quantity')->textInput(['step' => 1, 'min' => 1, 'value' => 1]) ?>
         <div class="form-group">

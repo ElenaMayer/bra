@@ -95,9 +95,11 @@ $activeItemsInCart = $cart->getActiveCount();
                                                     <form>
                                                         <?php if($product->getIsInStock()):?>
                                                             <input type="button" value="-" class="minus cart-qty" />
-                                                            <input type="number" name="quantity" step="1" min="1" value="<?= $quantity ?>" title="Количество" class="input-text qty text" />
+                                                            <input type="number" name="quantity" step="1" min="1" value="<?= $quantity ?>" title="Количество" class="input-text qty text input-cart-qty" readonly/>
                                                             <input type="button" value="+" class="plus cart-qty">
                                                             <input type="hidden" name="id" value="<?=$position->getId()?>">
+                                                            <input type="hidden" name="count" value="<?=$product->getItemCount($position->size)?>">
+                                                            <p class="count-error" style="display: none">В наличии <?=$product->getItemCount($position->size)?>шт.</p>
                                                         <?php else:?>
                                                             <input type="number" name="quantity" value="0" title="Количество" class="input-text qty text" />
                                                         <?php endif;?>

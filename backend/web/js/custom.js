@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    sizesForm($('#product-size'));
+
     $(document.body).on('click', '.image_remove', function () {
         removeImage($(this));
         return false;
@@ -18,7 +20,22 @@ $(document).ready(function() {
             window.location.replace('/order/update_order_item?id=' + id + '&field=quantity&value=' + qty);
         }
     });
+
+    $(document.body).on('click', '#product-size' ,function(){
+        sizesForm($(this));
+    });
+
 });
+
+function sizesForm(e) {
+    if(e.is(':checked')){
+        $('.size-and-count').show();
+        $('.size-without-count').hide();
+    } else {
+        $('.size-and-count').hide();
+        $('.size-without-count').show();
+    }
+}
 
 function removeImage(e) {
     $.ajax({

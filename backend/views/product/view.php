@@ -75,7 +75,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->is_in_stock ? 'Да' : 'Нет';
                 },
             ],
-            'size',
+            [
+                'attribute' => 'size',
+                'value' => function ($model) {
+                    if(!$model->size)
+                        return 'Универсальный размер';
+                    else
+                        return $model->getProductSizesStr();
+                },
+            ],
             [
                 'attribute' => 'color',
                 'value' => function ($model) {

@@ -76,7 +76,9 @@ class CatalogController extends \yii\web\Controller
                 $query->andWhere(['color' => $get['color']]);
             }
             if(isset($get['size']) && $get['size'] != 'all'){
-                $query->andFilterWhere(['like', 'size', $get['size']]);
+                $query->joinWith('sizes')
+                    ->andWhere(['{{product_size}}.size' => $get['size']])
+                    ->andWhere(['>', '{{product_size}}.count', 0]);
             }
             if(isset($get['min_price']) && isset($get['max_price'])){
                 $query->andWhere(['between', 'price', $get['min_price'], $get['max_price']]);

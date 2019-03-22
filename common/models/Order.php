@@ -104,20 +104,20 @@ class Order extends \yii\db\ActiveRecord
             if ($this->isNewRecord) {
                 $this->status = self::STATUS_NEW;
             } else {
-//                $oldAttributes = $this->getOldAttributes();
-//                if($this->status != $oldAttributes['status']) {
-//                    if($this->status != $oldAttributes['status']) {
-//                        if($this->status == self::STATUS_CANCELED) {
-//                            foreach ($this->orderItems as $item){
-//                                $item->product->plusCount($item->quantity);
-//                            }
-//                        } elseif($oldAttributes['status'] == self::STATUS_CANCELED){
-//                            foreach ($this->orderItems as $item){
-//                                $item->product->minusCount($item->quantity);
-//                            }
-//                        }
-//                    }
-//                }
+                $oldAttributes = $this->getOldAttributes();
+                if($this->status != $oldAttributes['status']) {
+                    if($this->status != $oldAttributes['status']) {
+                        if($this->status == self::STATUS_CANCELED) {
+                            foreach ($this->orderItems as $item){
+                                $item->product->plusCount($item->quantity, $item->size);
+                            }
+                        } elseif($oldAttributes['status'] == self::STATUS_CANCELED){
+                            foreach ($this->orderItems as $item){
+                                $item->product->minusCount($item->quantity, $item->size);
+                            }
+                        }
+                    }
+                }
             }
             return true;
         } else {
@@ -202,7 +202,7 @@ class Order extends \yii\db\ActiveRecord
 
         foreach ($this->orderItems as $item) {
             $product = Product::findOne($item->product_id);
-            $product->plusCount($item->quantity);
+            $product->plusCount($item->quantity, $item->size);
         }
 
         return true;

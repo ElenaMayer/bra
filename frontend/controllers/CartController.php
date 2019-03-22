@@ -24,11 +24,12 @@ class CartController extends \yii\web\Controller
         ];
     }
 
-    public function actionAdd($id, $size, $quantity = 1)
+    public function actionAdd($id, $size = null, $quantity = 1)
     {
         $product = Product::findOne($id);
         if ($product) {$position = $product->getCartPosition();
-            $position->size = $size;
+            if ($size)
+                $position->size = $size;
             $cart = \Yii::$app->cart;
             $cart->put($position, $quantity);
             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -44,13 +45,18 @@ class CartController extends \yii\web\Controller
         $get = Yii::$app->request->get();
         if($get && isset($get['id']) && isset($get['quantity']) && $get['quantity'] > 0) {
 
-//            $product = Product::findOne($get['id']);
-//            if($product->count > $get['quantity']){
-//                $count = $get['quantity'];
-//            } else {
-//                $count = $product->count;
-//            }
-            $this->updateQty($get['id'], $get['quantity']);
+            $cart = \Yii::$app->cart;
+            $position = $cart->getPositionById($get['id']);
+            if ($position) {
+                $product = $position->getProduct();
+                if($product->getItemCount($position->size) > $get['quantity']){
+                    $count = $get['quantity'];
+                } else {
+                    $count = $product->getItemCount($position->size);
+                }
+                $cart->update($position, $count);
+            }
+
             $cart = \Yii::$app->cart;
             $product = $cart->getPositionById($get['id']);
             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -93,15 +99,6 @@ class CartController extends \yii\web\Controller
 
     }
 
-    public function updateQty($id, $quantity)
-    {
-        $cart = \Yii::$app->cart;
-        $position = $cart->getPositionById($id);
-        if ($position) {
-            $cart->update($position, $quantity);
-        }
-    }
-
     public function actionOrder()
     {
         /* @var $cart ShoppingCart */
@@ -142,15 +139,15 @@ class CartController extends \yii\web\Controller
                         $orderItem->size = $position->size;
                         $orderItem->product_id = $product->id;
                         $qty = $position->getQuantity();
-//                        if($product->count < $qty)
-//                            $qty = $product->count;
+                        if($product->getItemCount($position->size) < $qty)
+                            $qty = $product->getItemCount($position->size);
                         $orderItem->quantity = $qty;
                         if (!$orderItem->save(false)) {
                             $transaction->rollBack();
                             \Yii::$app->session->addFlash('error', 'Невозможно создать заказ. Пожалуйста свяжитесь с нами.');
                             return $this->redirect('/catalog');
                         } else {
-//                            $product->minusCount($orderItem->quantity);
+                            $product->minusCount($orderItem->quantity, $position->size);
                         }
                     }
                 }

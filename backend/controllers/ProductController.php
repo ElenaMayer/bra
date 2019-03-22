@@ -76,16 +76,11 @@ class ProductController extends Controller
         $model = new Product();
         $model->is_active = 1;
         $model->is_in_stock = 1;
+        $model->size = 1;
 //        $model->weight = 0;
 
         if($post = Yii::$app->request->post()) {
-            if (is_array($post['Product']['size'])) {
-                $model->size = implode(",", $post['Product']['size']);
-            }
-            if (is_array($post['Product']['subcategories']))
-            {
-                $model->subcategories = implode(",",$post['Product']['subcategories']);
-            }
+            $this->prepareProduct($post, $model);
             if ($model->load($post) && $model->save()) {
                 if (is_array($post['Product']['relationsArr']))
                 {
@@ -117,19 +112,10 @@ class ProductController extends Controller
     {
         $model = $this->findModel($id);
         if($post = Yii::$app->request->post()){
-            if (is_array($post['Product']['size']))
-            {
-                $model->size = implode(",",$post['Product']['size']);
-            } else {
-                $model->size = '';
-            }
-            if (is_array($post['Product']['subcategories']))
-            {
-                $model->subcategories = implode(",",$post['Product']['subcategories']);
-            }
-//            if($post['Product']['count'] != $model->count && $post['Product']['count'] <= 0 && $model->is_in_stock == 1) {
-//                $post['Product']['is_in_stock'] = 0;
-//            }
+            $this->prepareProduct($post, $model);
+
+            $model->load($post);
+
             if ($model->load($post) && $model->save()) {
                 if (is_array($post['Product']['relationsArr']))
                 {
@@ -145,11 +131,21 @@ class ProductController extends Controller
                 ]);
             }
         } else {
-            $model->size = !empty($model->size)?explode(",",$model->size):[];
             $model->subcategories = !empty($model->subcategories)?explode(",",$model->subcategories):[];
             return $this->render('update', [
                 'model' => $model,
             ]);
+        }
+    }
+
+    private function prepareProduct($post, &$model){
+        if (is_array($post['Product']['subcategories']))
+        {
+            $model->subcategories = implode(",",$post['Product']['subcategories']);
+        }
+        if (is_array($post['ProductSize']))
+        {
+            $model->productSizes = $post['ProductSize'];
         }
     }
 

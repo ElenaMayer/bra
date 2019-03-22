@@ -7,6 +7,7 @@ use \common\models\Product;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
 use common\models\Category;
+use common\models\ProductSize;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Product */
@@ -53,18 +54,6 @@ use common\models\Category;
 
     <?= $form->field($model, 'color')->dropDownList(Yii::$app->params['colors'], ['prompt' => 'Выберите цвет ...']) ?>
 
-    <?= $form->field($model, 'size')->widget(Select2::classname(), [
-        'options' => [
-            'multiple' => true,
-            'placeholder' => Yii::t('app','Выберите размер ...'),
-        ],
-        'data'=>$model->getAllSizesArray(),
-        'pluginOptions' => [
-            'tags' => true,
-            'tokenSeparators'=>[',',' '],
-        ],
-    ]) ?>
-
     <?= $form->field($model, 'relationsArr')->widget(Select2::classname(), [
         'options' => [
             'multiple' => true,
@@ -76,6 +65,80 @@ use common\models\Category;
             'tokenSeparators'=>[',',' '],
         ],
     ]) ?>
+
+    <?= $form->field($model, 'size')->checkbox() ?>
+
+    <div class="size-without-count" style="display: none">
+        <?= $form->field($model, 'count')->textInput(['maxlength' => 19]) ?>
+    </div>
+    <div class="size-and-count">
+        <fieldset>
+            <legend>
+                Размеры
+                <?= Html::a('Добавить', 'javascript:void(0);', [
+                    'id' => 'product-new-size-button',
+                    'class' => 'pull-right btn btn-default btn-xs'
+                ])?>
+            </legend>
+            <?php
+                $size = new ProductSize();
+                $size->loadDefaultValues(); ?>
+
+            <table id="product-sizes" class="table table-condensed table-sizes">
+                <thead>
+                <tr>
+                    <th><?=$size->getAttributeLabel('size')?></th>
+                    <th><?=$size->getAttributeLabel('count')?></th>
+                    <td>&nbsp;</td>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($model->sizes as $key => $_size):?>
+                    <tr>
+                        <?= $this->render('_form-size', [
+                            'key' => $_size->isNewRecord ? (strpos($key, 'new') !== false ? $key : 'new' . $key) : $_size->id,
+                            'form' => $form,
+                            'size' => $_size,
+                        ]);?>
+                    </tr>
+                <?php endforeach;?>
+
+                <tr id="product-new-size-block" style="display: none;">
+                    <?= $this->render('_form-size', [
+                        'key' => '__id__',
+                        'form' => $form,
+                        'size' => $size,
+                    ]);?>
+                </tr>
+                </tbody>
+            </table>
+
+            <?php ob_start(); // output buffer the javascript to register later ?>
+            <script>
+                var size_k = <?php echo isset($key) ? str_replace('new', '', $key) : 0; ?>;
+                $('#product-new-size-button').on('click', function () {
+                    size_k += 1;
+                    $('#product-sizes').find('tbody')
+                        .append('<tr>' + $('#product-new-size-block').html().replace(/__id__/g, 'new' + size_k) + '</tr>');
+
+                });
+
+                $(document).on('click', '.product-remove-size-button', function () {
+                    $(this).closest('tbody tr').remove();
+                });
+
+                <?php
+                // OPTIONAL: click add when the form first loads to display the first new row
+                if (!Yii::$app->request->isPost && $model->isNewRecord)
+                    echo "$('#product-new-size-button').click();";
+                ?>
+
+            </script>
+            <?php $this->registerJs(str_replace(['<script>', '</script>'], '', ob_get_clean())); ?>
+
+        </fieldset>
+    </div>
+
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Добавить' : 'Редактировать', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

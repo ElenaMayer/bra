@@ -62,7 +62,7 @@ class OrderController extends Controller
     {
         if($post = Yii::$app->request->post('OrderItem')){
             $product = Product::findOne($post['product_id']);
-            $orderItem = OrderItem::find()->where(['order_id' => $id, 'product_id' => $post['product_id']])->one();
+            $orderItem = OrderItem::find()->where(['order_id' => $id, 'size' => $post['size'], 'product_id' => $post['product_id']])->one();
             if($orderItem) {
                 $orderItem->quantity += $post['quantity'];
             } else {
@@ -71,10 +71,11 @@ class OrderController extends Controller
                 $orderItem->title = $product->title;
                 $orderItem->price = $product->getPrice(true);
                 $orderItem->product_id = $post['product_id'];
+                $orderItem->size = $post['size'];
                 $orderItem->quantity = $post['quantity'];
             }
             if ($orderItem->save()) {
-                $product->minusCount($post['quantity']);
+                $product->minusCount($post['quantity'], $post['size']);
             }
         }
         return $this->render('view', [
@@ -137,7 +138,7 @@ class OrderController extends Controller
         $model = OrderItem::findOne($id);
         $product = Product::findOne($model->product_id);
         if($product)
-            $product->plusCount($model->quantity);
+            $product->plusCount($model->quantity, $model->size);
         $model->delete();
 
         return $this->redirect(['view', 'id' => $model->order_id]);
@@ -148,10 +149,12 @@ class OrderController extends Controller
         $product = Product::findOne($model->product_id);
         if($product && $model->$field != $value){
             if($field == 'quantity') {
-                if ($model->quantity > $value)
-                    $product->minusCount($value - $model->quantity);
-                else
-                    $product->plusCount($model->quantity - $value);
+
+                if ($value > $model->quantity) {
+                    $product->minusCount($value - $model->quantity, $model->size);
+                } else {
+                    $product->plusCount($model->quantity - $value, $model->size);
+                }
             }
         }
         $model->$field = $value;
