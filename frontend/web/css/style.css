@@ -5610,6 +5610,11 @@ abbr.required {
     padding-right: 20px;
   }
 
+  #flexslider-hero .hero-holder.text-right {
+    left: 50%;
+    width: 50%;
+  }
+
   .hero-holder .btn span {
     line-height: 25px;
   }
@@ -5617,6 +5622,7 @@ abbr.required {
   .hero-holder p {
     margin-bottom: 0;
     font-size: 12px;
+    line-height: 1.5;
   }
 
   #flexslider-hero .hero-holder.left-align {

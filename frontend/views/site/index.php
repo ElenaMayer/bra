@@ -24,9 +24,9 @@ $this->title = Yii::$app->params['indexTitle'];
                     <li class="slider-8">
                         <img src="/img/slider/8.jpg" alt="Бесплатная доставка">
                         <div class="img-holder img-8"></div>
-                        <div class="hero-holder right-align">
+                        <div class="hero-holder right-align text-right">
                             <div class="hero-lines">
-                                <h1 class="hero-heading">БЕСПЛАТНАЯ </br>доставка</h1>
+                                <h1 class="hero-heading">БЕСПЛАТНАЯ</br>доставка</h1>
                                 <p>и карта постоянного клиента в подарок</p>
                             </div>
                             <a href="/shipping" class="btn btn-lg btn-white"><span>Подробнее</span></a>
