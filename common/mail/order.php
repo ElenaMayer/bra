@@ -81,7 +81,7 @@ use common\models\Order;
     <?php if($order->shipping_cost):?>
         <tr>
             <td>
-                <p><b>Подитог: </b> <?= $order->getSubCost(); ?> р</p>
+                <p><b>Подытог: </b> <?= $order->getSubCost(); ?> р</p>
             </td>
         </tr>
         <tr>

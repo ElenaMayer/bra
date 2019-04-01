@@ -5,40 +5,37 @@ use common\models\Product;
 use common\models\StaticFunction;
 ?>
 
-<!-- Sidebar -->
-<aside class="col-md-3 sidebar left-sidebar">
+<!-- Categories -->
+<div class="widget categories">
+    <h3 class="widget-title uppercase">Категории</h3>
+    <?= Menu::widget([
+        'items' => $menuItems,
+        'options' => [
+            'class' => 'list-no-dividers',
+        ],
+    ]); ?>
+</div>
 
-    <!-- Categories -->
-    <div class="widget categories">
-        <h3 class="widget-title uppercase">Категории</h3>
-        <?= Menu::widget([
-            'items' => $menuItems,
-            'options' => [
-                'class' => 'list-no-dividers',
-            ],
-        ]); ?>
-    </div>
+<!-- Select size -->
+<div class="widget tags clearfix">
+    <h3 class="widget-title uppercase">Размер</h3>
+    <?php $sizes = Product::getAllSizesArray($category->id)?>
+    <a href="<?= StaticFunction::addGetParamToCurrentUrl('size', 'all')?>" title="Все" class="<?php if(!Yii::$app->request->get('size') || Yii::$app->request->get('size') == 'all') echo 'active'?>">Все</a>
+    <?php foreach ($sizes as $size):?>
+        <a href="<?= StaticFunction::addGetParamToCurrentUrl('size', $size)?>" title="<?= $size ?>" class=" <?php if(Yii::$app->request->get('size') && Yii::$app->request->get('size') == $size) echo 'active'?>">
+            <?= $size ?>
+        </a>
+    <?php endforeach;?>
+</div>
 
-    <!-- Select size -->
-    <div class="widget tags clearfix">
-        <h3 class="widget-title uppercase">Размер</h3>
-        <?php $sizes = Product::getAllSizesArray($category->id)?>
-        <a href="<?= StaticFunction::addGetParamToCurrentUrl('size', 'all')?>" title="Все" class="<?php if(!Yii::$app->request->get('size') || Yii::$app->request->get('size') == 'all') echo 'active'?>">Все</a>
-        <?php foreach ($sizes as $size):?>
-            <a href="<?= StaticFunction::addGetParamToCurrentUrl('size', $size)?>" title="<?= $size ?>" class=" <?php if(Yii::$app->request->get('size') && Yii::$app->request->get('size') == $size) echo 'active'?>">
-                <?= $size ?>
-            </a>
-        <?php endforeach;?>
-    </div>
-
-    <!-- Select color -->
-    <div class="widget categories">
-        <h3 class="widget-title uppercase">Цвет</h3>
-        <?php  $colors = Product::getAllColorsArray($category->id)?>
-        <ul class="list-no-dividers">
-            <li <?php if(!Yii::$app->request->get('color') || Yii::$app->request->get('color') == 'all'):?>class="active"<?php endif;?>>
-                <a href="<?= StaticFunction::addGetParamToCurrentUrl('color', 'all')?>" title="Все">Все</a>
-            </li>
+<!-- Select color -->
+<div class="widget colors">
+    <h3 class="widget-title uppercase">Цвет</h3>
+    <?php  $colors = Product::getAllColorsArray($category->id)?>
+    <ul class="list-no-dividers">
+        <li <?php if(!Yii::$app->request->get('color') || Yii::$app->request->get('color') == 'all'):?>class="active"<?php endif;?>>
+            <a href="<?= StaticFunction::addGetParamToCurrentUrl('color', 'all')?>" title="Все">Все</a>
+        </li>
         <?php foreach ($colors as $key => $color):?>
             <li <?php if(Yii::$app->request->get('color') && Yii::$app->request->get('color') == $key):?>class="active"<?php endif;?>>
                 <a href="<?= StaticFunction::addGetParamToCurrentUrl('color', $key)?>" title="<?= $color ?>">
@@ -46,8 +43,8 @@ use common\models\StaticFunction;
                 </a>
             </li>
         <?php endforeach;?>
-        </ul>
-    </div>
+    </ul>
+</div>
 
 <!--     Фильтр по цене-->
 <!--    <div class="widget filter-by-price clearfix">-->
@@ -61,30 +58,3 @@ use common\models\StaticFunction;
 <!--        </p>-->
 <!--    </div>-->
 
-    <!-- Bestsellers -->
-    <div class="widget bestsellers">
-        <div class="products-widget">
-            <h3 class="widget-title uppercase">Новинки</h3>
-            <ul class="product-list-widget">
-                <?php $products = Product::getNovelties(2);?>
-                <?php foreach ($products as $product):?>
-                    <?php $images = $product->images; ?>
-                    <?php if(isset($images[0])):?>
-                        <li class="clearfix">
-                            <a href="/catalog/<?= $product->category->slug?>/<?= $product->id?>">
-                                <img src="<?=$images[0]->getUrl('small')?>" alt="<?= $product->title?>">
-                                <span class="product-title"><?=$product->title?></span>
-                            </a>
-                            <span class="price">
-                              <ins>
-                                <span class="ammount"><?=$product->new_price ? $product->new_price : (int)$product->price?><i class="fa fa-ruble"></i></span>
-                              </ins>
-                            </span>
-                        </li>
-                    <?php endif;?>
-                <?php endforeach;?>
-            </ul>
-        </div>
-    </div>
-
-</aside> <!-- end sidebar -->

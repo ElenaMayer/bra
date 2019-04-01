@@ -91,7 +91,7 @@ $this->title = 'Оформление заказа';
                                     <?php endif;?>
                                 <?php endforeach ?>
                                 <tr class="cart-subtotal">
-                                    <th>Подитог</th>
+                                    <th>Подытог</th>
                                     <td>
                                         <span class="amount subtotal"><span><?= $cart->getCost()?></span><i class="fa fa-ruble"></i></span>
                                     </td>

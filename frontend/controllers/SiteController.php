@@ -91,6 +91,11 @@ class SiteController extends Controller
         return $this->render('shipping');
     }
 
+    public function actionPayment()
+    {
+        return $this->render('payment');
+    }
+
     public function actionWholesale()
     {
         return $this->render('wholesale');

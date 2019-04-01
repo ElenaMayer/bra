@@ -43,7 +43,7 @@ $activeItemsInCart = $cart->getActiveCount();
             </div> <!-- end cart items -->
 
             <div class="nav-cart-summary">
-                <span>Подитог</span>
+                <span>Подытог</span>
                 <span class="total-price"><span><?= $cart->getCost() ?></span><i class="fa fa-ruble"></i></span>
             </div>
             <?php if($activeItemsInCart > 0):?>

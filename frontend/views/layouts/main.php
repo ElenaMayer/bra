@@ -45,7 +45,8 @@ AppAsset::register($this);
                             <div class="top-bar-links">
                                 <ul class="col-sm-6 top-bar-acc">
                                     <li class="top-bar-link"><a href="<?= Yii::$app->homeUrl ?>">Главная</a></li>
-                                    <li class="top-bar-link"><a href="/shipping">Доставка и оплата</a></li>
+                                    <li class="top-bar-link"><a href="/shipping">Доставка</a></li>
+                                    <li class="top-bar-link"><a href="/payment">Оплата</a></li>
                                     <li class="top-bar-link"><a href="/tryon">Примерка</a></li>
                                     <li class="top-bar-link"><a href="/contact">Контакты</a></li>
                                 </ul>
@@ -154,7 +155,10 @@ AppAsset::register($this);
                                         <li class="mobile-links">
                                             <ul>
                                                 <li>
-                                                    <a href="/shipping">Доставка и оплата</a>
+                                                    <a href="/shipping">Доставка</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/payment">Оплата</a>
                                                 </li>
                                                 <li>
                                                     <a href="/tryon">Примерка</a>
@@ -196,7 +200,8 @@ AppAsset::register($this);
                                 <h5 class="widget-title uppercase">Помощь</h5>
                                 <ul class="list-no-dividers">
                                     <li><a href="/contact">Контакты</a></li>
-                                    <li><a href="/shipping">Доставка и оплата</a></li>
+                                    <li><a href="/shipping">Доставка</a></li>
+                                    <li><a href="/payment">Оплата</a></li>
                                     <li><a href="/tryon">Примерка</a></li>
                                     <li><a href="/returns">Возврат</a></li>
                                     <li><a href="/wholesale">Опт</a></li>

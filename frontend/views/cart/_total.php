@@ -6,7 +6,7 @@
         <table class="table shop_table">
             <tbody>
             <tr class="cart-subtotal">
-                <th>Подитог</th>
+                <th>Подытог</th>
                 <td>
                     <span class="amount"><?= $cart->getCost()?><i class="fa fa-ruble"></i></span>
                 </td>

@@ -59,6 +59,20 @@
     padding-left: 15px;
   }
 
+  .sidebar .widget.categories {
+    display: none;
+  }
+
+  .sidebar .widget.colors .color-title {
+    display: none;
+  }
+
+  .sidebar .widget.colors .list-no-dividers > li {
+    padding: 0px 5px !important;
+    margin-bottom: 25px;
+    float: left;
+  }
+
   .heading-row {
     margin-bottom: 40px;
   }

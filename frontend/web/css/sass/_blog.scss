@@ -360,7 +360,8 @@
   color: $heading-color;
 }
 
-.widget.categories ul li a {
+.widget.categories ul li a,
+.widget.colors ul li a {
   color: $text-color;
 
   &:hover {

@@ -1885,6 +1885,18 @@ ol.numbers {
 .img-holder.img-7 {
   background-image: url(../img/slider/7.jpg);
 }
+.img-holder.img-8 {
+  background-image: url(../img/slider/8.jpg);
+}
+
+li.slider-8 .hero-lines:before,
+li.slider-8 .hero-lines:after {
+  background-color: #ff97d2;
+}
+li.slider-8 .hero-lines .hero-heading,
+li.slider-8 .hero-lines p {
+  color: #ff97d2;
+}
 
 /*-------------------------------------------------------*/
 /* Testimonials
@@ -2522,10 +2534,12 @@ ol.numbers {
   color: #444444;
 }
 
-.widget.categories ul li a {
+.widget.categories ul li a,
+.widget.colors ul li a {
   color: #979797;
 }
-.widget.categories ul li a:hover {
+.widget.categories ul li a:hover,
+.widget.colors ul li a:hover {
   color: #f570bb;
 }
 
@@ -5401,6 +5415,20 @@ abbr.required {
 
   .sidebar:not(.left-sidebar) {
     padding-left: 15px;
+  }
+
+  .sidebar .widget.categories {
+    display: none;
+  }
+
+  .sidebar .widget.colors .color-title {
+    display: none;
+  }
+
+  .sidebar .widget.colors .list-no-dividers > li {
+    padding: 0px 5px !important;
+    margin-bottom: 25px;
+    float: left;
   }
 
   .heading-row {

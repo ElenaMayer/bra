@@ -17,6 +17,14 @@ $this->params['breadcrumbs'][] = $this->title;
 <section class="section-wrap pt-70 pb-40 catalogue">
     <div class="container relative">
         <div class="row">
+            <!-- Sidebar -->
+            <aside class="col-md-3 sidebar left-sidebar">
+                <?= $this->render('_sidebar', [
+                    'category' => $category,
+                    'menuItems' => $menuItems,
+                    'noveltyProducts' => Product::getNovelties()
+                ]); ?>
+            </aside> <!-- end sidebar -->
             <div class="col-md-9 catalogue-col right mb-50">
                 <div class="shop-filter">
                     <?php
@@ -69,12 +77,33 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
             </div> <!-- end col -->
-            <?= $this->render('_sidebar', [
-                    'category' => $category,
-                    'menuItems' => $menuItems,
-                    'noveltyProducts' => Product::getNovelties()
-            ]); ?>
-
+            <aside class="col-md-3 sidebar left-sidebar">
+                <!-- Bestsellers -->
+                <div class="widget bestsellers">
+                    <div class="products-widget">
+                        <h3 class="widget-title uppercase">Новинки</h3>
+                        <ul class="product-list-widget">
+                            <?php $products = Product::getNovelties(2);?>
+                            <?php foreach ($products as $product):?>
+                                <?php $images = $product->images; ?>
+                                <?php if(isset($images[0])):?>
+                                    <li class="clearfix">
+                                        <a href="/catalog/<?= $product->category->slug?>/<?= $product->id?>">
+                                            <img src="<?=$images[0]->getUrl('small')?>" alt="<?= $product->title?>">
+                                            <span class="product-title"><?=$product->title?></span>
+                                        </a>
+                                        <span class="price">
+                              <ins>
+                                <span class="ammount"><?=$product->new_price ? $product->new_price : (int)$product->price?><i class="fa fa-ruble"></i></span>
+                              </ins>
+                            </span>
+                                    </li>
+                                <?php endif;?>
+                            <?php endforeach;?>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
         </div> <!-- end row -->
     </div> <!-- end container -->
 </section> <!-- end catalogue -->

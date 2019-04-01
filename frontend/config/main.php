@@ -41,6 +41,7 @@ return [
                 'cart' => 'cart/cart',
                 'contact' => 'site/contact',
                 'shipping' => 'site/shipping',
+                'payment' => 'site/payment',
                 'wholesale' => 'site/wholesale',
                 'certificate' => 'site/certificate',
                 'franchise' => 'site/franchise',

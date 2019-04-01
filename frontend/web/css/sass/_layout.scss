@@ -114,8 +114,22 @@
   &.img-7 {
     background-image: url(../img/slider/7.jpg);
   }
+
+  &.img-8 {
+    background-image: url(../img/slider/8.jpg);
+  }
 }
 
+li.slider-8 {
+  .hero-lines:before,
+  .hero-lines:after {
+    background-color: #ff97d2;
+  }
+  .hero-lines .hero-heading,
+  .hero-lines p {
+    color: #ff97d2;
+  }
+}
 
 /*-------------------------------------------------------*/
 /* Testimonials
@@ -276,7 +290,7 @@
     font-size: 12px;
     margin-bottom: 0;
     color: #929292;
-  }  
+  }
 }
 
 
@@ -338,7 +352,7 @@
 
   @include bp-md {
     padding-right: 30px;
-  }  
+  }
 }
 
 #contact-form .message {
@@ -397,7 +411,7 @@
 .page-title {
   position: relative;
   width: 100%;
-  overflow: hidden;  
+  overflow: hidden;
   display: block;
   background-repeat: no-repeat;
   background-size: cover;

@@ -21,6 +21,17 @@ $this->title = Yii::$app->params['indexTitle'];
                             <a href="/catalog/top" class="btn btn-lg btn-white"><span>Купить</span></a>
                         </div>
                     </li>
+                    <li class="slider-8">
+                        <img src="/img/slider/8.jpg" alt="Бесплатная доставка">
+                        <div class="img-holder img-8"></div>
+                        <div class="hero-holder right-align">
+                            <div class="hero-lines">
+                                <h1 class="hero-heading">БЕСПЛАТНАЯ </br>доставка</h1>
+                                <p>и карта постоянного клиента в подарок</p>
+                            </div>
+                            <a href="/shipping" class="btn btn-lg btn-white"><span>Подробнее</span></a>
+                        </div>
+                    </li>
                     <li>
                         <img src="/img/slider/4.jpg?4" alt="Коллекция 2019">
                         <div class="img-holder img-4"></div>
