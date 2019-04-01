@@ -286,7 +286,7 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
             $models = Product::find()
                 ->select(['{{product_size}}.size'])
                 ->joinWith('sizes')
-                ->where(['category_id' => $categoryId])
+                ->where(['or', ['category_id' => $categoryId], ['subcategories' => $categoryId]])
                 ->andWhere(['>', '{{product_size}}.count', 0])
                 ->distinct()
                 ->all();
@@ -315,7 +315,7 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
     {
         $models = Product::find();
         if($categoryId) {
-            $models = $models->where(['category_id' => $categoryId]);
+            $models = $models->where(['or', ['category_id' => $categoryId], ['subcategories' => $categoryId]]);
         }
         $models = $models->all();
         $colors = [];
