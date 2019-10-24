@@ -25,6 +25,21 @@ $(document).ready(function() {
         sizesForm($(this));
     });
 
+    $(document.body).on('change', '#order-shipping_method' ,function(){
+        $('.shipping_method_field').each(function(){
+            $(this).hide();
+        });
+        method = $(this).children("option:selected").val();
+
+        if(method == 'courier'){
+            $('.method_courier').show();
+        } else if(method == 'rp'){
+            $('.method_rp').show();
+        } else if(method == 'tk'){
+            $('.method_tk').show();
+        }
+    });
+
 });
 
 function sizesForm(e) {

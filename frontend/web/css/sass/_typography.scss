@@ -181,6 +181,24 @@ blockquote {
   color: $text-color;
 }
 
+.container .content_img {
+  float: right;
+  width: 40%;
+  padding-left: 10px;
+}
+
+@media (max-width: 991px) {
+  .container .content_img {
+    width: 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container .content_img {
+    width: 100%;
+  }
+}
+
 .bullets li {
   position: relative;
   padding-left: 15px;

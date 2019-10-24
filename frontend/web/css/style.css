@@ -745,6 +745,22 @@ blockquote > span {
   color: #979797;
 }
 
+.container .content_img {
+  float: right;
+  width: 40%;
+  padding-left: 10px;
+}
+
+@media (max-width: 991px) {
+  .container .content_img {
+    width: 50%;
+  }
+}
+@media (max-width: 480px) {
+  .container .content_img {
+    width: 100%;
+  }
+}
 .bullets li {
   position: relative;
   padding-left: 15px;
@@ -5305,6 +5321,10 @@ abbr.required {
 
 .shipping_methods .rp .col-sm-3 {
   padding-left: 0;
+}
+
+.checkout input[type=checkbox] {
+  display: inline-block;
 }
 
 /*-------------------------------------------------------*/

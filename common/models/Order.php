@@ -24,6 +24,8 @@ use yii\behaviors\TimestampBehavior;
  * @property string $payment_method
  * @property string $payment_url
  * @property integer $zip
+ * @property string $shipping_area
+ * @property integer $is_try_on
  *
  * @property OrderItem[] $orderItems
  */
@@ -58,8 +60,8 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at', 'updated_at', 'shipping_cost', 'zip'], 'integer'],
-            [['address', 'notes'], 'string'],
+            [['created_at', 'updated_at', 'shipping_cost', 'zip', 'is_try_on'], 'integer'],
+            [['address', 'notes', 'shipping_area'], 'string'],
             [['phone', 'email', 'status', 'fio', 'city', 'shipping_method', 'payment_method', 'payment', 'payment_url'], 'string', 'max' => 255],
             [['phone', 'fio'], 'required'],
             [['email'], 'email'],
@@ -87,6 +89,8 @@ class Order extends \yii\db\ActiveRecord
             'shipping_method' => 'Способ доставки',
             'payment_method' => 'Способ оплаты',
             'zip' => 'Индекс',
+            'shipping_area' => 'Район доставки',
+            'is_try_on' => 'Примерка',
         ];
     }
 
@@ -142,17 +146,52 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             'self' => 'Самовывоз (бесплатно)',
-            'courier' => "Курьер",
-            'tryon' => "Курьер (с примеркой)",
+            'courier' => 'Курьер',
             'rp' => 'Почта России',
             'tk' => 'ТК СДЭК',
         ];
+    }
+
+    public static function getShippingArea()
+    {
+        return [
+            'city' => [
+                'title' => 'По городу',
+                'price' => '200'
+            ],
+            'edge' => [
+                'title' => 'Отдаленные районы',
+                'price' => '300'
+            ],
+            'berdsk' => [
+                'title' => 'Бердск',
+                'price' => '450'
+            ],
+            'koltsovo' => [
+                'title' => 'Кольцово',
+                'price' => '350'
+            ],
+            'ob' => [
+                'title' => 'Обь',
+                'price' => '450'
+            ],
+        ];
+    }
+
+    public static function getShippingAreaBase()
+    {
+        $res = [];
+        foreach (Order::getShippingArea() as $k => $a){
+            $res[$k] = $a['title'];
+        }
+        return $res;
     }
 
     public static function getPaymentMethods()
     {
         return [
             'cash' => 'Наличными при получении',
+            'card2' => 'Переводом на карту Сбербанк',
             'card' => 'Банковской картой',
         ];
     }

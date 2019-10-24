@@ -92,39 +92,43 @@ $(document).ready(function() {
             $('#amount_total').text($('#amount_subtotal').text());
 		});
         method = $(this).children("option:selected").val();
-        $('.order-try-on').hide();
-        if(method == 'self' || method == 'courier'){
+        if(method == 'self'){
+            $('.payment_method_card2').hide();
             $('.payment_method_cash').show();
             $('.payment_method_card').show();
-            $('.payment_method_cash').prop("checked", true);
+            $('#payment_method_cash').prop("checked", true);
             $('.payment_box.payment_method_card').hide();
-        } else if(method == 'tryon') {
-            $('.payment_method_cash').show();
-            $('.payment_method_cash').prop("checked", true);
-            $('.payment_method_card').hide();
+        } else if(method == 'courier'){
+            $('.payment_method_cash').hide();
+            $('.payment_method_card').show();
+            $('.payment_method_card2').show();
+            $('#payment_method_card2').prop("checked", true);
             $('.payment_box.payment_method_card').hide();
         } else {
+            $('.payment_method_card2').hide();
             $('.payment_method_card').show();
             $('.payment_method_cash').hide();
-            $('.payment_method_card').prop("checked", true);
+            $('#payment_method_card').prop("checked", true);
             $('.payment_box.payment_method_card').show();
         }
 
         if(method == 'self'){
-            $('.shipping_methods .courier').show();
+            $('.shipping_methods .courier').hide();
             $('tr.shipping > td > .shipping-cost').html('0<i class="fa fa-ruble"></i>');
             $('.amount.total span').text($('.amount.subtotal span').text());
-        } else if(method == 'courier' || method == 'tryon'){
+            $('#order-shipping_cost').val(0);
+        } else if(method == 'courier'){
 			$('.shipping_methods .courier').show();
-            if(method == 'tryon'){
-                $('.order-try-on').show();
-            }
             $.ajax({
                 method: 'get',
                 url: '/cart/get_courier_cost',
+                data: {
+                    type: $('#order-shipping_area').children("option:selected").val(),
+                },
             }).done(function( data ) {
                 $('tr.shipping > td > .shipping-cost').html(data + '<i class="fa fa-ruble"></i>');
                 $('.amount.total span').text(parseInt($('.amount.subtotal span').text()) + parseInt(data));
+                $('#order-shipping_cost').val(data);
             });
 		} else if(method == 'rp'){
 			$('.shipping_methods .rp').show();
@@ -134,6 +138,7 @@ $(document).ready(function() {
             }).done(function( data ) {
                 $('tr.shipping > td > .shipping-cost').html(data + '<i class="fa fa-ruble"></i>');
                 $('.amount.total span').text(parseInt($('.amount.subtotal span').text()) + parseInt(data));
+                $('#order-shipping_cost').val(data);
             });
 		} else if(method == 'tk'){
             $('.shipping_methods .tk').show();
@@ -143,8 +148,40 @@ $(document).ready(function() {
             }).done(function( data ) {
                 $('tr.shipping > td > .shipping-cost').html(data + '<i class="fa fa-ruble"></i>');
                 $('.amount.total span').text(parseInt($('.amount.subtotal span').text()) + parseInt(data));
+                $('#order-shipping_cost').val(data);
             });
 		}
+    });
+
+    $(document.body).on('change', '#order-shipping_area' ,function() {
+        $.ajax({
+            method: 'get',
+            url: '/cart/get_courier_cost',
+            data: {
+                type: $(this).children("option:selected").val(),
+                try: $('#order-is_try_on').prop('checked')
+            },
+        }).done(function( data ) {
+            $('tr.shipping > td > .shipping-cost').html(data + '<i class="fa fa-ruble"></i>');
+            $('.amount.total span').text(parseInt($('.amount.subtotal span').text()) + parseInt(data));
+            $('#order-shipping_cost').val(data);
+        });
+    });
+
+    $(document.body).on('change', '#order-is_try_on' ,function() {
+        console.log($(this).prop('checked'));
+        $.ajax({
+            method: 'get',
+            url: '/cart/get_courier_cost',
+            data: {
+                type: $('#order-shipping_area').children("option:selected").val(),
+                try: $(this).prop('checked')
+            },
+        }).done(function( data ) {
+            $('tr.shipping > td > .shipping-cost').html(data + '<i class="fa fa-ruble"></i>');
+            $('.amount.total span').text(parseInt($('.amount.subtotal span').text()) + parseInt(data));
+            $('#order-shipping_cost').val(data);
+        });
     });
 
     //Change cart qty

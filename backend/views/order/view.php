@@ -49,6 +49,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Order::getShippingMethods()[$model->shipping_method];
                 },
             ],
+            $model->shipping_method == 'tk' ? [
+                'attribute' => 'city',
+                'value' => function ($model) {
+                    return $model->city;
+                },
+            ]: (
+                [
+                    'attribute' => 'address',
+                    'value' => function ($model) {
+                        if($model->shipping_method == 'rp'){
+                            return $model->zip . ', ' . $model->address;
+                        } elseif($model->shipping_method == 'courier') {
+                            return $model->address;
+                        }
+                    },
+                ]),
             [
                 'attribute' => 'payment_method',
                 'value' => function ($model) {

@@ -80,7 +80,7 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
             [['description'], 'string'],
             [['category_id', 'is_in_stock', 'is_active', 'is_novelty', 'new_price', 'count', 'price'], 'integer'],
             ['weight', 'match', 'pattern' => '/^[0-9]+[0-9,.]*$/', 'message' => 'Значение должно быть числом.'],
-            [['title', 'article', 'category_id', 'price'], 'required'],
+            [['title', 'article', 'category_id', 'price', 'color'], 'required'],
             [['time, size, tags, subcategories'], 'safe'],
             [['slug', 'article'], 'string', 'max' => 255],
             [['title', 'color'], 'string', 'max' => 40],
@@ -253,9 +253,21 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
     public function getIsInStock()
     {
         $product = Product::findOne($this->id);
-        if($product->is_in_stock)
-            return true;
-        else
+        if($product->is_in_stock){
+            if(!$this->size){
+                if ($this->count > 0){
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                foreach ($this->sizes as $size){
+                    if($size->count > 0)
+                    return true;
+                }
+                return false;
+            }
+        } else
             return false;
     }
 
@@ -322,7 +334,7 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
         $colorsArr = Yii::$app->params['colors'];
         foreach ($models as $m)
         {
-            if (isset($m->color) && !in_array($m->color, $colors)) {
+            if ($m->color && !in_array($m->color, $colors)) {
                 $colors[$m->color] = isset($colorsArr[$m->color]) ? $colorsArr[$m->color] : $m->color;
             }
         }
@@ -501,6 +513,10 @@ class Product extends \yii\db\ActiveRecord implements CartPositionInterface
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
+
+            if(!$this->productSizes){
+                $this->size = 0;
+            }
 //            $this->weight = str_replace(',', '.', $this->weight);
             return true;
         }

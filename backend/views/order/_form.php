@@ -23,12 +23,20 @@ use \common\models\Order;
 
     <?= $form->field($model, 'shipping_method')->dropDownList(Order::getShippingMethods()) ?>
 
-    <div class="shipping_method_field method_rp" <?php if($model->shipping_method != 'rp'):?>style="display: none"<?php endif;?>">
-        <?= $form->field($model, 'address')->textInput(['maxlength' => 255]) ?>
+    <div class="form-group shipping_method_field method_rp" <?php if($model->shipping_method != 'rp'):?>style="display: none"<?php endif;?>">
         <?= $form->field($model, 'zip')->textInput(['maxlength' => 6]) ?>
     </div>
 
-    <div class="shipping_method_field city_field" <?php if($model->shipping_method != 'tk'):?>style="display: none"<?php endif;?>">
+    <div class="form-group shipping_method_field method_courier" <?php if($model->shipping_method != 'courier'):?>style="display: none"<?php endif;?>">
+        <?= $form->field($model, 'is_try_on')->checkbox() ?>
+        <?= $form->field($model, 'shipping_area')->dropDownList(Order::getShippingAreaBase()) ?>
+    </div>
+
+    <div class="form-group shipping_method_field method_rp method_courier" <?php if($model->shipping_method != 'rp'):?>style="display: none"<?php endif;?>">
+        <?= $form->field($model, 'address')->textInput(['maxlength' => 255]) ?>
+    </div>
+
+    <div class="form-group shipping_method_field method_tk" <?php if($model->shipping_method != 'tk'):?>style="display: none"<?php endif;?>">
         <?= $form->field($model, 'city')->textInput(['maxlength' => 255]) ?>
     </div>
 

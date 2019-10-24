@@ -204,7 +204,6 @@ AppAsset::register($this);
                                     <li><a href="/payment">Оплата</a></li>
                                     <li><a href="/tryon">Примерка</a></li>
                                     <li><a href="/returns">Возврат</a></li>
-                                    <li><a href="/wholesale">Опт</a></li>
                                     <li><a href="/franchise">Франшиза</a></li>
                                     <li><a href="/certificate">Подарочные сертификаты</a></li>
                                     <li><a href="/offer">Политика конфиденциальности</a></li>

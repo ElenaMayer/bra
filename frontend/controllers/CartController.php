@@ -222,11 +222,17 @@ class CartController extends \yii\web\Controller
         return $this->redirect($formUrl);
     }
 
-    public function actionGet_courier_cost(){
+    public function actionGet_courier_cost($type, $try = false){
         $cart = \Yii::$app->cart;
         $cartCost = $cart->getCost();
-        if($cartCost < 1000) {
-            return 150;
+        if($cartCost < Yii::$app->params['free_shipping_sum']) {
+            $areaList = Order::getShippingArea();
+            $res = $areaList[$type]['price'];
+            if($try == 'true'){
+                return $res + 50;
+            } else {
+                return $res;
+            }
         } else {
             return 0;
         }

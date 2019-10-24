@@ -114,9 +114,13 @@ class ProductController extends Controller
         if($post = Yii::$app->request->post()){
             $this->prepareProduct($post, $model);
 
+
             $model->load($post);
 
+            $model->size = $post['Product']['size'];
+
             if ($model->load($post) && $model->save()) {
+
                 if (is_array($post['Product']['relationsArr']))
                 {
                     $model->saveRelations($post['Product']['relationsArr']);

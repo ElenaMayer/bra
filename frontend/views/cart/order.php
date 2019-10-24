@@ -41,10 +41,6 @@ $this->title = 'Оформление заказа';
                                 <?= $form->field($order, 'email')->textInput(['placeholder' => 'example@mail.ru', 'class' => 'input-text']); ?>
 
                             <?= $form->field($order, 'shipping_method')->dropDownList(Order::getShippingMethods(), ['class' => 'country_to_state country_select']); ?>
-                            <div class="order-try-on" style="display: none">
-                                <a href="/tryon" target="_blank">Оснакомьтесь с условиями примерки</a>
-                                <div class="pb-20"></div>
-                            </div>
                             <div class="shipping_methods">
                                 <div class="rp" style="display: none">
                                     <div class="col-sm-3">
@@ -58,7 +54,14 @@ $this->title = 'Оформление заказа';
                                     <?= $form->field($order, 'city')->textInput(['placeholder' => 'Москва, ул.Ленина д.1', 'class' => 'form-control dark']); ?>
                                 </div>
                                 <div class="courier" style="display: none">
+                                    <?= $form->field($order, 'is_try_on')->checkbox() ?>
+                                    <div class="order-try-on">
+                                        <a href="/tryon" target="_blank">Ознакомьтесь с условиями примерки</a>
+                                        <div class="pb-20"></div>
+                                    </div>
+                                    <?= $form->field($order, 'shipping_area')->dropDownList(Order::getShippingAreaBase(), ['class' => 'country_to_state']); ?>
                                     <?= $form->field($order, 'address')->textInput(['placeholder' => 'ул.Ленина д.1 кв.1', 'class' => 'form-control dark']); ?>
+
                                 </div>
                             </div>
                             <div class="clear"></div>
@@ -100,6 +103,7 @@ $this->title = 'Оформление заказа';
                                     <th>Доставка</th>
                                     <td>
                                         <span class="shipping-cost">0<i class="fa fa-ruble"></i></span>
+                                        <input type="hidden" id="order-shipping_cost" name="Order[shipping_cost]" value="0">
                                     </td>
                                 </tr>
                                 <tr class="order-total">
@@ -120,6 +124,10 @@ $this->title = 'Оформление заказа';
                                         <div class="payment_box payment_method_bacs">
                                             <p></p>
                                         </div>
+                                    </li>
+                                    <li class="payment_method_card2" style="display: none">
+                                        <input id="payment_method_card2" type="radio" class="input-radio" name="Order[payment_method]" value="card2">
+                                        <label for="payment_method_card2"><?= Order::getPaymentMethods()['card2']?></label>
                                     </li>
                                     <li class="payment_method_card">
                                         <input id="payment_method_card" type="radio" class="input-radio" name="Order[payment_method]" value="card">

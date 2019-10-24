@@ -19,15 +19,26 @@ $this->params['breadcrumbs'][] = $this->title;
         </ul>
         <p>Забрать товар можно по действующим <a href="/contact">адресам</a> с 12:00 до 20:00.</p>
         <div class="pb-20"></div>
+        <img class="content_img" src="/img/shipping.jpg" alt="shipping" />
         <h3>Доставка товара по Новосибирску курьером</h3>
         <ul class="list arrows">
-            <li><i class="icon arrow_carrot-right"></i> если заказ до 1000₽ - доставка 150₽ (в неотдаленные районы города);</li>
-            <li><i class="icon arrow_carrot-right"></i> если заказ от 1000₽ - <b>ДОСТАВКА БЕСПЛАТНО</b> в неотделанные районы города (доставка бесплатная при покупке товара, если Вы ничего не приобретаете, то оплата курьера - 150₽);</li>
-            <li><i class="icon arrow_carrot-right"></i> в отдалённые районы от 200₽;</li>
-            <li><i class="icon arrow_carrot-right"></i> Бердск, Искитим, Обь от 350₽.</li>
-            <li><i class="icon icon_clock_alt"></i> СРОК доставки: 1-2 суток, в зависимости от загруженности курьера (временной промежуток доставки обсуждается с менеджером после оформления заказа).
-            <li><i class="fa fa-exclamation-circle"></i> При заказе курьером возможна примерка. С условиями примерки можно ознакомиться <a href="/tryon">здесь</a></li>
-            </li>
+            <li>В связи с высокой загруженностью курьеров, временно изменены цены на доставку:</li>
+            <li><i class="icon arrow_carrot-right"></i> Бесплатная доставка по городу Новосибирск от <?= Yii::$app->params['free_shipping_sum'] ?>₽.</li>
+
+            <li>В остальных случаях:</li>
+            <li><i class="icon arrow_carrot-right"></i> Доставка по городу - 200₽</li>
+            <li><i class="icon arrow_carrot-right"></i> Отдаленные районы - 300₽</li>
+            <li><i class="icon arrow_carrot-right"></i> Бердск - 450₽ (доставка по средам и пятницам)</li>
+            <li><i class="icon arrow_carrot-right"></i> Кольцово - 350₽ (доставка по средам и субботам)</li>
+            <li><i class="icon arrow_carrot-right"></i> Обь - 450₽ (доставка по средам и субботам)</li>
+            <li><i class="fa fa-exclamation-circle"></i> Доставка с примеркой +50₽. С условиями примерки можно ознакомиться <a href="/tryon">здесь</a></li>
+            <li><i class="icon icon_clock_alt"></i> Доставка производится на следующий день после формирования заявки, либо в любой удобный для Вас день с 14:00-19:00</li>
+            <li><i class="icon arrow_carrot-right"></i>Оплата товара и курьерской доставки производится по предоплате на сайте онлайн, переводом на карту Сбербанк, Тинькоф, Альфабанк (в случае если примерка не нужна) или курьеру наличными (при примерке).</li>
+
+            <li>Дла доставки укажите пожалуйста:</li>
+            <li><i class="icon arrow_carrot-right"></i>Адрес;</li>
+            <li><i class="icon arrow_carrot-right"></i>Номер телефона;</li>
+            <li><i class="icon arrow_carrot-right"></i>Желаемое время доставки.</li>
         </ul>
         <div class="pb-20"></div>
         <h3>Отправка Почтой России (зависит от веса товара)</h3>
