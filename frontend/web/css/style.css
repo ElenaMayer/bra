@@ -1863,12 +1863,6 @@ ol.numbers {
   overflow: hidden;
 }
 
-#flexslider-hero img {
-  min-height: 536px;
-  min-width: 1139px;
-  margin-left: -150px;
-}
-
 #flexslider-hero .img-holder {
   position: absolute;
   top: 0;
@@ -1942,6 +1936,21 @@ li.slider-8 .hero-lines p {
   max-width: 1170px;
 }
 
+.container.index {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+@media (min-width: 768px) {
+  .container.index {
+    width: auto;
+  }
+}
+@media (min-width: 1200px) {
+  .container.index {
+    width: 1170px;
+  }
+}
 .container.payment {
   text-align: center;
 }
@@ -5590,12 +5599,6 @@ abbr.required {
   #flexslider-hero .img-holder {
     min-height: 215px;
     height: auto;
-  }
-
-  #flexslider-hero img {
-    min-height: 215px;
-    min-width: 457px;
-    margin-left: -85px;
   }
 
   .hero-heading {

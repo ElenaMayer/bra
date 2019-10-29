@@ -6,53 +6,23 @@ $this->title = Yii::$app->params['indexTitle'];
 
 <!-- Hero Slider -->
 <section class="section-wrap nopadding">
-    <div class="container">
+    <div class="container index">
         <div class="entry-slider">
             <div class="flexslider" id="flexslider-hero">
                 <ul class="slides clearfix">
                     <li>
-                        <img src="/img/slider/2.jpg?1" alt="Лето 2019">
-                        <div class="img-holder img-2"></div>
-                        <div class="hero-holder text-center right-align">
-                            <div class="hero-lines">
-                                <h1 class="hero-heading white">Lady In White</h1>
-                                <h4 class="hero-subheading white uppercase">Топы от 880 рублей</h4>
-                            </div>
-                            <a href="/catalog/top" class="btn btn-lg btn-white"><span>Купить</span></a>
-                        </div>
-                    </li>
-                    <li class="slider-8">
-                        <img src="/img/slider/8.jpg" alt="Бесплатная доставка">
-                        <div class="img-holder img-8"></div>
-                        <div class="hero-holder right-align text-right">
-                            <div class="hero-lines">
-                                <h1 class="hero-heading">БЕСПЛАТНАЯ</br>доставка</h1>
-                                <p>и карта постоянного клиента в подарок</p>
-                            </div>
-                            <a href="/shipping" class="btn btn-lg btn-white"><span>Подробнее</span></a>
-                        </div>
+                        <img src="/img/slider/9.png" alt="Новая коллекция">
                     </li>
                     <li>
-                        <img src="/img/slider/4.jpg?4" alt="Коллекция 2019">
-                        <div class="img-holder img-4"></div>
-                        <div class="hero-holder text-center right-align">
-                            <div class="hero-lines">
-                                <h1 class="hero-heading white">Lady In Red</h1>
-                                <p class="white">Новая коллекция белья и аксессуаров</p>
-                            </div>
-                            <a href="/catalog/underwear" class="btn btn-lg btn-white"><span>Купить</span></a>
-                        </div>
+                        <img src="/img/slider/10.png" alt="Подарочные сертификаты">
                     </li>
                     <li>
-                        <img src="/img/slider/7.jpg?7" alt="Порадуй друзей">
-                        <div class="img-holder img-7"></div>
-                        <div class="hero-holder left-align">
-                            <div class="hero-lines">
-                                <h1 class="hero-heading white">Подари билет </br>в кружевной рай</h1>
-                                <p class="white">Подарочные сертификаты на любую сумму</p>
-                            </div>
-                            <a href="/certificate" class="btn btn-lg btn-white"><span>Подробнее</span></a>
-                        </div>
+                        <a href="<?= Yii::$app->params['fr_site']?>" target="_blank">
+                            <img src="/img/slider/11.png" alt="Франшиза">
+                        </a>
+                    </li>
+                    <li>
+                        <img src="/img/slider/12.png" alt="Welcome">
                     </li>
                 </ul>
             </div>
