@@ -303,6 +303,32 @@ class CartController extends \yii\web\Controller
         ]);
     }
 
+    public function actionCheck_promo($promo)
+    {
+        if($promo == Yii::$app->params['promo_shipping_free']){
+            $cart = \Yii::$app->cart;
+            $total = $cart->getCost();
+            if($total >= 1000){
+                $result = [
+                    'type' => 'success',
+                    'message' => 'Активирована бесплатная доставка курьером',
+                ];
+            } else {
+                $result = [
+                    'type' => 'error',
+                    'message' => 'Необходимо добавить товаров на 1000 рублей',
+                ];
+            }
+        } else {
+            $result = [
+                'type' => 'error',
+                'message' => 'Промокод введен не верно',
+            ];
+        }
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $result;
+    }
+
 //    public function actionHistory(){
 //        $history = Order::find()->where(['user_id' => Yii::$app->user->id])->orderBy('id DESC')->all();
 //        return $this->render('history', [

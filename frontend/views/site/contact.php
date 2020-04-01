@@ -12,8 +12,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="container mt-60">
     <div id="googleMap" class="gmap"
          data-icon="/img/map_pin.png?1"
-         data-lat="<?= Yii::$app->params['googleLat'] ?>"
-         data-lon="<?= Yii::$app->params['googleLon'] ?>">
+         data-lat-r="<?= Yii::$app->params['googleLatR'] ?>"
+         data-lon-r="<?= Yii::$app->params['googleLonR'] ?>"
+         data-lat-l="<?= Yii::$app->params['googleLatL'] ?>"
+         data-lon-l="<?= Yii::$app->params['googleLonL'] ?>"
+         data-lat-c="<?= Yii::$app->params['googleLatC'] ?>"
+         data-lon-c="<?= Yii::$app->params['googleLonC'] ?>">
 
     </div>
 </div>

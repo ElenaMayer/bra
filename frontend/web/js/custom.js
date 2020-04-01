@@ -119,17 +119,23 @@ $(document).ready(function() {
             $('#order-shipping_cost').val(0);
         } else if(method == 'courier'){
 			$('.shipping_methods .courier').show();
-            $.ajax({
-                method: 'get',
-                url: '/cart/get_courier_cost',
-                data: {
-                    type: $('#order-shipping_area').children("option:selected").val(),
-                },
-            }).done(function( data ) {
-                $('tr.shipping > td > .shipping-cost').html(data + '<i class="fa fa-ruble"></i>');
-                $('.amount.total span').text(parseInt($('.amount.subtotal span').text()) + parseInt(data));
-                $('#order-shipping_cost').val(data);
-            });
+			if($('#promo_is_active').val() == 1){
+                $('tr.shipping > td > .shipping-cost').html('0<i class="fa fa-ruble"></i>');
+                $('.amount.total span').text(parseInt($('.amount.subtotal span').text()));
+                $('#order-shipping_cost').val(0);
+            } else {
+                $.ajax({
+                    method: 'get',
+                    url: '/cart/get_courier_cost',
+                    data: {
+                        type: $('#order-shipping_area').children("option:selected").val(),
+                    },
+                }).done(function (data) {
+                    $('tr.shipping > td > .shipping-cost').html(data + '<i class="fa fa-ruble"></i>');
+                    $('.amount.total span').text(parseInt($('.amount.subtotal span').text()) + parseInt(data));
+                    $('#order-shipping_cost').val(data);
+                });
+            }
 		} else if(method == 'rp'){
 			$('.shipping_methods .rp').show();
             $.ajax({
@@ -239,6 +245,40 @@ $(document).ready(function() {
             $("#header-mobile-cart").html(data.mobileCart);
             $("#cart-total").html(data.cartTotal);
         });
+    });
+
+    $(document.body).on('click', '.promo_check_button', function (event) {
+        $('#promo_is_active').val(0);
+        button = $(this);
+        promo = $('#order-promo').val();
+        if(!promo){
+            $('.field-order-promo').addClass('has-error');
+            $('.field-order-promo .help-block-error').text('Введите промокод');
+        } else {
+            $.ajax({
+                method: 'get',
+                url: '/cart/check_promo',
+                dataType: 'json',
+                data: {
+                    promo: promo,
+                },
+            }).done(function (data) {
+                if(data.type == 'error'){
+                    $('.field-order-promo').addClass('has-error');
+                    $('.field-order-promo .help-block-error').text(data.message);
+                } else if(data.type == 'success'){
+                    $('.field-order-promo').removeClass('has-error');
+                    $('.field-order-promo .help-block-error').text(data.message);
+                    method = $('#order-shipping_method').children("option:selected").val();
+                    $('#promo_is_active').val(1);
+                    if(method == 'courier') {
+                        $('tr.shipping > td > .shipping-cost').html('0<i class="fa fa-ruble"></i>');
+                        $('.amount.total span').text($('.amount.subtotal span').text());
+                        $('#order-shipping_cost').val(0);
+                    }
+                }
+            });
+        }
     });
 
 //     $(".mobile-filter").on("click", function() {

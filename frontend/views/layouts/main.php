@@ -59,7 +59,6 @@ AppAsset::register($this);
                                                 <span><?=Yii::$app->params['phone']?></span>
                                             </a>
                                             <a href="<?=Yii::$app->params['linkInstagram']?>"><i class="fa fa-instagram"></i></a>
-                                            <a href="<?=Yii::$app->params['linkVk']?>"><i class="fa fa-vk"></i></a>
                                         </div>
                                     </li>
                                 </ul>
@@ -129,18 +128,20 @@ AppAsset::register($this);
 <!--                                        </li>-->
                                         <?php $categories = Category::find()->where(['parent_id' => null])->all(); ?>
                                         <?php foreach ($categories as $category):?>
-                                            <li class="dropdown">
-                                                <a href="/catalog/<?= $category->slug ?>"><?= $category->title ?></a>
-                                                <?php $subcategories = Category::find()->where(['parent_id' => $category->id])->all(); ?>
-                                                <?php if($subcategories):?>
-                                                    <i class="fa fa-angle-down dropdown-toggle" data-toggle="dropdown"></i>
-                                                    <ul class="dropdown-menu">
-                                                        <?php foreach ($subcategories as $subcategory):?>
-                                                            <li><a href="/catalog/<?= $subcategory->slug ?>"><?= $subcategory->title ?></a></li>
-                                                        <?php endforeach;?>
-                                                    </ul>
-                                                <?php endif;?>
-                                            </li>
+                                            <?php if($category->is_active):?>
+                                                <li class="dropdown">
+                                                    <a href="/catalog/<?= $category->slug ?>"><?= $category->title ?></a>
+                                                    <?php $subcategories = Category::find()->where(['parent_id' => $category->id])->all(); ?>
+                                                    <?php if($subcategories):?>
+                                                        <i class="fa fa-angle-down dropdown-toggle" data-toggle="dropdown"></i>
+                                                        <ul class="dropdown-menu">
+                                                            <?php foreach ($subcategories as $subcategory):?>
+                                                                <li><a href="/catalog/<?= $subcategory->slug ?>"><?= $subcategory->title ?></a></li>
+                                                            <?php endforeach;?>
+                                                        </ul>
+                                                    <?php endif;?>
+                                                </li>
+                                            <?php endif;?>
                                         <?php endforeach;?>
                                         <li class="dropdown sale">
                                             <a href="/sale/<?= Category::find()->one()->slug?>">Скидки</a>
@@ -228,7 +229,6 @@ AppAsset::register($this);
                                 <p>Email: <a href="mailto:<?=Yii::$app->params['email']?>"><?=Yii::$app->params['email']?></a></p>
                                 <div class="social-icons rounded mt-10">
                                     <a href="<?=Yii::$app->params['linkInstagram']?>"><i class="fa fa-instagram"></i></a>
-                                    <a href="<?=Yii::$app->params['linkVk']?>"><i class="fa fa-vk"></i></a>
                                 </div>
                             </div>
                         </div> <!-- end stay in touch -->

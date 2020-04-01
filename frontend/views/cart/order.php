@@ -54,18 +54,16 @@ $this->title = 'Оформление заказа';
                                     <?= $form->field($order, 'city')->textInput(['placeholder' => 'Москва, ул.Ленина д.1', 'class' => 'form-control dark']); ?>
                                 </div>
                                 <div class="courier" style="display: none">
-                                    <?= $form->field($order, 'is_try_on')->checkbox() ?>
-                                    <div class="order-try-on">
-                                        <a href="/tryon" target="_blank">Ознакомьтесь с условиями примерки</a>
-                                        <div class="pb-20"></div>
-                                    </div>
                                     <?= $form->field($order, 'shipping_area')->dropDownList(Order::getShippingAreaBase(), ['class' => 'country_to_state']); ?>
                                     <?= $form->field($order, 'address')->textInput(['placeholder' => 'ул.Ленина д.1 кв.1', 'class' => 'form-control dark']); ?>
-
                                 </div>
                             </div>
                             <div class="clear"></div>
-
+                            <div class="promo_check">
+                                <?= $form->field($order, 'promo')->textInput(['class' => 'form-control dark', 'maxlength' => 6]); ?>
+                                <input type="hidden" name="promo_is_active" id="promo_is_active">
+                                <input type="button" class="promo_check_button btn btn-lg" value="Применить">
+                            </div>
                         </div>
 
                         <div class="clear"></div>

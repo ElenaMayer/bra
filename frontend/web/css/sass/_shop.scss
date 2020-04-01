@@ -1198,8 +1198,24 @@ abbr.required {
   margin-top: 30px;
 }
 
-.form-row.place-order input {
+.form-row.place-order input,
+.promo_check input.btn {
   background-color: $main-color;
+}
+
+.promo_check input.btn {
+  margin-top: 26px;
+  width: 30%;
+  height: 41px;
+}
+
+.promo_check .field-order-promo {
+  float: left;
+  width: 70%;
+}
+
+.promo_check .field-order-promo input.form-control {
+  margin-bottom: 0;
 }
 
 .payment_methods li {

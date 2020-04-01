@@ -301,6 +301,11 @@
   #flexslider-hero .left-align.hero-holder p {
     margin-right: 50px;
   }
+
+  .promo_check .field-order-promo,
+  .promo_check input.btn {
+    width: 50%;
+  }
 }
 
 @media (max-width: 540px) {

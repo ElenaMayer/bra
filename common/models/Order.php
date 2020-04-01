@@ -39,6 +39,8 @@ class Order extends \yii\db\ActiveRecord
     const STATUS_PAYMENT = 'payment';
     const STATUS_PRE_ORDER = 'pre_order';
 
+    public $promo;
+
     public function behaviors()
     {
         return [
@@ -91,6 +93,7 @@ class Order extends \yii\db\ActiveRecord
             'zip' => 'Индекс',
             'shipping_area' => 'Район доставки',
             'is_try_on' => 'Примерка',
+            'promo' => 'Промокод',
         ];
     }
 
