@@ -14,6 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
          data-icon="/img/map_pin.png?1"
          data-lat-r="<?= Yii::$app->params['googleLatR'] ?>"
          data-lon-r="<?= Yii::$app->params['googleLonR'] ?>"
+         data-lat-r2="<?= Yii::$app->params['googleLatR2'] ?>"
+         data-lon-r2="<?= Yii::$app->params['googleLonR2'] ?>"
          data-lat-l="<?= Yii::$app->params['googleLatL'] ?>"
          data-lon-l="<?= Yii::$app->params['googleLonL'] ?>"
          data-lat-c="<?= Yii::$app->params['googleLatC'] ?>"
