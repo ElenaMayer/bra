@@ -14,9 +14,6 @@ $this->title = Yii::$app->params['indexTitle'];
                         <img src="/img/slider/13.png?1" alt="Бесплатная доставка">
                     </li>
                     <li>
-                        <img src="/img/slider/14.png?1" alt="Карантин">
-                    </li>
-                    <li>
                         <img src="/img/slider/9.png" alt="Новая коллекция">
                     </li>
                     <li>

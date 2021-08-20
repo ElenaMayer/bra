@@ -47,7 +47,6 @@ AppAsset::register($this);
                                     <li class="top-bar-link"><a href="<?= Yii::$app->homeUrl ?>">Главная</a></li>
                                     <li class="top-bar-link"><a href="/shipping">Доставка</a></li>
                                     <li class="top-bar-link"><a href="/payment">Оплата</a></li>
-                                    <li class="top-bar-link"><a href="/tryon">Примерка</a></li>
                                     <li class="top-bar-link"><a href="/contact">Контакты</a></li>
                                 </ul>
 
@@ -203,7 +202,6 @@ AppAsset::register($this);
                                     <li><a href="/contact">Контакты</a></li>
                                     <li><a href="/shipping">Доставка</a></li>
                                     <li><a href="/payment">Оплата</a></li>
-                                    <li><a href="/tryon">Примерка</a></li>
                                     <li><a href="/returns">Возврат</a></li>
                                     <li><a href="/franchise">Франшиза</a></li>
                                     <li><a href="/certificate">Подарочные сертификаты</a></li>
@@ -225,11 +223,9 @@ AppAsset::register($this);
                                 <?php foreach (Yii::$app->params['address'] as $k => $v):?>
                                     <address class="footer-address"><span><?=$k?>: </span><?=$v?></address>
                                 <?php endforeach;?>
-                                <p>Телефон: <a href="tel:<?=Yii::$app->params['phone']?>"><?=Yii::$app->params['phone']?></a></p>
-                                <p>Email: <a href="mailto:<?=Yii::$app->params['email']?>"><?=Yii::$app->params['email']?></a></p>
-                                <div class="social-icons rounded mt-10">
-                                    <a href="<?=Yii::$app->params['linkInstagram']?>"><i class="fa fa-instagram"></i></a>
-                                </div>
+                                <p><i class="fa fa-instagram"></i> Instagram: <a href="<?=Yii::$app->params['linkInstagram']?>"><?=Yii::$app->params['instagramName']?></a></p>
+                                <p><i class="fa fa-whatsapp"></i> WhatsApp, звонки: <a href="tel:<?=Yii::$app->params['phone']?>"><?=Yii::$app->params['phone']?></a></p>
+                                <p><i class="fa fa-envelope"></i> Почта: <a href="mailto:<?=Yii::$app->params['email']?>"><?=Yii::$app->params['email']?></a></p>
                             </div>
                         </div> <!-- end stay in touch -->
                     </div>

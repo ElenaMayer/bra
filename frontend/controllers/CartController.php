@@ -241,27 +241,25 @@ class CartController extends \yii\web\Controller
 
     public function actionGet_rp_shipping_cost(){
         $cart = \Yii::$app->cart;
-        $cartCost = $cart->getCost();
-        if($cartCost < 1500) {
-            return 200;
-        } elseif($cartCost >= 1500 && $cartCost < 2500) {
-            return 250;
-        } elseif($cartCost >= 2500 && $cartCost < 4000) {
+        $quantity = $cart->getCount();
+        if($quantity <= 2) {
             return 350;
-        } else {
+        } elseif($quantity <= 4) {
             return 450;
+        } else {
+            return 600;
         }
     }
 
     public function actionGet_tk_shipping_cost(){
         $cart = \Yii::$app->cart;
-        $cartCost = $cart->getCost();
-        if($cartCost < 1500) {
-            return 350;
-        } elseif($cartCost >= 1500 && $cartCost < 4000) {
+        $quantity = $cart->getCount();
+        if($quantity <= 2) {
             return 450;
+        } elseif($quantity <= 4) {
+            return 700;
         } else {
-            return 550;
+            return 1000;
         }
     }
 

@@ -30,23 +30,24 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-md-4 mb-40 mt-mdm-40 contact-info">
                 <div class="address-wrap">
-                    <h4 class="uppercase">Адреса</h4>
+                    <h4 class="uppercase">Адреса магазинов</h4>
                     <?php foreach (Yii::$app->params['address'] as $k => $v):?>
                         <h6><?=$k?></h6>
                         <address class="address"><?=$v?></address>
                     <?php endforeach;?>
                 </div>
-                <div class="address-wrap">
-                    <h4 class="uppercase">Часы работы</h4>
-                    <p>Ежедневно: с 12:00 до 20:00</p>
-                </div>
+<!--                <div class="address-wrap">-->
+<!--                    <h4 class="uppercase">Часы работы</h4>-->
+<!--                    <p>Ежедневно: с 12:00 до 20:00</p>-->
+<!--                </div>-->
             </div>
             <div class="col-md-4 mb-40 mt-mdm-40 contact-info">
                 <div class="address-wrap">
                     <h4 class="uppercase">Контакты</h4>
                     <ul class="contact-info-list">
-                        <li><span>Телефон: </span><a href="tel:<?=Yii::$app->params['phone']?>"><?=Yii::$app->params['phone']?></a></li>
-                        <li><span>Email: </span><a href="mailto:<?=Yii::$app->params['email']?>" class="sliding-link"><?=Yii::$app->params['email']?></a></li>
+                        <li><span><i class="fa fa-instagram"></i> Instagram: </span><a href="<?=Yii::$app->params['linkInstagram']?>"><?=Yii::$app->params['instagramName']?></a></li>
+                        <li><span><i class="fa fa-whatsapp"></i> WhatsApp, звонки: </span><a href="tel:<?=Yii::$app->params['phone']?>"><?=Yii::$app->params['phone']?></a></li>
+                        <li><span><i class="fa fa-envelope"></i> Почта: </span><a href="mailto:<?=Yii::$app->params['email']?>" class="sliding-link"><?=Yii::$app->params['email']?></a></li>
                     </ul>
                 </div>
             </div>

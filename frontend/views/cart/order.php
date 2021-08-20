@@ -116,19 +116,19 @@ $this->title = 'Оформление заказа';
                             <div id="payment" class="ecommerce-checkout-payment">
                                 <h2 class="heading uppercase mb-30">Способ оплаты</h2>
                                 <ul class="payment_methods methods" id="order-payment_method">
-                                    <li class="payment_method_cash">
-                                        <input id="payment_method_cash" type="radio" class="input-radio" name="Order[payment_method]" value="cash" checked>
-                                        <label for="payment_method_cash"><?= Order::getPaymentMethods()['cash']?></label>
-                                        <div class="payment_box payment_method_bacs">
-                                            <p></p>
-                                        </div>
-                                    </li>
+<!--                                    <li class="payment_method_cash">-->
+<!--                                        <input id="payment_method_cash" type="radio" class="input-radio" name="Order[payment_method]" value="cash" checked>-->
+<!--                                        <label for="payment_method_cash">--><?//= Order::getPaymentMethods()['cash']?><!--</label>-->
+<!--                                        <div class="payment_box payment_method_bacs">-->
+<!--                                            <p></p>-->
+<!--                                        </div>-->
+<!--                                    </li>-->
                                     <li class="payment_method_card2" style="display: none">
                                         <input id="payment_method_card2" type="radio" class="input-radio" name="Order[payment_method]" value="card2">
                                         <label for="payment_method_card2"><?= Order::getPaymentMethods()['card2']?></label>
                                     </li>
                                     <li class="payment_method_card">
-                                        <input id="payment_method_card" type="radio" class="input-radio" name="Order[payment_method]" value="card">
+                                        <input id="payment_method_card" type="radio" class="input-radio" name="Order[payment_method]" value="card" checked>
                                         <label for="payment_method_card"><?= Order::getPaymentMethods()['card']?></label>
                                         <img src="/img/cards.png" alt="Cards">
                                         <div class="payment_box payment_method_card">

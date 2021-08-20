@@ -94,12 +94,12 @@ $(document).ready(function() {
         method = $(this).children("option:selected").val();
         if(method == 'self'){
             $('.payment_method_card2').hide();
-            $('.payment_method_cash').show();
+            // $('.payment_method_cash').show();
             $('.payment_method_card').show();
-            $('#payment_method_cash').prop("checked", true);
+            // $('#payment_method_cash').prop("checked", true);
             $('.payment_box.payment_method_card').hide();
         } else if(method == 'courier'){
-            $('.payment_method_cash').hide();
+            // $('.payment_method_cash').hide();
             $('.payment_method_card').show();
             $('.payment_method_card2').show();
             $('#payment_method_card2').prop("checked", true);
@@ -107,7 +107,7 @@ $(document).ready(function() {
         } else {
             $('.payment_method_card2').hide();
             $('.payment_method_card').show();
-            $('.payment_method_cash').hide();
+            // $('.payment_method_cash').hide();
             $('#payment_method_card').prop("checked", true);
             $('.payment_box.payment_method_card').show();
         }

@@ -21,7 +21,7 @@ class AppAsset extends AssetBundle
         'position' => \yii\web\View::POS_END
     );
     public $css = [
-        'http://fonts.googleapis.com/css?family=Maven+Pro:400,700%7CRaleway:300,400,700%7CPlayfair+Display:700',
+        'https://fonts.googleapis.com/css?family=Maven+Pro:400,700%7CRaleway:300,400,700%7CPlayfair+Display:700',
         'css/magnific-popup.css',
         'css/font-icons.css?2',
         'css/sliders.css',
