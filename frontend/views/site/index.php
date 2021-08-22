@@ -11,13 +11,13 @@ $this->title = Yii::$app->params['indexTitle'];
             <div class="flexslider" id="flexslider-hero">
                 <ul class="slides clearfix">
                     <li>
-                        <img src="/img/slider/13.png?1" alt="Бесплатная доставка">
+                        <img src="/img/slider/13.png?2" alt="В стиле Glam">
                     </li>
                     <li>
-                        <img src="/img/slider/9.png" alt="Новая коллекция">
+                        <img src="/img/slider/9.png?1" alt="New новинки">
                     </li>
                     <li>
-                        <img src="/img/slider/10.png" alt="Подарочные сертификаты">
+                        <img src="/img/slider/10.png?1" alt="Онлайн и офлайн магазины">
                     </li>
                 </ul>
             </div>

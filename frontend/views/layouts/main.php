@@ -57,7 +57,10 @@ AppAsset::register($this);
                                                 <i class="fa fa-phone"></i>
                                                 <span><?=Yii::$app->params['phone']?></span>
                                             </a>
-                                            <a href="<?=Yii::$app->params['linkInstagram']?>"><i class="fa fa-instagram"></i></a>
+                                            <a class="phone" href="<?=Yii::$app->params['linkInstagram']?>">
+                                                <i class="fa fa-instagram"></i>
+                                                <span><?=Yii::$app->params['instagramName']?></span>
+                                            </a>
                                         </div>
                                     </li>
                                 </ul>
@@ -143,7 +146,7 @@ AppAsset::register($this);
                                             <?php endif;?>
                                         <?php endforeach;?>
                                         <li class="dropdown sale">
-                                            <a href="/sale/<?= Category::find()->one()->slug?>">Скидки</a>
+                                            <a href="/sale/<?= Category::find()->one()->slug?>">SALE</a>
                                             <i class="fa fa-angle-down dropdown-toggle" data-toggle="dropdown"></i>
                                             <ul class="dropdown-menu">
                                                 <?php foreach ($categories as $category):?>
