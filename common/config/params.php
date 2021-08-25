@@ -11,7 +11,7 @@ return [
         'black' => 'Черный',
         'powder' => 'Пудра',
         'emerald' => 'Изумруд',
-        'graphite' => 'Графит',
+        'garnet' => 'Гранат',
         'violet' => 'Лиловый',
         'lemony' => 'Лимонный',
         'silver' => 'Серебро',

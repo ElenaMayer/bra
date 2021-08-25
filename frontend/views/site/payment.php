@@ -10,7 +10,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <ul class="list arrows">
             <p>Оплатить выбранный товар вы можете несколькими способами</p>
             <div class="pb-10"></div>
-            <li><i class="icon arrow_carrot-right"></i> Наличными средствами курьеру (доступно только для жителей Новосибирска);</li>
             <li><i class="icon arrow_carrot-right"></i> Переводом на карту Сбербанка, Тинькофф банка или Альфа банка (курьеру или после оформления заказа, когда с Вами свяжется менеджер).</li>
             <li><i class="icon arrow_carrot-right"></i> На сайте через платёжную систему;</li>
 

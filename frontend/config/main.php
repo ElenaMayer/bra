@@ -48,6 +48,7 @@ return [
                 'tryon' => 'site/tryon',
                 'returns' => 'site/returns',
                 'offer' => 'site/offer',
+                'production' => 'site/production',
                 'payment/complete' => 'cart/payment_complete',
                 'payment/<orderId:\d+>' => 'cart/payment_result'
             ],

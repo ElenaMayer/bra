@@ -5,7 +5,7 @@ $this->title = Yii::$app->params['indexTitle'];
 ?>
 
 <!-- Hero Slider -->
-<section class="section-wrap nopadding">
+<section class="section-wrap nopadding-wide">
     <div class="container index">
         <div class="entry-slider">
             <div class="flexslider" id="flexslider-hero">

@@ -45,6 +45,7 @@ AppAsset::register($this);
                             <div class="top-bar-links">
                                 <ul class="col-sm-6 top-bar-acc">
                                     <li class="top-bar-link"><a href="<?= Yii::$app->homeUrl ?>">Главная</a></li>
+                                    <li class="top-bar-link"><a href="/production">Наше производство</a></li>
                                     <li class="top-bar-link"><a href="/shipping">Доставка</a></li>
                                     <li class="top-bar-link"><a href="/payment">Оплата</a></li>
                                     <li class="top-bar-link"><a href="/contact">Контакты</a></li>
@@ -104,7 +105,7 @@ AppAsset::register($this);
                                     <div class="logo-container">
                                         <div class="logo-wrap text-center">
                                             <a href="<?= Yii::$app->homeUrl ?>">
-                                                <img class="logo" src="/img/logo.png" alt="logo">
+                                                <img class="logo" src="/img/logo.png?1" alt="logo">
                                             </a>
                                         </div>
                                     </div>
@@ -207,6 +208,7 @@ AppAsset::register($this);
                                     <li><a href="/payment">Оплата</a></li>
                                     <li><a href="/returns">Возврат</a></li>
                                     <li><a href="/franchise">Франшиза</a></li>
+                                    <li><a href="/production">Наше производство</a></li>
                                     <li><a href="/certificate">Подарочные сертификаты</a></li>
                                     <li><a href="/offer">Политика конфиденциальности</a></li>
                                 </ul>

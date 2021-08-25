@@ -125,4 +125,9 @@ class SiteController extends Controller
     {
         return $this->render('offer');
     }
+
+    public function actionProduction()
+    {
+        return $this->render('production');
+    }
 }

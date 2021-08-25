@@ -51,6 +51,10 @@
   background-size: cover;
 }
 
+.section-wrap.nopadding-wide {
+  padding: 0;
+}
+
 .main-container {
   margin: auto;
 }
@@ -2535,6 +2539,39 @@ li.slider-8 .hero-lines p {
 }
 .color.brown {
   background-color: brown;
+}
+.color.powder {
+  background-color: #fadadd;
+}
+.color.garnet {
+  background-color: #c0392b;
+}
+.color.violet {
+  background-color: #db7093;
+}
+.color.lemony {
+  background-color: #fde910;
+}
+.color.silver {
+  background-color: #c0c0c0;
+}
+.color.gold {
+  background-color: #d4b300;
+}
+.color.fuchsia {
+  background-color: #ff00ff;
+}
+.color.sand {
+  background-color: #f4a460;
+}
+.color.olive {
+  background-color: #808000;
+}
+.color.pistachio {
+  background-color: #bef574;
+}
+.color.cacao {
+  background-color: #875f42;
 }
 
 .sidebar .widget:first-child {
@@ -5754,6 +5791,10 @@ abbr.required {
 
   .section-wrap {
     padding: 40px 0;
+  }
+
+  .section-wrap.nopadding-wide {
+    padding-top: 40px;
   }
 
   .single-product .mb-60 {
