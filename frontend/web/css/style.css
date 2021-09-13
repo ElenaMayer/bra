@@ -2573,6 +2573,15 @@ li.slider-8 .hero-lines p {
 .color.cacao {
   background-color: #875f42;
 }
+.color.gray {
+  background-color: #808080;
+}
+.color.chocolate {
+  background-color: #58250e;
+}
+.color.metallic {
+  background-color: #8a7f80;
+}
 
 .sidebar .widget:first-child {
   margin-top: 0;
